@@ -1,0 +1,3 @@
+this is a java project for eclipse.
+
+responsibility: work as translator between social networks like facebook and our smart sensor nwtwork.
