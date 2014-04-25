@@ -39,18 +39,5 @@ public class BoLed extends BoBase<DtoLed>{
 			dto.setPinStatus(PinStatus.LOW);
 	}
 	
-	//TODO Remove this TEST method
-	public void SaveToDB(DtoLed dtoLed){
-		repository.save(dtoLed);
-	}
-	
-	//TODO Remove this TEST method
-	public void UpdateDB(DtoLed dtoLed){
-		repository.update(dtoLed);
-	}
-	
-	//TODO Remove this TEST method
-	public void DeleteFromDB(DtoLed dtoLed){
-		repository.delete(dtoLed);
-	}
+
 }
