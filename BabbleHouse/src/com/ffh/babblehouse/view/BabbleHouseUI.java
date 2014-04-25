@@ -1,14 +1,13 @@
-package com.ffh.babblehouse;
+package com.ffh.babblehouse.view;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.pi4j.io.gpio.*;
+import com.ffh.babblehouse.controller.BusinessObjects.BoLed;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -30,10 +29,13 @@ public class BabbleHouseUI extends UI {
 		
 		Button buttonOnOff = new Button("On/Off", new Button.ClickListener () {
 			// Actions performed when button is pressed
+			BoLed boLed = new BoLed();
+			int i = 0 ;
 			public void buttonClick(Button.ClickEvent event){
-				
-				layout.addComponent(new Label("Test")); 
-				//pin.toggle();
+				boLed.toggleDtoPinStatus();
+				boLed.setDtoId(i++);
+				layout.addComponent(boLed.getDtoId());
+				layout.addComponent(boLed.getDtoPinStatus());
 			}
 		});
 		
