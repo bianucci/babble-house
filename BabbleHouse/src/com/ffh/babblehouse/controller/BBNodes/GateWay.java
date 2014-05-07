@@ -11,7 +11,6 @@ private int Stopbits;
 private int Databits;
 private int Parity_none;
 
-List<Controller> myControllers;
 
 public GateWay(int baudrate, int stopbits, int databits, int parity_none) {
 	super();
