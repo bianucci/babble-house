@@ -6,7 +6,7 @@ import java.util.List;
 public class Device {
 	int id;
 	String deviceName;
-	List<UDRS> userDefineRules;
+	List<UDR> userDefineRules;
 	List<Value> values;
 
 	
@@ -18,10 +18,10 @@ public class Device {
 		this.values = values;
 	}
 	
-	public List<UDRS> getUserDefineRules() {
+	public List<UDR> getUserDefineRules() {
 		return userDefineRules;
 	}
-	public void setUserDefineRules(List<UDRS> userDefineRules) {
+	public void setUserDefineRules(List<UDR> userDefineRules) {
 		this.userDefineRules = userDefineRules;
 	}
 	public int getId() {

@@ -1,10 +1,10 @@
 package com.ffh.babblehouse.database.entity;
 
-public class UDRS {
+public class UDR {
 	int id;
 	int desired_val;
 	
-	public UDRS() {
+	public UDR() {
 		super();
 	}
 	public int getId() {

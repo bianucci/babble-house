@@ -5,7 +5,7 @@ import java.util.List;
 public class Sensor {
 	int id;
 	String SensorName;
-	List<UDRS> userDefineRules;
+	List<UDR> userDefineRules;
 	List<Value> values;
 
 	
@@ -18,11 +18,11 @@ public class Sensor {
 		this.values = values;
 	}
 
-	public List<UDRS> getUserDefineRules() {
+	public List<UDR> getUserDefineRules() {
 		return userDefineRules;
 	}
 
-	public void setUserDefineRules(List<UDRS> userDefineRules) {
+	public void setUserDefineRules(List<UDR> userDefineRules) {
 		this.userDefineRules = userDefineRules;
 	}
 
