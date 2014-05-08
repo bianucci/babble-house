@@ -1,11 +1,11 @@
 package com.ffh.babblehouse.controller.BusinessObjects;
 
-import com.ffh.babblehouse.controller.BBNodes.BBNode;
+import com.ffh.babblehouse.controller.BBNodes.GateWay;
 import com.ffh.babblehouse.controller.repositories.*;
 import com.ffh.babblehouse.model.DtoLed;
 
 // Extends BBNode to communicate with sensors and actuators
-public abstract class BoBase<T> extends BBNode{
+public abstract class BoBase<T> extends GateWay{
 	
 	// Adds a Dto
 	T dto;
