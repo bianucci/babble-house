@@ -1,15 +1,16 @@
-package de.fhffm.ssns.messaging;
+package com.ffh.babblehouse.messaging;
 
 import java.util.Arrays;
 import java.util.List;
 
+import com.ffh.babblehouse.messaging.UARTMessageProtos;
+import com.ffh.babblehouse.messaging.UARTMessageProtos.Beacon;
+import com.ffh.babblehouse.messaging.UARTMessageProtos.Service;
+import com.ffh.babblehouse.messaging.UARTMessageProtos.UARTMessage;
+import com.ffh.babblehouse.messaging.UARTMessageProtos.Service.ServiceType;
+import com.ffh.babblehouse.messaging.UARTMessageProtos.UARTMessage.Type;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import de.fhffm.ssns.messaging.UARTMessageProtos.Beacon;
-import de.fhffm.ssns.messaging.UARTMessageProtos.Service;
-import de.fhffm.ssns.messaging.UARTMessageProtos.Service.ServiceType;
-import de.fhffm.ssns.messaging.UARTMessageProtos.UARTMessage;
-import de.fhffm.ssns.messaging.UARTMessageProtos.UARTMessage.Type;
 
 public class UARTMessageProtosUsuage {
 
