@@ -2,27 +2,23 @@ option java_package = "de.fhffm.ssns.messaging";
 option java_outer_classname = "UARTMessageProtos";
 
 message UARTMessage {
-  enum Type { SERVICE = 1; BEACON = 3; }
+  enum Type { SERVICE = 1; BEACON = 2; }
   required Type type = 1;
   optional Beacon beacon = 2;
-  optional Service services = 3;
+  optional Service service = 3;
 }
 
 message Service{
   enum ServiceType { ACTUATOR = 1; SENSOR = 2; }
   required ServiceType  serviceType = 1;
-  required uint32 serviceGroup = 2;
+  required uint32 serviceGroupId = 2;
   required uint32 serviceId = 3;
   optional uint32 value = 4;
   optional string info = 5;
 }
 
 message Beacon{
-  repeated ServiceGroup serviceGroup = 1;
-}
-
-message ServiceGroup{
-  required uint32 id = 1; 
+  required uint32 serviceGroupId = 1;
   optional string name = 2;
   repeated Service service = 3;
 }

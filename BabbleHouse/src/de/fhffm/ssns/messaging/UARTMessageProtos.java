@@ -35,19 +35,19 @@ public final class UARTMessageProtos {
      */
     de.fhffm.ssns.messaging.UARTMessageProtos.BeaconOrBuilder getBeaconOrBuilder();
 
-    // optional .Service services = 3;
+    // optional .Service service = 3;
     /**
-     * <code>optional .Service services = 3;</code>
+     * <code>optional .Service service = 3;</code>
      */
-    boolean hasServices();
+    boolean hasService();
     /**
-     * <code>optional .Service services = 3;</code>
+     * <code>optional .Service service = 3;</code>
      */
-    de.fhffm.ssns.messaging.UARTMessageProtos.Service getServices();
+    de.fhffm.ssns.messaging.UARTMessageProtos.Service getService();
     /**
-     * <code>optional .Service services = 3;</code>
+     * <code>optional .Service service = 3;</code>
      */
-    de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder getServicesOrBuilder();
+    de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder getServiceOrBuilder();
   }
   /**
    * Protobuf type {@code UARTMessage}
@@ -77,8 +77,7 @@ public final class UARTMessageProtos {
         getUnknownFields() {
       return this.unknownFields;
     }
-    @SuppressWarnings("unused")
-	private UARTMessage(
+    private UARTMessage(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -128,12 +127,12 @@ public final class UARTMessageProtos {
             case 26: {
               de.fhffm.ssns.messaging.UARTMessageProtos.Service.Builder subBuilder = null;
               if (((bitField0_ & 0x00000004) == 0x00000004)) {
-                subBuilder = services_.toBuilder();
+                subBuilder = service_.toBuilder();
               }
-              services_ = input.readMessage(de.fhffm.ssns.messaging.UARTMessageProtos.Service.PARSER, extensionRegistry);
+              service_ = input.readMessage(de.fhffm.ssns.messaging.UARTMessageProtos.Service.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom(services_);
-                services_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom(service_);
+                service_ = subBuilder.buildPartial();
               }
               bitField0_ |= 0x00000004;
               break;
@@ -187,9 +186,9 @@ public final class UARTMessageProtos {
        */
       SERVICE(0, 1),
       /**
-       * <code>BEACON = 3;</code>
+       * <code>BEACON = 2;</code>
        */
-      BEACON(1, 3),
+      BEACON(1, 2),
       ;
 
       /**
@@ -197,9 +196,9 @@ public final class UARTMessageProtos {
        */
       public static final int SERVICE_VALUE = 1;
       /**
-       * <code>BEACON = 3;</code>
+       * <code>BEACON = 2;</code>
        */
-      public static final int BEACON_VALUE = 3;
+      public static final int BEACON_VALUE = 2;
 
 
       public final int getNumber() { return value; }
@@ -207,7 +206,7 @@ public final class UARTMessageProtos {
       public static Type valueOf(int value) {
         switch (value) {
           case 1: return SERVICE;
-          case 3: return BEACON;
+          case 2: return BEACON;
           default: return null;
         }
       }
@@ -298,32 +297,32 @@ public final class UARTMessageProtos {
       return beacon_;
     }
 
-    // optional .Service services = 3;
-    public static final int SERVICES_FIELD_NUMBER = 3;
-    private de.fhffm.ssns.messaging.UARTMessageProtos.Service services_;
+    // optional .Service service = 3;
+    public static final int SERVICE_FIELD_NUMBER = 3;
+    private de.fhffm.ssns.messaging.UARTMessageProtos.Service service_;
     /**
-     * <code>optional .Service services = 3;</code>
+     * <code>optional .Service service = 3;</code>
      */
-    public boolean hasServices() {
+    public boolean hasService() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional .Service services = 3;</code>
+     * <code>optional .Service service = 3;</code>
      */
-    public de.fhffm.ssns.messaging.UARTMessageProtos.Service getServices() {
-      return services_;
+    public de.fhffm.ssns.messaging.UARTMessageProtos.Service getService() {
+      return service_;
     }
     /**
-     * <code>optional .Service services = 3;</code>
+     * <code>optional .Service service = 3;</code>
      */
-    public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder getServicesOrBuilder() {
-      return services_;
+    public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder getServiceOrBuilder() {
+      return service_;
     }
 
     private void initFields() {
       type_ = de.fhffm.ssns.messaging.UARTMessageProtos.UARTMessage.Type.SERVICE;
       beacon_ = de.fhffm.ssns.messaging.UARTMessageProtos.Beacon.getDefaultInstance();
-      services_ = de.fhffm.ssns.messaging.UARTMessageProtos.Service.getDefaultInstance();
+      service_ = de.fhffm.ssns.messaging.UARTMessageProtos.Service.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -340,8 +339,8 @@ public final class UARTMessageProtos {
           return false;
         }
       }
-      if (hasServices()) {
-        if (!getServices().isInitialized()) {
+      if (hasService()) {
+        if (!getService().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -360,7 +359,7 @@ public final class UARTMessageProtos {
         output.writeMessage(2, beacon_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(3, services_);
+        output.writeMessage(3, service_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -381,7 +380,7 @@ public final class UARTMessageProtos {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, services_);
+          .computeMessageSize(3, service_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -492,7 +491,7 @@ public final class UARTMessageProtos {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getBeaconFieldBuilder();
-          getServicesFieldBuilder();
+          getServiceFieldBuilder();
         }
       }
       private static Builder create() {
@@ -509,10 +508,10 @@ public final class UARTMessageProtos {
           beaconBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
-        if (servicesBuilder_ == null) {
-          services_ = de.fhffm.ssns.messaging.UARTMessageProtos.Service.getDefaultInstance();
+        if (serviceBuilder_ == null) {
+          service_ = de.fhffm.ssns.messaging.UARTMessageProtos.Service.getDefaultInstance();
         } else {
-          servicesBuilder_.clear();
+          serviceBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
@@ -558,10 +557,10 @@ public final class UARTMessageProtos {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        if (servicesBuilder_ == null) {
-          result.services_ = services_;
+        if (serviceBuilder_ == null) {
+          result.service_ = service_;
         } else {
-          result.services_ = servicesBuilder_.build();
+          result.service_ = serviceBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -585,8 +584,8 @@ public final class UARTMessageProtos {
         if (other.hasBeacon()) {
           mergeBeacon(other.getBeacon());
         }
-        if (other.hasServices()) {
-          mergeServices(other.getServices());
+        if (other.hasService()) {
+          mergeService(other.getService());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -603,8 +602,8 @@ public final class UARTMessageProtos {
             return false;
           }
         }
-        if (hasServices()) {
-          if (!getServices().isInitialized()) {
+        if (hasService()) {
+          if (!getService().isInitialized()) {
             
             return false;
           }
@@ -784,121 +783,121 @@ public final class UARTMessageProtos {
         return beaconBuilder_;
       }
 
-      // optional .Service services = 3;
-      private de.fhffm.ssns.messaging.UARTMessageProtos.Service services_ = de.fhffm.ssns.messaging.UARTMessageProtos.Service.getDefaultInstance();
+      // optional .Service service = 3;
+      private de.fhffm.ssns.messaging.UARTMessageProtos.Service service_ = de.fhffm.ssns.messaging.UARTMessageProtos.Service.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          de.fhffm.ssns.messaging.UARTMessageProtos.Service, de.fhffm.ssns.messaging.UARTMessageProtos.Service.Builder, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder> servicesBuilder_;
+          de.fhffm.ssns.messaging.UARTMessageProtos.Service, de.fhffm.ssns.messaging.UARTMessageProtos.Service.Builder, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder> serviceBuilder_;
       /**
-       * <code>optional .Service services = 3;</code>
+       * <code>optional .Service service = 3;</code>
        */
-      public boolean hasServices() {
+      public boolean hasService() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional .Service services = 3;</code>
+       * <code>optional .Service service = 3;</code>
        */
-      public de.fhffm.ssns.messaging.UARTMessageProtos.Service getServices() {
-        if (servicesBuilder_ == null) {
-          return services_;
+      public de.fhffm.ssns.messaging.UARTMessageProtos.Service getService() {
+        if (serviceBuilder_ == null) {
+          return service_;
         } else {
-          return servicesBuilder_.getMessage();
+          return serviceBuilder_.getMessage();
         }
       }
       /**
-       * <code>optional .Service services = 3;</code>
+       * <code>optional .Service service = 3;</code>
        */
-      public Builder setServices(de.fhffm.ssns.messaging.UARTMessageProtos.Service value) {
-        if (servicesBuilder_ == null) {
+      public Builder setService(de.fhffm.ssns.messaging.UARTMessageProtos.Service value) {
+        if (serviceBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          services_ = value;
+          service_ = value;
           onChanged();
         } else {
-          servicesBuilder_.setMessage(value);
+          serviceBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000004;
         return this;
       }
       /**
-       * <code>optional .Service services = 3;</code>
+       * <code>optional .Service service = 3;</code>
        */
-      public Builder setServices(
+      public Builder setService(
           de.fhffm.ssns.messaging.UARTMessageProtos.Service.Builder builderForValue) {
-        if (servicesBuilder_ == null) {
-          services_ = builderForValue.build();
+        if (serviceBuilder_ == null) {
+          service_ = builderForValue.build();
           onChanged();
         } else {
-          servicesBuilder_.setMessage(builderForValue.build());
+          serviceBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000004;
         return this;
       }
       /**
-       * <code>optional .Service services = 3;</code>
+       * <code>optional .Service service = 3;</code>
        */
-      public Builder mergeServices(de.fhffm.ssns.messaging.UARTMessageProtos.Service value) {
-        if (servicesBuilder_ == null) {
+      public Builder mergeService(de.fhffm.ssns.messaging.UARTMessageProtos.Service value) {
+        if (serviceBuilder_ == null) {
           if (((bitField0_ & 0x00000004) == 0x00000004) &&
-              services_ != de.fhffm.ssns.messaging.UARTMessageProtos.Service.getDefaultInstance()) {
-            services_ =
-              de.fhffm.ssns.messaging.UARTMessageProtos.Service.newBuilder(services_).mergeFrom(value).buildPartial();
+              service_ != de.fhffm.ssns.messaging.UARTMessageProtos.Service.getDefaultInstance()) {
+            service_ =
+              de.fhffm.ssns.messaging.UARTMessageProtos.Service.newBuilder(service_).mergeFrom(value).buildPartial();
           } else {
-            services_ = value;
+            service_ = value;
           }
           onChanged();
         } else {
-          servicesBuilder_.mergeFrom(value);
+          serviceBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000004;
         return this;
       }
       /**
-       * <code>optional .Service services = 3;</code>
+       * <code>optional .Service service = 3;</code>
        */
-      public Builder clearServices() {
-        if (servicesBuilder_ == null) {
-          services_ = de.fhffm.ssns.messaging.UARTMessageProtos.Service.getDefaultInstance();
+      public Builder clearService() {
+        if (serviceBuilder_ == null) {
+          service_ = de.fhffm.ssns.messaging.UARTMessageProtos.Service.getDefaultInstance();
           onChanged();
         } else {
-          servicesBuilder_.clear();
+          serviceBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
       /**
-       * <code>optional .Service services = 3;</code>
+       * <code>optional .Service service = 3;</code>
        */
-      public de.fhffm.ssns.messaging.UARTMessageProtos.Service.Builder getServicesBuilder() {
+      public de.fhffm.ssns.messaging.UARTMessageProtos.Service.Builder getServiceBuilder() {
         bitField0_ |= 0x00000004;
         onChanged();
-        return getServicesFieldBuilder().getBuilder();
+        return getServiceFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .Service services = 3;</code>
+       * <code>optional .Service service = 3;</code>
        */
-      public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder getServicesOrBuilder() {
-        if (servicesBuilder_ != null) {
-          return servicesBuilder_.getMessageOrBuilder();
+      public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder getServiceOrBuilder() {
+        if (serviceBuilder_ != null) {
+          return serviceBuilder_.getMessageOrBuilder();
         } else {
-          return services_;
+          return service_;
         }
       }
       /**
-       * <code>optional .Service services = 3;</code>
+       * <code>optional .Service service = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           de.fhffm.ssns.messaging.UARTMessageProtos.Service, de.fhffm.ssns.messaging.UARTMessageProtos.Service.Builder, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder> 
-          getServicesFieldBuilder() {
-        if (servicesBuilder_ == null) {
-          servicesBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          getServiceFieldBuilder() {
+        if (serviceBuilder_ == null) {
+          serviceBuilder_ = new com.google.protobuf.SingleFieldBuilder<
               de.fhffm.ssns.messaging.UARTMessageProtos.Service, de.fhffm.ssns.messaging.UARTMessageProtos.Service.Builder, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder>(
-                  services_,
+                  service_,
                   getParentForChildren(),
                   isClean());
-          services_ = null;
+          service_ = null;
         }
-        return servicesBuilder_;
+        return serviceBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:UARTMessage)
@@ -925,15 +924,15 @@ public final class UARTMessageProtos {
      */
     de.fhffm.ssns.messaging.UARTMessageProtos.Service.ServiceType getServiceType();
 
-    // required uint32 serviceGroup = 2;
+    // required uint32 serviceGroupId = 2;
     /**
-     * <code>required uint32 serviceGroup = 2;</code>
+     * <code>required uint32 serviceGroupId = 2;</code>
      */
-    boolean hasServiceGroup();
+    boolean hasServiceGroupId();
     /**
-     * <code>required uint32 serviceGroup = 2;</code>
+     * <code>required uint32 serviceGroupId = 2;</code>
      */
-    int getServiceGroup();
+    int getServiceGroupId();
 
     // required uint32 serviceId = 3;
     /**
@@ -998,8 +997,7 @@ public final class UARTMessageProtos {
         getUnknownFields() {
       return this.unknownFields;
     }
-    @SuppressWarnings("unused")
-	private Service(
+    private Service(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1035,7 +1033,7 @@ public final class UARTMessageProtos {
             }
             case 16: {
               bitField0_ |= 0x00000002;
-              serviceGroup_ = input.readUInt32();
+              serviceGroupId_ = input.readUInt32();
               break;
             }
             case 24: {
@@ -1191,20 +1189,20 @@ public final class UARTMessageProtos {
       return serviceType_;
     }
 
-    // required uint32 serviceGroup = 2;
-    public static final int SERVICEGROUP_FIELD_NUMBER = 2;
-    private int serviceGroup_;
+    // required uint32 serviceGroupId = 2;
+    public static final int SERVICEGROUPID_FIELD_NUMBER = 2;
+    private int serviceGroupId_;
     /**
-     * <code>required uint32 serviceGroup = 2;</code>
+     * <code>required uint32 serviceGroupId = 2;</code>
      */
-    public boolean hasServiceGroup() {
+    public boolean hasServiceGroupId() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required uint32 serviceGroup = 2;</code>
+     * <code>required uint32 serviceGroupId = 2;</code>
      */
-    public int getServiceGroup() {
-      return serviceGroup_;
+    public int getServiceGroupId() {
+      return serviceGroupId_;
     }
 
     // required uint32 serviceId = 3;
@@ -1284,7 +1282,7 @@ public final class UARTMessageProtos {
 
     private void initFields() {
       serviceType_ = de.fhffm.ssns.messaging.UARTMessageProtos.Service.ServiceType.ACTUATOR;
-      serviceGroup_ = 0;
+      serviceGroupId_ = 0;
       serviceId_ = 0;
       value_ = 0;
       info_ = "";
@@ -1298,7 +1296,7 @@ public final class UARTMessageProtos {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasServiceGroup()) {
+      if (!hasServiceGroupId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -1317,7 +1315,7 @@ public final class UARTMessageProtos {
         output.writeEnum(1, serviceType_.getNumber());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeUInt32(2, serviceGroup_);
+        output.writeUInt32(2, serviceGroupId_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeUInt32(3, serviceId_);
@@ -1343,7 +1341,7 @@ public final class UARTMessageProtos {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(2, serviceGroup_);
+          .computeUInt32Size(2, serviceGroupId_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
@@ -1475,7 +1473,7 @@ public final class UARTMessageProtos {
         super.clear();
         serviceType_ = de.fhffm.ssns.messaging.UARTMessageProtos.Service.ServiceType.ACTUATOR;
         bitField0_ = (bitField0_ & ~0x00000001);
-        serviceGroup_ = 0;
+        serviceGroupId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
         serviceId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -1518,7 +1516,7 @@ public final class UARTMessageProtos {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.serviceGroup_ = serviceGroup_;
+        result.serviceGroupId_ = serviceGroupId_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
@@ -1550,8 +1548,8 @@ public final class UARTMessageProtos {
         if (other.hasServiceType()) {
           setServiceType(other.getServiceType());
         }
-        if (other.hasServiceGroup()) {
-          setServiceGroup(other.getServiceGroup());
+        if (other.hasServiceGroupId()) {
+          setServiceGroupId(other.getServiceGroupId());
         }
         if (other.hasServiceId()) {
           setServiceId(other.getServiceId());
@@ -1573,7 +1571,7 @@ public final class UARTMessageProtos {
           
           return false;
         }
-        if (!hasServiceGroup()) {
+        if (!hasServiceGroupId()) {
           
           return false;
         }
@@ -1639,35 +1637,35 @@ public final class UARTMessageProtos {
         return this;
       }
 
-      // required uint32 serviceGroup = 2;
-      private int serviceGroup_ ;
+      // required uint32 serviceGroupId = 2;
+      private int serviceGroupId_ ;
       /**
-       * <code>required uint32 serviceGroup = 2;</code>
+       * <code>required uint32 serviceGroupId = 2;</code>
        */
-      public boolean hasServiceGroup() {
+      public boolean hasServiceGroupId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required uint32 serviceGroup = 2;</code>
+       * <code>required uint32 serviceGroupId = 2;</code>
        */
-      public int getServiceGroup() {
-        return serviceGroup_;
+      public int getServiceGroupId() {
+        return serviceGroupId_;
       }
       /**
-       * <code>required uint32 serviceGroup = 2;</code>
+       * <code>required uint32 serviceGroupId = 2;</code>
        */
-      public Builder setServiceGroup(int value) {
+      public Builder setServiceGroupId(int value) {
         bitField0_ |= 0x00000002;
-        serviceGroup_ = value;
+        serviceGroupId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required uint32 serviceGroup = 2;</code>
+       * <code>required uint32 serviceGroupId = 2;</code>
        */
-      public Builder clearServiceGroup() {
+      public Builder clearServiceGroupId() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        serviceGroup_ = 0;
+        serviceGroupId_ = 0;
         onChanged();
         return this;
       }
@@ -1826,29 +1824,54 @@ public final class UARTMessageProtos {
   public interface BeaconOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // repeated .ServiceGroup serviceGroup = 1;
+    // required uint32 serviceGroupId = 1;
     /**
-     * <code>repeated .ServiceGroup serviceGroup = 1;</code>
+     * <code>required uint32 serviceGroupId = 1;</code>
      */
-    java.util.List<de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup> 
-        getServiceGroupList();
+    boolean hasServiceGroupId();
     /**
-     * <code>repeated .ServiceGroup serviceGroup = 1;</code>
+     * <code>required uint32 serviceGroupId = 1;</code>
      */
-    de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup getServiceGroup(int index);
+    int getServiceGroupId();
+
+    // optional string name = 2;
     /**
-     * <code>repeated .ServiceGroup serviceGroup = 1;</code>
+     * <code>optional string name = 2;</code>
      */
-    int getServiceGroupCount();
+    boolean hasName();
     /**
-     * <code>repeated .ServiceGroup serviceGroup = 1;</code>
+     * <code>optional string name = 2;</code>
      */
-    java.util.List<? extends de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroupOrBuilder> 
-        getServiceGroupOrBuilderList();
+    java.lang.String getName();
     /**
-     * <code>repeated .ServiceGroup serviceGroup = 1;</code>
+     * <code>optional string name = 2;</code>
      */
-    de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroupOrBuilder getServiceGroupOrBuilder(
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    // repeated .Service service = 3;
+    /**
+     * <code>repeated .Service service = 3;</code>
+     */
+    java.util.List<de.fhffm.ssns.messaging.UARTMessageProtos.Service> 
+        getServiceList();
+    /**
+     * <code>repeated .Service service = 3;</code>
+     */
+    de.fhffm.ssns.messaging.UARTMessageProtos.Service getService(int index);
+    /**
+     * <code>repeated .Service service = 3;</code>
+     */
+    int getServiceCount();
+    /**
+     * <code>repeated .Service service = 3;</code>
+     */
+    java.util.List<? extends de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder> 
+        getServiceOrBuilderList();
+    /**
+     * <code>repeated .Service service = 3;</code>
+     */
+    de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder getServiceOrBuilder(
         int index);
   }
   /**
@@ -1902,12 +1925,22 @@ public final class UARTMessageProtos {
               }
               break;
             }
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                serviceGroup_ = new java.util.ArrayList<de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup>();
-                mutable_bitField0_ |= 0x00000001;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              serviceGroupId_ = input.readUInt32();
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              name_ = input.readBytes();
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                service_ = new java.util.ArrayList<de.fhffm.ssns.messaging.UARTMessageProtos.Service>();
+                mutable_bitField0_ |= 0x00000004;
               }
-              serviceGroup_.add(input.readMessage(de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.PARSER, extensionRegistry));
+              service_.add(input.readMessage(de.fhffm.ssns.messaging.UARTMessageProtos.Service.PARSER, extensionRegistry));
               break;
             }
           }
@@ -1918,8 +1951,8 @@ public final class UARTMessageProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          serviceGroup_ = java.util.Collections.unmodifiableList(serviceGroup_);
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          service_ = java.util.Collections.unmodifiableList(service_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1952,52 +1985,118 @@ public final class UARTMessageProtos {
       return PARSER;
     }
 
-    // repeated .ServiceGroup serviceGroup = 1;
-    public static final int SERVICEGROUP_FIELD_NUMBER = 1;
-    private java.util.List<de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup> serviceGroup_;
+    private int bitField0_;
+    // required uint32 serviceGroupId = 1;
+    public static final int SERVICEGROUPID_FIELD_NUMBER = 1;
+    private int serviceGroupId_;
     /**
-     * <code>repeated .ServiceGroup serviceGroup = 1;</code>
+     * <code>required uint32 serviceGroupId = 1;</code>
      */
-    public java.util.List<de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup> getServiceGroupList() {
-      return serviceGroup_;
+    public boolean hasServiceGroupId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>repeated .ServiceGroup serviceGroup = 1;</code>
+     * <code>required uint32 serviceGroupId = 1;</code>
      */
-    public java.util.List<? extends de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroupOrBuilder> 
-        getServiceGroupOrBuilderList() {
-      return serviceGroup_;
+    public int getServiceGroupId() {
+      return serviceGroupId_;
+    }
+
+    // optional string name = 2;
+    public static final int NAME_FIELD_NUMBER = 2;
+    private java.lang.Object name_;
+    /**
+     * <code>optional string name = 2;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>repeated .ServiceGroup serviceGroup = 1;</code>
+     * <code>optional string name = 2;</code>
      */
-    public int getServiceGroupCount() {
-      return serviceGroup_.size();
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
     }
     /**
-     * <code>repeated .ServiceGroup serviceGroup = 1;</code>
+     * <code>optional string name = 2;</code>
      */
-    public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup getServiceGroup(int index) {
-      return serviceGroup_.get(index);
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // repeated .Service service = 3;
+    public static final int SERVICE_FIELD_NUMBER = 3;
+    private java.util.List<de.fhffm.ssns.messaging.UARTMessageProtos.Service> service_;
+    /**
+     * <code>repeated .Service service = 3;</code>
+     */
+    public java.util.List<de.fhffm.ssns.messaging.UARTMessageProtos.Service> getServiceList() {
+      return service_;
     }
     /**
-     * <code>repeated .ServiceGroup serviceGroup = 1;</code>
+     * <code>repeated .Service service = 3;</code>
      */
-    public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroupOrBuilder getServiceGroupOrBuilder(
+    public java.util.List<? extends de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder> 
+        getServiceOrBuilderList() {
+      return service_;
+    }
+    /**
+     * <code>repeated .Service service = 3;</code>
+     */
+    public int getServiceCount() {
+      return service_.size();
+    }
+    /**
+     * <code>repeated .Service service = 3;</code>
+     */
+    public de.fhffm.ssns.messaging.UARTMessageProtos.Service getService(int index) {
+      return service_.get(index);
+    }
+    /**
+     * <code>repeated .Service service = 3;</code>
+     */
+    public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder getServiceOrBuilder(
         int index) {
-      return serviceGroup_.get(index);
+      return service_.get(index);
     }
 
     private void initFields() {
-      serviceGroup_ = java.util.Collections.emptyList();
+      serviceGroupId_ = 0;
+      name_ = "";
+      service_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
-      for (int i = 0; i < getServiceGroupCount(); i++) {
-        if (!getServiceGroup(i).isInitialized()) {
+      if (!hasServiceGroupId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      for (int i = 0; i < getServiceCount(); i++) {
+        if (!getService(i).isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -2009,8 +2108,14 @@ public final class UARTMessageProtos {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      for (int i = 0; i < serviceGroup_.size(); i++) {
-        output.writeMessage(1, serviceGroup_.get(i));
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeUInt32(1, serviceGroupId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getNameBytes());
+      }
+      for (int i = 0; i < service_.size(); i++) {
+        output.writeMessage(3, service_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -2021,9 +2126,17 @@ public final class UARTMessageProtos {
       if (size != -1) return size;
 
       size = 0;
-      for (int i = 0; i < serviceGroup_.size(); i++) {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, serviceGroup_.get(i));
+          .computeUInt32Size(1, serviceGroupId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getNameBytes());
+      }
+      for (int i = 0; i < service_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, service_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2133,7 +2246,7 @@ public final class UARTMessageProtos {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getServiceGroupFieldBuilder();
+          getServiceFieldBuilder();
         }
       }
       private static Builder create() {
@@ -2142,11 +2255,15 @@ public final class UARTMessageProtos {
 
       public Builder clear() {
         super.clear();
-        if (serviceGroupBuilder_ == null) {
-          serviceGroup_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
+        serviceGroupId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (serviceBuilder_ == null) {
+          service_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
         } else {
-          serviceGroupBuilder_.clear();
+          serviceBuilder_.clear();
         }
         return this;
       }
@@ -2172,820 +2289,14 @@ public final class UARTMessageProtos {
         return result;
       }
 
-      @SuppressWarnings("unused")
-	public de.fhffm.ssns.messaging.UARTMessageProtos.Beacon buildPartial() {
+      public de.fhffm.ssns.messaging.UARTMessageProtos.Beacon buildPartial() {
         de.fhffm.ssns.messaging.UARTMessageProtos.Beacon result = new de.fhffm.ssns.messaging.UARTMessageProtos.Beacon(this);
-        int from_bitField0_ = bitField0_;
-        if (serviceGroupBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            serviceGroup_ = java.util.Collections.unmodifiableList(serviceGroup_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.serviceGroup_ = serviceGroup_;
-        } else {
-          result.serviceGroup_ = serviceGroupBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof de.fhffm.ssns.messaging.UARTMessageProtos.Beacon) {
-          return mergeFrom((de.fhffm.ssns.messaging.UARTMessageProtos.Beacon)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(de.fhffm.ssns.messaging.UARTMessageProtos.Beacon other) {
-        if (other == de.fhffm.ssns.messaging.UARTMessageProtos.Beacon.getDefaultInstance()) return this;
-        if (serviceGroupBuilder_ == null) {
-          if (!other.serviceGroup_.isEmpty()) {
-            if (serviceGroup_.isEmpty()) {
-              serviceGroup_ = other.serviceGroup_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureServiceGroupIsMutable();
-              serviceGroup_.addAll(other.serviceGroup_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.serviceGroup_.isEmpty()) {
-            if (serviceGroupBuilder_.isEmpty()) {
-              serviceGroupBuilder_.dispose();
-              serviceGroupBuilder_ = null;
-              serviceGroup_ = other.serviceGroup_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              serviceGroupBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getServiceGroupFieldBuilder() : null;
-            } else {
-              serviceGroupBuilder_.addAllMessages(other.serviceGroup_);
-            }
-          }
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        for (int i = 0; i < getServiceGroupCount(); i++) {
-          if (!getServiceGroup(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        de.fhffm.ssns.messaging.UARTMessageProtos.Beacon parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (de.fhffm.ssns.messaging.UARTMessageProtos.Beacon) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      // repeated .ServiceGroup serviceGroup = 1;
-      private java.util.List<de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup> serviceGroup_ =
-        java.util.Collections.emptyList();
-      private void ensureServiceGroupIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          serviceGroup_ = new java.util.ArrayList<de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup>(serviceGroup_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilder<
-          de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.Builder, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroupOrBuilder> serviceGroupBuilder_;
-
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public java.util.List<de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup> getServiceGroupList() {
-        if (serviceGroupBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(serviceGroup_);
-        } else {
-          return serviceGroupBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public int getServiceGroupCount() {
-        if (serviceGroupBuilder_ == null) {
-          return serviceGroup_.size();
-        } else {
-          return serviceGroupBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup getServiceGroup(int index) {
-        if (serviceGroupBuilder_ == null) {
-          return serviceGroup_.get(index);
-        } else {
-          return serviceGroupBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public Builder setServiceGroup(
-          int index, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup value) {
-        if (serviceGroupBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureServiceGroupIsMutable();
-          serviceGroup_.set(index, value);
-          onChanged();
-        } else {
-          serviceGroupBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public Builder setServiceGroup(
-          int index, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.Builder builderForValue) {
-        if (serviceGroupBuilder_ == null) {
-          ensureServiceGroupIsMutable();
-          serviceGroup_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          serviceGroupBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public Builder addServiceGroup(de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup value) {
-        if (serviceGroupBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureServiceGroupIsMutable();
-          serviceGroup_.add(value);
-          onChanged();
-        } else {
-          serviceGroupBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public Builder addServiceGroup(
-          int index, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup value) {
-        if (serviceGroupBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureServiceGroupIsMutable();
-          serviceGroup_.add(index, value);
-          onChanged();
-        } else {
-          serviceGroupBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public Builder addServiceGroup(
-          de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.Builder builderForValue) {
-        if (serviceGroupBuilder_ == null) {
-          ensureServiceGroupIsMutable();
-          serviceGroup_.add(builderForValue.build());
-          onChanged();
-        } else {
-          serviceGroupBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public Builder addServiceGroup(
-          int index, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.Builder builderForValue) {
-        if (serviceGroupBuilder_ == null) {
-          ensureServiceGroupIsMutable();
-          serviceGroup_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          serviceGroupBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public Builder addAllServiceGroup(
-          java.lang.Iterable<? extends de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup> values) {
-        if (serviceGroupBuilder_ == null) {
-          ensureServiceGroupIsMutable();
-          super.addAll(values, serviceGroup_);
-          onChanged();
-        } else {
-          serviceGroupBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public Builder clearServiceGroup() {
-        if (serviceGroupBuilder_ == null) {
-          serviceGroup_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          serviceGroupBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public Builder removeServiceGroup(int index) {
-        if (serviceGroupBuilder_ == null) {
-          ensureServiceGroupIsMutable();
-          serviceGroup_.remove(index);
-          onChanged();
-        } else {
-          serviceGroupBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.Builder getServiceGroupBuilder(
-          int index) {
-        return getServiceGroupFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroupOrBuilder getServiceGroupOrBuilder(
-          int index) {
-        if (serviceGroupBuilder_ == null) {
-          return serviceGroup_.get(index);  } else {
-          return serviceGroupBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public java.util.List<? extends de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroupOrBuilder> 
-           getServiceGroupOrBuilderList() {
-        if (serviceGroupBuilder_ != null) {
-          return serviceGroupBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(serviceGroup_);
-        }
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.Builder addServiceGroupBuilder() {
-        return getServiceGroupFieldBuilder().addBuilder(
-            de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.Builder addServiceGroupBuilder(
-          int index) {
-        return getServiceGroupFieldBuilder().addBuilder(
-            index, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .ServiceGroup serviceGroup = 1;</code>
-       */
-      public java.util.List<de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.Builder> 
-           getServiceGroupBuilderList() {
-        return getServiceGroupFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilder<
-          de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.Builder, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroupOrBuilder> 
-          getServiceGroupFieldBuilder() {
-        if (serviceGroupBuilder_ == null) {
-          serviceGroupBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.Builder, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroupOrBuilder>(
-                  serviceGroup_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
-                  getParentForChildren(),
-                  isClean());
-          serviceGroup_ = null;
-        }
-        return serviceGroupBuilder_;
-      }
-
-      // @@protoc_insertion_point(builder_scope:Beacon)
-    }
-
-    static {
-      defaultInstance = new Beacon(true);
-      defaultInstance.initFields();
-    }
-
-    // @@protoc_insertion_point(class_scope:Beacon)
-  }
-
-  public interface ServiceGroupOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
-
-    // required uint32 id = 1;
-    /**
-     * <code>required uint32 id = 1;</code>
-     */
-    boolean hasId();
-    /**
-     * <code>required uint32 id = 1;</code>
-     */
-    int getId();
-
-    // optional string name = 2;
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    boolean hasName();
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    java.lang.String getName();
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getNameBytes();
-
-    // repeated .Service service = 3;
-    /**
-     * <code>repeated .Service service = 3;</code>
-     */
-    java.util.List<de.fhffm.ssns.messaging.UARTMessageProtos.Service> 
-        getServiceList();
-    /**
-     * <code>repeated .Service service = 3;</code>
-     */
-    de.fhffm.ssns.messaging.UARTMessageProtos.Service getService(int index);
-    /**
-     * <code>repeated .Service service = 3;</code>
-     */
-    int getServiceCount();
-    /**
-     * <code>repeated .Service service = 3;</code>
-     */
-    java.util.List<? extends de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder> 
-        getServiceOrBuilderList();
-    /**
-     * <code>repeated .Service service = 3;</code>
-     */
-    de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder getServiceOrBuilder(
-        int index);
-  }
-  /**
-   * Protobuf type {@code ServiceGroup}
-   */
-  public static final class ServiceGroup extends
-      com.google.protobuf.GeneratedMessage
-      implements ServiceGroupOrBuilder {
-    // Use ServiceGroup.newBuilder() to construct.
-    private ServiceGroup(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-      this.unknownFields = builder.getUnknownFields();
-    }
-    private ServiceGroup(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ServiceGroup defaultInstance;
-    public static ServiceGroup getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public ServiceGroup getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ServiceGroup(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 8: {
-              bitField0_ |= 0x00000001;
-              id_ = input.readUInt32();
-              break;
-            }
-            case 18: {
-              bitField0_ |= 0x00000002;
-              name_ = input.readBytes();
-              break;
-            }
-            case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-                service_ = new java.util.ArrayList<de.fhffm.ssns.messaging.UARTMessageProtos.Service>();
-                mutable_bitField0_ |= 0x00000004;
-              }
-              service_.add(input.readMessage(de.fhffm.ssns.messaging.UARTMessageProtos.Service.PARSER, extensionRegistry));
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-          service_ = java.util.Collections.unmodifiableList(service_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return de.fhffm.ssns.messaging.UARTMessageProtos.internal_static_ServiceGroup_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return de.fhffm.ssns.messaging.UARTMessageProtos.internal_static_ServiceGroup_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.class, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<ServiceGroup> PARSER =
-        new com.google.protobuf.AbstractParser<ServiceGroup>() {
-      public ServiceGroup parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ServiceGroup(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ServiceGroup> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
-    // required uint32 id = 1;
-    public static final int ID_FIELD_NUMBER = 1;
-    private int id_;
-    /**
-     * <code>required uint32 id = 1;</code>
-     */
-    public boolean hasId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required uint32 id = 1;</code>
-     */
-    public int getId() {
-      return id_;
-    }
-
-    // optional string name = 2;
-    public static final int NAME_FIELD_NUMBER = 2;
-    private java.lang.Object name_;
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          name_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    // repeated .Service service = 3;
-    public static final int SERVICE_FIELD_NUMBER = 3;
-    private java.util.List<de.fhffm.ssns.messaging.UARTMessageProtos.Service> service_;
-    /**
-     * <code>repeated .Service service = 3;</code>
-     */
-    public java.util.List<de.fhffm.ssns.messaging.UARTMessageProtos.Service> getServiceList() {
-      return service_;
-    }
-    /**
-     * <code>repeated .Service service = 3;</code>
-     */
-    public java.util.List<? extends de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder> 
-        getServiceOrBuilderList() {
-      return service_;
-    }
-    /**
-     * <code>repeated .Service service = 3;</code>
-     */
-    public int getServiceCount() {
-      return service_.size();
-    }
-    /**
-     * <code>repeated .Service service = 3;</code>
-     */
-    public de.fhffm.ssns.messaging.UARTMessageProtos.Service getService(int index) {
-      return service_.get(index);
-    }
-    /**
-     * <code>repeated .Service service = 3;</code>
-     */
-    public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceOrBuilder getServiceOrBuilder(
-        int index) {
-      return service_.get(index);
-    }
-
-    private void initFields() {
-      id_ = 0;
-      name_ = "";
-      service_ = java.util.Collections.emptyList();
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-
-      if (!hasId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getServiceCount(); i++) {
-        if (!getService(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeUInt32(1, id_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getNameBytes());
-      }
-      for (int i = 0; i < service_.size(); i++) {
-        output.writeMessage(3, service_.get(i));
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, id_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getNameBytes());
-      }
-      for (int i = 0; i < service_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, service_.get(i));
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-
-    public static de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-    public static de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
-    }
-    public static de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
-    }
-    public static de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code ServiceGroup}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroupOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return de.fhffm.ssns.messaging.UARTMessageProtos.internal_static_ServiceGroup_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return de.fhffm.ssns.messaging.UARTMessageProtos.internal_static_ServiceGroup_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.class, de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.Builder.class);
-      }
-
-      // Construct using de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getServiceFieldBuilder();
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-
-      public Builder clear() {
-        super.clear();
-        id_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
-        if (serviceBuilder_ == null) {
-          service_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
-        } else {
-          serviceBuilder_.clear();
-        }
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return de.fhffm.ssns.messaging.UARTMessageProtos.internal_static_ServiceGroup_descriptor;
-      }
-
-      public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup getDefaultInstanceForType() {
-        return de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.getDefaultInstance();
-      }
-
-      public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup build() {
-        de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup buildPartial() {
-        de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup result = new de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.id_ = id_;
+        result.serviceGroupId_ = serviceGroupId_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
@@ -3005,18 +2316,18 @@ public final class UARTMessageProtos {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup) {
-          return mergeFrom((de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup)other);
+        if (other instanceof de.fhffm.ssns.messaging.UARTMessageProtos.Beacon) {
+          return mergeFrom((de.fhffm.ssns.messaging.UARTMessageProtos.Beacon)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup other) {
-        if (other == de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup.getDefaultInstance()) return this;
-        if (other.hasId()) {
-          setId(other.getId());
+      public Builder mergeFrom(de.fhffm.ssns.messaging.UARTMessageProtos.Beacon other) {
+        if (other == de.fhffm.ssns.messaging.UARTMessageProtos.Beacon.getDefaultInstance()) return this;
+        if (other.hasServiceGroupId()) {
+          setServiceGroupId(other.getServiceGroupId());
         }
         if (other.hasName()) {
           bitField0_ |= 0x00000002;
@@ -3054,7 +2365,7 @@ public final class UARTMessageProtos {
       }
 
       public final boolean isInitialized() {
-        if (!hasId()) {
+        if (!hasServiceGroupId()) {
           
           return false;
         }
@@ -3071,11 +2382,11 @@ public final class UARTMessageProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup parsedMessage = null;
+        de.fhffm.ssns.messaging.UARTMessageProtos.Beacon parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (de.fhffm.ssns.messaging.UARTMessageProtos.ServiceGroup) e.getUnfinishedMessage();
+          parsedMessage = (de.fhffm.ssns.messaging.UARTMessageProtos.Beacon) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -3086,35 +2397,35 @@ public final class UARTMessageProtos {
       }
       private int bitField0_;
 
-      // required uint32 id = 1;
-      private int id_ ;
+      // required uint32 serviceGroupId = 1;
+      private int serviceGroupId_ ;
       /**
-       * <code>required uint32 id = 1;</code>
+       * <code>required uint32 serviceGroupId = 1;</code>
        */
-      public boolean hasId() {
+      public boolean hasServiceGroupId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required uint32 id = 1;</code>
+       * <code>required uint32 serviceGroupId = 1;</code>
        */
-      public int getId() {
-        return id_;
+      public int getServiceGroupId() {
+        return serviceGroupId_;
       }
       /**
-       * <code>required uint32 id = 1;</code>
+       * <code>required uint32 serviceGroupId = 1;</code>
        */
-      public Builder setId(int value) {
+      public Builder setServiceGroupId(int value) {
         bitField0_ |= 0x00000001;
-        id_ = value;
+        serviceGroupId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required uint32 id = 1;</code>
+       * <code>required uint32 serviceGroupId = 1;</code>
        */
-      public Builder clearId() {
+      public Builder clearServiceGroupId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = 0;
+        serviceGroupId_ = 0;
         onChanged();
         return this;
       }
@@ -3433,15 +2744,15 @@ public final class UARTMessageProtos {
         return serviceBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:ServiceGroup)
+      // @@protoc_insertion_point(builder_scope:Beacon)
     }
 
     static {
-      defaultInstance = new ServiceGroup(true);
+      defaultInstance = new Beacon(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:ServiceGroup)
+    // @@protoc_insertion_point(class_scope:Beacon)
   }
 
   private static com.google.protobuf.Descriptors.Descriptor
@@ -3459,11 +2770,6 @@ public final class UARTMessageProtos {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Beacon_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_ServiceGroup_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_ServiceGroup_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3473,17 +2779,16 @@ public final class UARTMessageProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\021uartmessage.proto\"\204\001\n\013UARTMessage\022\037\n\004t" +
+      "\n\021uartmessage.proto\"\203\001\n\013UARTMessage\022\037\n\004t" +
       "ype\030\001 \002(\0162\021.UARTMessage.Type\022\027\n\006beacon\030\002" +
-      " \001(\0132\007.Beacon\022\032\n\010services\030\003 \001(\0132\010.Servic" +
-      "e\"\037\n\004Type\022\013\n\007SERVICE\020\001\022\n\n\006BEACON\020\003\"\243\001\n\007S" +
-      "ervice\022)\n\013serviceType\030\001 \002(\0162\024.Service.Se" +
-      "rviceType\022\024\n\014serviceGroup\030\002 \002(\r\022\021\n\tservi" +
-      "ceId\030\003 \002(\r\022\r\n\005value\030\004 \001(\r\022\014\n\004info\030\005 \001(\t\"" +
-      "\'\n\013ServiceType\022\014\n\010ACTUATOR\020\001\022\n\n\006SENSOR\020\002" +
-      "\"-\n\006Beacon\022#\n\014serviceGroup\030\001 \003(\0132\r.Servi" +
-      "ceGroup\"C\n\014ServiceGroup\022\n\n\002id\030\001 \002(\r\022\014\n\004n",
-      "ame\030\002 \001(\t\022\031\n\007service\030\003 \003(\0132\010.ServiceB,\n\027" +
+      " \001(\0132\007.Beacon\022\031\n\007service\030\003 \001(\0132\010.Service" +
+      "\"\037\n\004Type\022\013\n\007SERVICE\020\001\022\n\n\006BEACON\020\002\"\245\001\n\007Se" +
+      "rvice\022)\n\013serviceType\030\001 \002(\0162\024.Service.Ser" +
+      "viceType\022\026\n\016serviceGroupId\030\002 \002(\r\022\021\n\tserv" +
+      "iceId\030\003 \002(\r\022\r\n\005value\030\004 \001(\r\022\014\n\004info\030\005 \001(\t" +
+      "\"\'\n\013ServiceType\022\014\n\010ACTUATOR\020\001\022\n\n\006SENSOR\020" +
+      "\002\"I\n\006Beacon\022\026\n\016serviceGroupId\030\001 \002(\r\022\014\n\004n" +
+      "ame\030\002 \001(\t\022\031\n\007service\030\003 \003(\0132\010.ServiceB,\n\027",
       "de.fhffm.ssns.messagingB\021UARTMessageProt" +
       "os"
     };
@@ -3497,25 +2802,19 @@ public final class UARTMessageProtos {
           internal_static_UARTMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_UARTMessage_descriptor,
-              new java.lang.String[] { "Type", "Beacon", "Services", });
+              new java.lang.String[] { "Type", "Beacon", "Service", });
           internal_static_Service_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_Service_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Service_descriptor,
-              new java.lang.String[] { "ServiceType", "ServiceGroup", "ServiceId", "Value", "Info", });
+              new java.lang.String[] { "ServiceType", "ServiceGroupId", "ServiceId", "Value", "Info", });
           internal_static_Beacon_descriptor =
             getDescriptor().getMessageTypes().get(2);
           internal_static_Beacon_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Beacon_descriptor,
-              new java.lang.String[] { "ServiceGroup", });
-          internal_static_ServiceGroup_descriptor =
-            getDescriptor().getMessageTypes().get(3);
-          internal_static_ServiceGroup_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_ServiceGroup_descriptor,
-              new java.lang.String[] { "Id", "Name", "Service", });
+              new java.lang.String[] { "ServiceGroupId", "Name", "Service", });
           return null;
         }
       };
