@@ -2,21 +2,18 @@ package com.ffh.babblehouse.model;
 
 import java.util.List;
 
-
-
-public class GateWay {
+public class DtoGateway {
 private int Baudrate;
 private int Stopbits;
 private int Databits;
 private int Parity_none;
-List<Controller> controllers ;
+List<DtoServiceGroup> serviceGroups ;
 
-
-public List<Controller> getControllers() {
-	return controllers;
+public List<DtoServiceGroup> getServiceGroups() {
+	return serviceGroups;
 }
-public void setControllers(List<Controller> controllers) {
-	this.controllers = controllers;
+public void setServiceGroups(List<DtoServiceGroup> controllers) {
+	this.serviceGroups = controllers;
 }
 public int getBaudrate() {
 	return Baudrate;
@@ -45,13 +42,13 @@ public void setParity_none(int parity_none) {
 }
 
 //add new controllers to list
-public void addSensor(Controller this_controller){
-	controllers.add(this_controller);
+public void addSensor(DtoServiceGroup this_controller){
+	serviceGroups.add(this_controller);
 }
 
 // remove controllers from list
-public void removeDevice(Controller this_controller){
-	controllers.remove(this_controller);
+public void removeDevice(DtoServiceGroup this_controller){
+	serviceGroups.remove(this_controller);
 	}
 
 

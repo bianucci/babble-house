@@ -1,12 +1,12 @@
 package com.ffh.babblehouse.model;
 
-public class Message {
+public class DtoMessage {
 	private transient int Msg_type;
 	private transient int Zid_sender;
 	private transient int Zid_receive;
 	private transient String Payload;
 	
-	public Message(int msg_type, int  zid_sender,
+	public DtoMessage(int msg_type, int  zid_sender,
 			int  zid_receive, String payload) {
 		super();
 		Msg_type = msg_type;

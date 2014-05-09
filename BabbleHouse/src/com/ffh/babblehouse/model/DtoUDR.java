@@ -1,17 +1,10 @@
 package com.ffh.babblehouse.model;
 
-public class UDR {
-	int id;
+public class DtoUDR extends DtoBase{
 	int desired_val;
 	
-	public UDR() {
+	public DtoUDR() {
 		super();
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 	public int getDesired_val() {
 		return desired_val;

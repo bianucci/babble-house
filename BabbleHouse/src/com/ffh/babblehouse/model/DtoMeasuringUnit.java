@@ -2,25 +2,19 @@ package com.ffh.babblehouse.model;
 
 import java.util.List;
 
-public class MeausuringUnit {
-private int id;
+public class DtoMeasuringUnit extends DtoBase {
 
 private String unit_name;
-private List<Sensor> sensors;
+private List<DtoSensor> sensors;
 
 
-public List<Sensor> getSensors() {
+public List<DtoSensor> getSensors() {
 	return sensors;
 }
-public void setSensors(List<Sensor> sensors) {
+public void setSensors(List<DtoSensor> sensors) {
 	this.sensors = sensors;
 }
-public int getId() {
-	return id;
-}
-public void setId(int id) {
-	this.id = id;
-}
+
 public String getUnit_name() {
 	return unit_name;
 }
@@ -29,12 +23,12 @@ public void setUnit_name(String unit_name) {
 }
 
 //add new sensor to list
-public void addSensor(Sensor this_sensor){
+public void addSensor(DtoSensor this_sensor){
 sensors.add(this_sensor);
 }
 
 // remove sensor from list
-public void removeDevice(Sensor this_sensor){
+public void removeDevice(DtoSensor this_sensor){
 	sensors.remove(this_sensor);
 	}
 

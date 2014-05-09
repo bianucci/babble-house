@@ -26,7 +26,10 @@ public class BabbleHouseUI extends UI {
 		layout.setMargin(true);
 		setContent(layout);
 		
-//		Button buttonOnOff = new Button("On/Off", new Button.ClickListener () {
+		// The 2 lines below are examples and will be removed.
+		Button buttonOnOff = new Button("On/Off");
+		layout.addComponent(buttonOnOff);
+//			Button buttonOnOff = new Button("On/Off", new Button.ClickListener () {
 //			// Actions performed when button is pressed
 //			BoLed boLed = new BoLed();
 //			int i = 0 ;

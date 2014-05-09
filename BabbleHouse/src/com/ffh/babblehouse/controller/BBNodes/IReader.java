@@ -1,8 +1,8 @@
 package com.ffh.babblehouse.controller.BBNodes;
 
-import com.ffh.babblehouse.model.Message;
+import com.ffh.babblehouse.model.DtoMessage;
 
 public interface IReader {
 	
-	Message readMessage();
+	DtoMessage readMessage();
 }

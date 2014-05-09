@@ -2,37 +2,27 @@ package com.ffh.babblehouse.model;
 
 import java.util.List;
 
-public class Controller {
-
-	int id;
+public class DtoServiceGroup extends DtoBase {
 	private String name;
 	private int status; // 1 means on and 2 means off
-	private List<Device> devices;
-	private List<Sensor> sensors;
+	private List<DtoDevice> devices;
+	private List<DtoSensor> sensors;
 	private int batterylevel; // percentage
 
-	public List<Device> getDevices() {
+	public List<DtoDevice> getDevices() {
 		return devices;
 	}
 
-	public void setDevices(List<Device> devices) {
+	public void setDevices(List<DtoDevice> devices) {
 		this.devices = devices;
 	}
 
-	public List<Sensor> getSensors() {
+	public List<DtoSensor> getSensors() {
 		return sensors;
 	}
 
-	public void setSensors(List<Sensor> sensors) {
+	public void setSensors(List<DtoSensor> sensors) {
 		this.sensors = sensors;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {

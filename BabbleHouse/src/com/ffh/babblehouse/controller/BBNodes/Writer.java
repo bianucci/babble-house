@@ -1,6 +1,6 @@
 package com.ffh.babblehouse.controller.BBNodes;
 
-import com.ffh.babblehouse.model.Message;
+import com.ffh.babblehouse.model.DtoMessage;
 
 public class Writer extends Thread implements IMessage{
 
@@ -11,7 +11,7 @@ public class Writer extends Thread implements IMessage{
 	
 
 	@Override
-	public Message processMessage(Message obj) {
+	public DtoMessage processMessage(DtoMessage obj) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -3,32 +3,25 @@ package com.ffh.babblehouse.model;
 
 import java.util.List;
 
-public class Device {
-	int id;
+public class DtoDevice extends DtoBase{
 	String deviceName;
-	List<UDR> userDefineRules;
-	List<Value> values;
+	List<DtoUDR> userDefineRules;
+	List<DtoValue> values;
 
 	
-	public List<Value> getValues() {
+	public List<DtoValue> getValues() {
 		return values;
 	}
 
-	public void setValues(List<Value> values) {
+	public void setValues(List<DtoValue> values) {
 		this.values = values;
 	}
 	
-	public List<UDR> getUserDefineRules() {
+	public List<DtoUDR> getUserDefineRules() {
 		return userDefineRules;
 	}
-	public void setUserDefineRules(List<UDR> userDefineRules) {
+	public void setUserDefineRules(List<DtoUDR> userDefineRules) {
 		this.userDefineRules = userDefineRules;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 	public String getDeviceName() {
 		return deviceName;
