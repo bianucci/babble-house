@@ -3,12 +3,12 @@ package com.ffh.babblehouse.messaging;
 import java.util.Arrays;
 import java.util.List;
 
-import com.ffh.babblehouse.messaging.UARTMessageProtos;
-import com.ffh.babblehouse.messaging.UARTMessageProtos.Beacon;
-import com.ffh.babblehouse.messaging.UARTMessageProtos.Service;
-import com.ffh.babblehouse.messaging.UARTMessageProtos.UARTMessage;
-import com.ffh.babblehouse.messaging.UARTMessageProtos.Service.ServiceType;
-import com.ffh.babblehouse.messaging.UARTMessageProtos.UARTMessage.Type;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Beacon;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 

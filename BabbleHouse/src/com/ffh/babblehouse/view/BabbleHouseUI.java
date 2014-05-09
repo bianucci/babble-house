@@ -2,7 +2,6 @@ package com.ffh.babblehouse.view;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.ffh.babblehouse.controller.BusinessObjects.BoLed;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -27,19 +26,19 @@ public class BabbleHouseUI extends UI {
 		layout.setMargin(true);
 		setContent(layout);
 		
-		Button buttonOnOff = new Button("On/Off", new Button.ClickListener () {
-			// Actions performed when button is pressed
-			BoLed boLed = new BoLed();
-			int i = 0 ;
-			public void buttonClick(Button.ClickEvent event){
-				boLed.toggleDtoPinStatus();
-				boLed.setDtoId(i++);
-				layout.addComponent(boLed.getDtoId());
-				layout.addComponent(boLed.getDtoPinStatus());
-			}
-		});
+//		Button buttonOnOff = new Button("On/Off", new Button.ClickListener () {
+//			// Actions performed when button is pressed
+//			BoLed boLed = new BoLed();
+//			int i = 0 ;
+//			public void buttonClick(Button.ClickEvent event){
+//				boLed.toggleDtoPinStatus();
+//				boLed.setDtoId(i++);
+//				layout.addComponent(boLed.getDtoId());
+//				layout.addComponent(boLed.getDtoPinStatus());
+//			}
+//		});
 		
-		layout.addComponent(buttonOnOff);
+//		layout.addComponent(buttonOnOff);
 	}
 
 }

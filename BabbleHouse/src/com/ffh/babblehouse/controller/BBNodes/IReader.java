@@ -1,6 +1,6 @@
 package com.ffh.babblehouse.controller.BBNodes;
 
-import com.ffh.babblehouse.data.Message;
+import com.ffh.babblehouse.model.Message;
 
 public interface IReader {
 	
