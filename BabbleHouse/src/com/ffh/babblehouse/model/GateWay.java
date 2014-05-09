@@ -1,4 +1,4 @@
-package com.ffh.babblehouse.database.entity;
+package com.ffh.babblehouse.model;
 
 import java.util.List;
 
