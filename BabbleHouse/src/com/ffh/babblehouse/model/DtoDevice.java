@@ -3,11 +3,21 @@ package com.ffh.babblehouse.model;
 
 import java.util.List;
 
-public class DtoDevice extends DtoBase{
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+public class DtoDevice{
+	
+	@Id 
+	@GeneratedValue
+	protected int id;
 	String deviceName;
 	List<DtoUDR> userDefineRules;
 	List<DtoValue> values;
 
+	public int getId() { 
+		return id; 
+	}
 	
 	public List<DtoValue> getValues() {
 		return values;

@@ -2,12 +2,24 @@ package com.ffh.babblehouse.model;
 
 import java.util.List;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 public class DtoGateway {
+	
+@Id 
+@GeneratedValue
+protected int id;
+
 private int Baudrate;
 private int Stopbits;
 private int Databits;
 private int Parity_none;
 List<DtoServiceGroup> serviceGroups ;
+
+public int getId() { 
+	return id; 
+}
 
 public List<DtoServiceGroup> getServiceGroups() {
 	return serviceGroups;

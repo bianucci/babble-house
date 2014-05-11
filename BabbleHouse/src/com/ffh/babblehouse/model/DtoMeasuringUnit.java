@@ -2,11 +2,21 @@ package com.ffh.babblehouse.model;
 
 import java.util.List;
 
-public class DtoMeasuringUnit extends DtoBase {
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+public class DtoMeasuringUnit {
+
+	@Id 
+	@GeneratedValue
+	protected int id;
+	
 private String unit_name;
 private List<DtoSensor> sensors;
 
+public int getId() { 
+	return id; 
+}
 
 public List<DtoSensor> getSensors() {
 	return sensors;

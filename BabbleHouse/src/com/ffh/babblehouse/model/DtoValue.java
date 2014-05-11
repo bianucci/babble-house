@@ -2,11 +2,21 @@ package com.ffh.babblehouse.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-public class DtoValue extends DtoBase {
+public class DtoValue {
+	@Id 
+	@GeneratedValue
+	protected int id;
+	
 	private int value;
 	private Timestamp currentTimestamp;
 
+	public int getId() { 
+		return id; 
+	}
+	
 	public Timestamp getCurrentTimestamp() {
 		return currentTimestamp;
 	}

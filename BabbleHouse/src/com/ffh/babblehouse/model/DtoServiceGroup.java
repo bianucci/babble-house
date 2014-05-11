@@ -2,13 +2,24 @@ package com.ffh.babblehouse.model;
 
 import java.util.List;
 
-public class DtoServiceGroup extends DtoBase {
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+public class DtoServiceGroup {
+	@Id 
+	@GeneratedValue
+	protected int id;
+	
 	private String name;
 	private int status; // 1 means on and 2 means off
 	private List<DtoDevice> devices;
 	private List<DtoSensor> sensors;
 	private int batterylevel; // percentage
 
+	public int getId() { 
+		return id; 
+	}
+	
 	public List<DtoDevice> getDevices() {
 		return devices;
 	}

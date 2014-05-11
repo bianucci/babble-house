@@ -1,11 +1,19 @@
 package com.ffh.babblehouse.model;
 
-public class DtoUDR extends DtoBase{
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+public class DtoUDR{
+	@Id 
+	@GeneratedValue
+	protected int id;
+	
 	int desired_val;
 	
-	public DtoUDR() {
-		super();
+	public int getId() { 
+		return id; 
 	}
+	
 	public int getDesired_val() {
 		return desired_val;
 	}

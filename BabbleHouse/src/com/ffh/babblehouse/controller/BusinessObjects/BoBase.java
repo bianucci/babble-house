@@ -1,10 +1,9 @@
 package com.ffh.babblehouse.controller.BusinessObjects;
 
-import com.ffh.babblehouse.controller.BBNodes.GateWay;
 import com.ffh.babblehouse.controller.repositories.*;
 
 // Extends BBNode to communicate with sensors and actuators
-public abstract class BoBase<T> extends GateWay{
+public abstract class BoBase<T>{
 	
 	// Adds a Dto
 	T dto;
@@ -13,18 +12,15 @@ public abstract class BoBase<T> extends GateWay{
 	IRepositoryBase<T> repository = new RepositoryBase<T>(); 
 
 	// Adds basic DB operations
-	public void Save(T object){
-		repository.save(object);
-	}
-	
-	// Adds basic DB operations
-	public void Update(T object){
-		repository.update(object);
+	public BoBase<T> SaveOrUpdate(T object){
+		repository.saveOrUpdate(object);
+		return this;
 	}
 
 	// Adds basic DB operations
-	public void Delete(T object){
+	public BoBase<T> Delete(T object){
 		repository.delete(object);
+		return this;
 	}
 	
 }
