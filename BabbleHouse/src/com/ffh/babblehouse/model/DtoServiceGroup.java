@@ -2,9 +2,11 @@ package com.ffh.babblehouse.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 @Entity
 public class DtoServiceGroup {
 	@Id 
@@ -13,8 +15,13 @@ public class DtoServiceGroup {
 	
 	private String name;
 	private int status; // 1 means on and 2 means off
+	
+	@OneToMany(cascade= CascadeType.REMOVE)
 	private List<DtoDevice> devices;
+	
+	@OneToMany(cascade= CascadeType.REMOVE)
 	private List<DtoSensor> sensors;
+	
 	private int batterylevel; // percentage
 
 	public int getId() { 

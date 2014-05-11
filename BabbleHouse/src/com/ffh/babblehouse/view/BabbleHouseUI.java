@@ -56,21 +56,21 @@ public class BabbleHouseUI extends UI {
 		// Example on how to fill a DTO with data from fields on our views
 		DtoProduct p1 = new DtoProduct(); 
 		// "shirt1" can be filled from a textfield, for example
-		p1.setNome("shirt1"); 
+		p1.setName("shirt1"); 
 		// "15" can be filled from a textfield, for example
-		p1.setPreco(15);  
+		p1.setPrice(15);  
 		
 		// --------
 		
 		DtoProduct p2 = new DtoProduct();
-		p2.setNome("shirt2"); 
-		p2.setPreco(20);
+		p2.setName("shirt2"); 
+		p2.setPrice(20);
 		
 		// --------
 		
 		DtoProduct p3 = new DtoProduct();
-		p3.setNome("shirt3"); 
-		p3.setPreco(25);
+		p3.setName("shirt3"); 
+		p3.setPrice(25);
 		
 		// --------------------  Requesting Logics from BO layer -----------------------
 		
@@ -86,7 +86,7 @@ public class BabbleHouseUI extends UI {
 		// --------------------  Requesting Logics from BO layer -----------------------
 		
 		// Changing shirt1 name to be updated
-		p1.setNome("shirt10"); 
+		p1.setName("shirt10"); 
 		
 		boProduct.SaveOrUpdate(p1);
 		
@@ -94,6 +94,15 @@ public class BabbleHouseUI extends UI {
 		
 		// removing shirt2 from DB
 		boProduct.Delete(p2);
+		
+		// --------------------  Requesting Logics from BO layer -----------------------
+		
+		DtoProduct loadedProduct = boProduct.SelectById(DtoProduct.class, p1.getId());
+		
+		// Filling textarea, for example, with data from the DB
+		System.out.println("Id: " + loadedProduct.getId());
+		System.out.println("Name: " + loadedProduct.getName());
+		System.out.println("Price: " + loadedProduct.getPrice());
 		
 	}
 }

@@ -9,26 +9,26 @@ public class DtoProduct{
 	@Id 
 	@GeneratedValue
 	protected int id;
-	private String nome; 
-	private double preco;  
+	private String name; 
+	private double price;  
 		
 	public int getId() { 
 		return id; 
 	}
 	
-	public String getNome() { 
-		return nome; 
+	public String getName() { 
+		return name; 
 	} 
 	
-	public void setNome(String nome) { 
-		this.nome = nome; 
+	public void setName(String nome) { 
+		this.name = nome; 
 	} 
 	
-	public double getPreco() { 
-		return preco; 
+	public double getPrice() { 
+		return price; 
 	} 
 	
-	public void setPreco(double preco) { 
-		this.preco = preco; 
+	public void setPrice(double preco) { 
+		this.price = preco; 
 	} 
 }

@@ -2,9 +2,11 @@ package com.ffh.babblehouse.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class DtoGateway {
@@ -17,6 +19,8 @@ private int Baudrate;
 private int Stopbits;
 private int Databits;
 private int Parity_none;
+
+@OneToMany(cascade= CascadeType.REMOVE)
 List<DtoServiceGroup> serviceGroups ;
 
 public int getId() { 

@@ -12,6 +12,11 @@ public abstract class BoBase<T>{
 	IRepositoryBase<T> repository = new RepositoryBase<T>(); 
 
 	// Adds basic DB operations
+	public T SelectById(Class<T> DtoClass, int Id){
+		return repository.selectById(DtoClass,Id);
+	}	
+	
+	// Adds basic DB operations
 	public BoBase<T> SaveOrUpdate(T object){
 		repository.saveOrUpdate(object);
 		return this;

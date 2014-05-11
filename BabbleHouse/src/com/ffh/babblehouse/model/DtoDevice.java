@@ -2,9 +2,12 @@ package com.ffh.babblehouse.model;
 
 
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity; 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class DtoDevice{
@@ -13,7 +16,11 @@ public class DtoDevice{
 	@GeneratedValue
 	protected int id;
 	String deviceName;
+	
+	@OneToMany(cascade= CascadeType.REMOVE)
 	List<DtoUDR> userDefineRules;
+	
+	@OneToMany(cascade= CascadeType.REMOVE)
 	List<DtoValue> values;
 
 	public int getId() { 

@@ -7,4 +7,6 @@ public interface IRepositoryBase<T> {
 	
 	// Deletes data from DB
 	void delete(T object);
+	
+	T selectById(Class<T> thisClass, final int Id);
 }
