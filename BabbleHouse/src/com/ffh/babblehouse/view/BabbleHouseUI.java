@@ -97,6 +97,7 @@ public class BabbleHouseUI extends UI {
 		
 		// --------------------  Requesting Logics from BO layer -----------------------
 		
+		// Loading data from DB by Id
 		DtoProduct loadedProduct = boProduct.SelectById(DtoProduct.class, p1.getId());
 		
 		// Filling textarea, for example, with data from the DB
