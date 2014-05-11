@@ -2,9 +2,10 @@ package com.ffh.babblehouse.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+@Entity
 public class DtoServiceGroup {
 	@Id 
 	@GeneratedValue

@@ -37,7 +37,7 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 			em.getTransaction().commit();
 		}
 		catch(Exception e){
-			
+			System.out.println("Could not commit transaction. Issue in RepositoryBase.");
 		}
 	}
 }
