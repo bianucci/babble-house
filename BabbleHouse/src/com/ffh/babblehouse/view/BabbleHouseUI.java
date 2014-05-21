@@ -2,51 +2,101 @@ package com.ffh.babblehouse.view;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.ffh.babblehouse.controller.BusinessObjects.BoBase;
+import com.ejt.vaadin.loginform.DefaultVerticalLoginForm;
 import com.ffh.babblehouse.controller.BusinessObjects.BoProduct;
-import com.ffh.babblehouse.controller.repositories.ProductRepository;
+import com.ffh.babblehouse.controller.BusinessObjects.BoUser;
 import com.ffh.babblehouse.model.DtoProduct;
+import com.ffh.babblehouse.model.DtoUser;
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Button;
+import com.vaadin.shared.Position;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
-@Theme("babblehouse")
+@Theme("runo")
 public class BabbleHouseUI extends UI {
 
 	@WebServlet(value = "/*", asyncSupported = true)
-	@VaadinServletConfiguration(productionMode = false, ui = BabbleHouseUI.class)
+	@VaadinServletConfiguration(productionMode = false, ui = BabbleHouseUI.class, widgetset = "com.ffh.babblehouse.view.widgetset.BabblehouseWidgetset")
 	public static class Servlet extends VaadinServlet {
 	}
+    
+	Navigator navigator;
+    protected static final String MAINUI = "main";
 
+    @Title("LoginUI")
+    public class LoginUI extends DefaultVerticalLoginForm implements View{
+
+        @Override
+        protected void login(String userName, String password) {
+
+        	if(userName.length()<6 || userName.length() > 12 || password.length() < 6 || password.length() > 20)
+        		Notification.show("Username and/or Password length is too long or too short",Type.ERROR_MESSAGE); 
+        	else
+        	{
+            	// FIlling Dto with data from View
+            	DtoUser userBeingVerified = new DtoUser();
+            	userBeingVerified.setUserName(userName);
+            	userBeingVerified.setPassword(password);
+            	
+            	// Creating a Business Object
+            	BoUser boUser = new BoUser();
+            	
+            	// Requesting action from BO
+            	if(boUser.Validate(userBeingVerified))
+            		navigator.navigateTo(MAINUI);
+            	else
+            		Notification.show("Could not Log in. Possibly wrong user name and/or password.",Type.ERROR_MESSAGE);
+        	}
+        }
+    	
+    	@Override
+    	public void enter(ViewChangeEvent event) {
+    		Notification welcome = new Notification("Welcome to BabbleHouse!!!",Type.HUMANIZED_MESSAGE);
+    		welcome.setDelayMsec(3000);
+    		welcome.setPosition(Position.TOP_CENTER);
+    		welcome.show(this.getUI().getPage());
+    	}
+
+    }
+    
+    @Title("MainUI")
+    public class MainUI extends VerticalLayout implements View{
+
+    	// Every time MainUI is invoked, this method is executed before rendering components
+    	@Override
+    	public void enter(ViewChangeEvent event) {
+    	}
+
+    	public MainUI() {
+    		// Here goes the Main page components
+    		Label label = new Label("MainUI");
+    		this.addComponent(label);
+		}
+
+    }
+    
 	@Override
 	protected void init(VaadinRequest request) {
 		
-		final VerticalLayout layout = new VerticalLayout();
-		layout.setMargin(true);
-		setContent(layout);
-		
-		// The 2 lines below are examples and will be removed.
-		Button buttonOnOff = new Button("On/Off");
-		layout.addComponent(buttonOnOff);
-		exampleTest();
-//			Button buttonOnOff = new Button("On/Off", new Button.ClickListener () {
-//			// Actions performed when button is pressed
-//			BoLed boLed = new BoLed();
-//			int i = 0 ;
-//			public void buttonClick(Button.ClickEvent event){
-//				boLed.toggleDtoPinStatus();
-//				boLed.setDtoId(i++);
-//				layout.addComponent(boLed.getDtoId());
-//				layout.addComponent(boLed.getDtoPinStatus());
-//			}
-//		});
-		
-//		layout.addComponent(buttonOnOff);
+        getPage().setTitle("Babble House");
+        
+        // Create a navigator to control the views
+        navigator = new Navigator(this, this);
+        
+        // Create and register the views
+        navigator.addView("", new LoginUI());
+        navigator.addView(MAINUI, new MainUI());
 	}
 
 	public void exampleTest(){

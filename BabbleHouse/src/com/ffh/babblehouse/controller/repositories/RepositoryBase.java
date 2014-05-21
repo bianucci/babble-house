@@ -55,7 +55,7 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 		});
 	}
 	
-	private void transact(Runnable action){
+	protected void transact(Runnable action){
 		
 		try{
 			em.getTransaction().begin(); 
@@ -69,7 +69,7 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 		}
 	}
 	
-	private T transact(Callable<T> action){
+	protected T transact(Callable<T> action){
 		T t = null;
 		try{
 			em.getTransaction().begin(); 

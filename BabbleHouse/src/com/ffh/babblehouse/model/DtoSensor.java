@@ -18,7 +18,6 @@ public class DtoSensor {
 	@OneToMany(cascade= CascadeType.REMOVE)
 	List<DtoUDR> userDefineRules;
 	
-	// TODO Make sure it is OneToMany instead of One to One
 	@OneToMany(cascade= CascadeType.REMOVE)
 	List<DtoValue> values;
 
