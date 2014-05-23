@@ -16,6 +16,13 @@ public class UARTMessageProtosUsuage {
 
 	@SuppressWarnings("unused")
 	public void showProtosUsuage(byte[] dataReceived, int lengthOfProto) {
+		
+		//1. step: read one byte from COM4
+		//2. step: convert byte to integer and read value. lets assume it's 142
+		//3. step: read 142 bytes from COM4
+		//4. step: convert the 142 bytes to one protobuf object
+		//5. step: process protobuf object
+		//6. step: restart !
 
 		byte[] serialProtoBuf = Arrays.copyOf(dataReceived, lengthOfProto);
 
