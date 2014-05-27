@@ -26,7 +26,6 @@ public class LoginUI extends DefaultVerticalLoginForm implements View{
 	
     @Override
     protected void login(String userName, String password) {
-
     	if(userName.length()<6 || userName.length() > 12 || password.length() < 6 || password.length() > 20)
     		Notification.show("Username and/or Password length is too long or too short",Type.ERROR_MESSAGE); 
     	else

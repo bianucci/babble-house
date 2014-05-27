@@ -11,8 +11,9 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 
+
 @SuppressWarnings("serial")
-@Theme("runo")
+@Theme("reindeer")
 public class BabbleHouseUI extends UI {
 
 	@WebServlet(value = "/*", asyncSupported = true)
@@ -33,6 +34,7 @@ public class BabbleHouseUI extends UI {
         // Create and register the views
         navigator.addView("", new LoginUI(navigator,MAINUI));
         navigator.addView(MAINUI, new MainUI(navigator));
+        navigator.addView("TEST", new MainUI(navigator));
 	}
 
 	// TODO This method will be removed
