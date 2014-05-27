@@ -30,62 +30,9 @@ public class BabbleHouseUI extends UI {
 	@VaadinServletConfiguration(productionMode = false, ui = BabbleHouseUI.class, widgetset = "com.ffh.babblehouse.view.widgetset.BabblehouseWidgetset")
 	public static class Servlet extends VaadinServlet {
 	}
-    
-	Navigator navigator;
+    Navigator navigator;
     protected static final String MAINUI = "main";
-
-    @Title("LoginUI")
-    public class LoginUI extends DefaultVerticalLoginForm implements View{
-
-        @Override
-        protected void login(String userName, String password) {
-
-        	if(userName.length()<6 || userName.length() > 12 || password.length() < 6 || password.length() > 20)
-        		Notification.show("Username and/or Password length is too long or too short",Type.ERROR_MESSAGE); 
-        	else
-        	{
-            	// FIlling Dto with data from View
-            	DtoUser userBeingVerified = new DtoUser();
-            	userBeingVerified.setUserName(userName);
-            	userBeingVerified.setPassword(password);
-            	
-            	// Creating a Business Object
-            	BoUser boUser = new BoUser();
-            	
-            	// Requesting action from BO
-            	if(boUser.Validate(userBeingVerified))
-            		navigator.navigateTo(MAINUI);
-            	else
-            		Notification.show("Could not Log in. Possibly wrong user name and/or password.",Type.ERROR_MESSAGE);
-        	}
-        }
-    	
-    	@Override
-    	public void enter(ViewChangeEvent event) {
-    		Notification welcome = new Notification("Welcome to BabbleHouse!!!",Type.HUMANIZED_MESSAGE);
-    		welcome.setDelayMsec(3000);
-    		welcome.setPosition(Position.TOP_CENTER);
-    		welcome.show(this.getUI().getPage());
-    	}
-
-    }
-    
-    @Title("MainUI")
-    public class MainUI extends VerticalLayout implements View{
-
-    	// Every time MainUI is invoked, this method is executed before rendering components
-    	@Override
-    	public void enter(ViewChangeEvent event) {
-    	}
-
-    	public MainUI() {
-    		// Here goes the Main page components
-    		Label label = new Label("MainUI");
-    		this.addComponent(label);
-		}
-
-    }
-    
+  
 	@Override
 	protected void init(VaadinRequest request) {
 		
@@ -95,10 +42,11 @@ public class BabbleHouseUI extends UI {
         navigator = new Navigator(this, this);
         
         // Create and register the views
-        navigator.addView("", new LoginUI());
-        navigator.addView(MAINUI, new MainUI());
+        navigator.addView("", new LoginUI(navigator,MAINUI));
+        navigator.addView(MAINUI, new MainUI(navigator));
 	}
 
+	// TODO This method will be removed
 	public void exampleTest(){
 		
 		// ------------------------   Filling objects   --------------------------------

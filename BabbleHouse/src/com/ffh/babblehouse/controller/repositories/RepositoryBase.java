@@ -1,7 +1,6 @@
 package com.ffh.babblehouse.controller.repositories;
 
 import java.util.concurrent.Callable;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -65,7 +64,7 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 			em.getTransaction().commit();
 		}
 		catch(Exception e){
-			System.out.println("Could not commit transaction. Issue in RepositoryBase.Transact(Runnable action).");
+			showConnectionError(e,"Could not commit transaction. Issue in RepositoryBase.Transact(Runnable action).");
 		}
 	}
 	
@@ -79,10 +78,15 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 			em.getTransaction().commit();
 		}
 		catch(Exception e){
-			System.out.println("Could not commit transaction. Issue in RepositoryBase.Transact(Callable<T> action).");
-			System.out.println(e.getStackTrace());
-			System.out.println(e.getMessage());
+			showConnectionError(e,"Could not commit transaction. Issue in RepositoryBase.Transact(Callable<T> action).");
 		}
+
 		return t;
 	}	
+	
+	private void showConnectionError(Exception e, String messageToShow){
+		System.out.println("");
+		System.out.println(e.getStackTrace());
+		System.out.println(e.getMessage());
+	}
 }
