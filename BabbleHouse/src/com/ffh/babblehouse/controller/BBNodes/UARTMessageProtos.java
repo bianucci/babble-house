@@ -95,6 +95,7 @@ public final class UARTMessageProtos {
     private UARTMessage(CodedInputStream input, ExtensionRegistryLite extensionRegistry) throws com.google.protobuf.InvalidProtocolBufferException {
       
     	initFields();
+    	// TODO Verify if variable is necessary
     	int mutable_bitField0_ = 0;
 	      UnknownFieldSet.Builder unknownFields = UnknownFieldSet.newBuilder();
 	      try {
@@ -1012,6 +1013,7 @@ public final class UARTMessageProtos {
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       initFields();
+      // TODO Verify if variable is necessary
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();

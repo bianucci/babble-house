@@ -1,13 +1,8 @@
 package com.ffh.babblehouse.view;
 
-import java.net.ConnectException;
-
-import org.hibernate.exception.JDBCConnectionException;
-
 import com.ejt.vaadin.loginform.DefaultVerticalLoginForm;
 import com.ffh.babblehouse.controller.BusinessObjects.BoUser;
 import com.ffh.babblehouse.model.DtoUser;
-import com.mysql.jdbc.CommunicationsException;
 import com.vaadin.annotations.Title;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;

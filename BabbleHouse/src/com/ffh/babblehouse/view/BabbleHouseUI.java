@@ -2,25 +2,14 @@ package com.ffh.babblehouse.view;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.ejt.vaadin.loginform.DefaultVerticalLoginForm;
 import com.ffh.babblehouse.controller.BusinessObjects.BoProduct;
-import com.ffh.babblehouse.controller.BusinessObjects.BoUser;
 import com.ffh.babblehouse.model.DtoProduct;
-import com.ffh.babblehouse.model.DtoUser;
 import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.shared.Position;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.Notification.Type;
-import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
 @Theme("runo")
