@@ -1,18 +1,62 @@
 package com.ffh.babblehouse.controller.BBNodes;
 
-import com.ffh.babblehouse.model.DtoMessage;
+import jssc.SerialPort;
+import jssc.SerialPortException;
 
-public class Reader extends Thread implements IReader {
 
-	@Override
-	public DtoMessage readMessage() {
-		// TODO Auto-generated method stub
-		return null;
+
+public class Reader  implements IReader {
+	 Iconnector iconnector;
+	private static  int FistTimebytesread=1;
+	private int SecondTimebytesread=0;
+	private byte[] combufferInfo;
+	private byte[] combuffer;
+	SerialPort serialPort;
+	public Reader(Iconnector iconnector){
+		this.iconnector=iconnector;
+		 serialPort= iconnector.PortConnection();
+		
 	}
+	
+	// read byte stream from the returned open com port
+	
+	
+
+	public  int FirstTimereadBytes(){
+		
+	        String comdata="";
+			
+			try {
+				combufferInfo = serialPort.readBytes(FistTimebytesread);
+				comdata= combufferInfo.toString();
+			} catch (SerialPortException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}//Read 10 bytes from serial port
+
+		
+		return Integer.parseInt(comdata);
+		
+	}
+	public byte[] readBytes(){
+		
+		SecondTimebytesread=FirstTimereadBytes();
+		try {
+			combuffer = serialPort.readBytes(SecondTimebytesread);
+			
+		} catch (SerialPortException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//Read 10 bytes from serial port
 
 	
 	
+		
+		return combuffer;
+	}
+	// start thread 
+	public int getLength(){
+	return	SecondTimebytesread ;
+	}
 	
-	
-
 }
