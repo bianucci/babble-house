@@ -14,7 +14,7 @@ import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type
 import com.google.protobuf.InvalidProtocolBufferException;
 
 
-public class Creator  implements IMessage{
+public class Creator{
 	IReader iReader;
 private String Msg_type;
 	private int Zid_sender;
@@ -108,10 +108,9 @@ private String Msg_type;
 	
 	
 
-	public DtoMessage processMessage( ) {
+	public Object processMessage( ) {
 		ExtactMsgFromReadbytes(iReader.readBytes(), iReader.getLength());
-		DtoMessage dtoMsg=new DtoMessage(Msg_type,ServiceId,Zid_sender,Payload);
-		return dtoMsg;
+		return null;
 	}
 
 	

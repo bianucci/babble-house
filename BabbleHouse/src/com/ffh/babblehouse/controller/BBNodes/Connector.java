@@ -1,7 +1,4 @@
 package com.ffh.babblehouse.controller.BBNodes;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
