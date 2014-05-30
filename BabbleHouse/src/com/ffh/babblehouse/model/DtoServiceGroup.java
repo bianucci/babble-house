@@ -23,7 +23,7 @@ public class DtoServiceGroup {
 	private List<DtoSensor> sensors;
 	
 	private int batterylevel; // percentage
-
+	
 	public int getId() { 
 		return id; 
 	}
