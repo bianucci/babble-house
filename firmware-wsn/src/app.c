@@ -107,7 +107,6 @@ static void printMessageFired(){
     
 	Service s = uart_message.service;
 	
-	
 	// CREATING A NEW SERVICE OBJECT
     Service service = {0};
 	service.serviceType=Service_ServiceType_SENSOR;
@@ -118,12 +117,17 @@ static void printMessageFired(){
 	service.has_info=true;
 	strcpy(service.info, "degree celcius");
 	
+	// WRAPPING SERVICE OBJECT IN A NEW UART MESSAGE
+	UARTMessage u;
+	u.type=UARTMessage_Type_SERVICE;
+	u.has_service=true;
+	u.service=service;
+	
 	// ENCODING A MESSAGE
 	/* Create a stream that will write to our buffer. */
 	pb_ostream_t ostream = pb_ostream_from_buffer(encBuffer, sizeof(encBuffer));
-	pb_encode(&ostream, Service_fields, &s);
+	pb_encode(&ostream, UARTMessage_fields, &u);
 	uint8_t size = ostream.bytes_written;
-	
 	
 	// SENDING A MESSAGE
 	HAL_WriteUsart(&usart,&size,1);

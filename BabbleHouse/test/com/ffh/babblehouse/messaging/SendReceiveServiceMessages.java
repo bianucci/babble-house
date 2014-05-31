@@ -1,11 +1,10 @@
 package com.ffh.babblehouse.messaging;
 
-import java.awt.TrayIcon.MessageType;
-
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortTimeoutException;
 
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.Builder;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
@@ -59,12 +58,17 @@ public class SendReceiveServiceMessages {
 		public void run() {
 			while (true) {
 				byte[] isRead = new byte[100];
+				
 				Service service = null;
+				
+				
 				try {
 					int size = serialPort.readBytes(1)[0];
 					if (size != 0)
 						isRead = serialPort.readBytes(size);
-					service = UARTMessageProtos.Service.parseFrom(isRead);
+					UARTMessage m = UARTMessage.parseFrom(isRead);
+					service = m.getService();
+					
 				} catch (SerialPortException e) {
 					e.printStackTrace();
 				} catch (InvalidProtocolBufferException e) {
