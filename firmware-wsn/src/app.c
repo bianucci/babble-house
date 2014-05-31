@@ -99,12 +99,15 @@ static uint8_t encBuffer[100];
 static void printMessageFired(){
 
 	// DECODING LAST MESSAGE RECEIVED
-	Service received;
+	UARTMessage uart_message;
 	/* Create a stream that reads from the buffer. */
     pb_istream_t istream = pb_istream_from_buffer(last_msg, last_msg_length);
 	/* Now we are ready to decode the message. */
-	bool status = pb_decode(&istream, Service_fields, &received);
+	bool status = pb_decode(&istream, UARTMessage_fields, &uart_message);
     
+	Service s = uart_message.service;
+	
+	
 	// CREATING A NEW SERVICE OBJECT
     Service service = {0};
 	service.serviceType=Service_ServiceType_SENSOR;
@@ -118,7 +121,7 @@ static void printMessageFired(){
 	// ENCODING A MESSAGE
 	/* Create a stream that will write to our buffer. */
 	pb_ostream_t ostream = pb_ostream_from_buffer(encBuffer, sizeof(encBuffer));
-	pb_encode(&ostream, Service_fields, &received);
+	pb_encode(&ostream, Service_fields, &s);
 	uint8_t size = ostream.bytes_written;
 	
 	

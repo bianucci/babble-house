@@ -1,13 +1,17 @@
 package com.ffh.babblehouse.messaging;
 
-import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service;
-import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.Builder;
-import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
-import com.google.protobuf.InvalidProtocolBufferException;
+import java.awt.TrayIcon.MessageType;
 
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortTimeoutException;
+
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.Builder;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 public class SendReceiveServiceMessages {
 
@@ -20,9 +24,12 @@ public class SendReceiveServiceMessages {
 				serviceBuilder.setServiceId(1);
 				serviceBuilder.setServiceType(ServiceType.SENSOR);
 				serviceBuilder.setServiceGroupId(2);
-
 				Service service = serviceBuilder.build();
-				byte[] message = service.toByteArray();
+
+				UARTMessage uartMessage = UARTMessage.newBuilder().setType(Type.SERVICE)
+						.setService(service).build();
+
+				byte[] message = uartMessage.toByteArray();
 				int length = message.length;
 
 				try {
