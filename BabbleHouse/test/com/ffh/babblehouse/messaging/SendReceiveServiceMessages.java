@@ -4,7 +4,7 @@ import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortTimeoutException;
 
-import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Beacon;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.Builder;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
@@ -25,8 +25,8 @@ public class SendReceiveServiceMessages {
 				serviceBuilder.setServiceGroupId(2);
 				Service service = serviceBuilder.build();
 
-				UARTMessage uartMessage = UARTMessage.newBuilder().setType(Type.SERVICE)
-						.setService(service).build();
+				UARTMessage uartMessage = UARTMessage.newBuilder()
+						.setType(Type.SERVICE).setService(service).build();
 
 				byte[] message = uartMessage.toByteArray();
 				int length = message.length;
@@ -55,27 +55,35 @@ public class SendReceiveServiceMessages {
 	}
 
 	private static class Receiver extends Thread {
+		@SuppressWarnings("unused")
 		public void run() {
 			while (true) {
 				byte[] isRead = new byte[100];
-				
+
 				Service service = null;
-				
-				
+				Beacon beacon = null;
+				UARTMessage m = null;
+
 				try {
-					int size = serialPort.readBytes(1)[0];
-					if (size != 0)
+					// read size and unsign it
+					int size = serialPort.readBytes(1)[0] & 0xFF;
+					if (size >= 0) {
 						isRead = serialPort.readBytes(size);
-					UARTMessage m = UARTMessage.parseFrom(isRead);
-					service = m.getService();
-					
+						m = UARTMessage.parseFrom(isRead);
+
+						if (m.getType() == Type.SERVICE)
+							service = m.getService();
+						if (m.getType() == Type.BEACON)
+							beacon = m.getBeacon();
+					}
 				} catch (SerialPortException e) {
 					e.printStackTrace();
 				} catch (InvalidProtocolBufferException e) {
 					e.printStackTrace();
 				}
+
 				System.err.println("RECEIVED FOLLOWING PROTOBUF MESSAGE:");
-				System.err.println(service.toString());
+				System.err.println(m);
 			}
 		}
 

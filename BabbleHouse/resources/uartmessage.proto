@@ -20,5 +20,5 @@ message Service{
 message Beacon{
   required uint32 serviceGroupId = 1;
   optional string name = 2;
-  repeated Service service = 3;
+  repeated Service services = 3;
 }

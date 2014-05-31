@@ -12,7 +12,7 @@
 #include <appTimer.h>
 #include <zdo.h>
 #include <app.h>
-#include <usart.h> 
+#include <usart.h>
  
 #define RX_BUFFER_SIZE 200
 #define TX_BUFFER_SIZE 200
@@ -25,11 +25,16 @@ static uint8_t Tx_Buffer[TX_BUFFER_SIZE];
 static uint8_t buffer[RX_BUFFER_SIZE];
 static void printMessageFired(void);
 
+static void createBeaconList();
+static Beacon my_beacon;
+
 static int buffer_counter = 0;
 static uint8_t message_length = 0;
 
 static uint8_t last_msg[100]; 
 static uint8_t last_msg_length=0;
+
+static uint8_t beacon_sent=0;
 
 void usartRcvd(uint8_t size)
 {
@@ -85,6 +90,9 @@ void APL_TaskHandler(void)
 		usart_Init();
 		HAL_OpenUsart(&usart);
 	
+		srand(42);
+		createBeaconList();
+		
 		sendTimer.interval = 1000;
 		sendTimer.mode = TIMER_REPEAT_MODE;
 		sendTimer.callback = printMessageFired;
@@ -94,7 +102,7 @@ void APL_TaskHandler(void)
 	}
 }
 
-static uint8_t encBuffer[100];
+static uint8_t encBuffer[200];
 
 static void printMessageFired(){
 
@@ -119,9 +127,20 @@ static void printMessageFired(){
 	
 	// WRAPPING SERVICE OBJECT IN A NEW UART MESSAGE
 	UARTMessage u;
-	u.type=UARTMessage_Type_SERVICE;
 	u.has_service=true;
-	u.service=service;
+	u.has_beacon=true;
+	
+	if(beacon_sent==1){
+		u.service=service;
+		u.type=UARTMessage_Type_SERVICE;
+		u.has_beacon=false;
+		beacon_sent=0;
+	} else {
+		u.beacon=my_beacon;
+		u.type=UARTMessage_Type_BEACON;
+		u.has_service=false;
+		beacon_sent=1;
+	}
 	
 	// ENCODING A MESSAGE
 	/* Create a stream that will write to our buffer. */
@@ -132,6 +151,42 @@ static void printMessageFired(){
 	// SENDING A MESSAGE
 	HAL_WriteUsart(&usart,&size,1);
 	HAL_WriteUsart(&usart,&encBuffer,size);
+}
+
+static void createBeaconList(){
+	my_beacon.serviceGroupId=1;
+	my_beacon.has_name=true;
+	strcpy(my_beacon.name,"living room");
+	my_beacon.service_count=8;
+	
+	for(int i=0; i<8; i++){
+		my_beacon.service[i].serviceGroupId=1;
+		my_beacon.service[i].serviceId=i;
+		my_beacon.service[i].has_value=true;
+		my_beacon.service[i].has_info=true;
+	
+		// assign random values
+		if(i<5){	
+			my_beacon.service[i].serviceType=Service_ServiceType_SENSOR;
+			my_beacon.service[i].value=rand() % 100;
+			switch(i){
+				case 0: strcpy(my_beacon.service[i].info, "temperature"); break; 
+				case 1: strcpy(my_beacon.service[i].info, "light"); break;
+				case 2: strcpy(my_beacon.service[i].info, "humidity"); break;
+				case 3: strcpy(my_beacon.service[i].info, "pressure"); break;	
+			}
+		} else {
+			my_beacon.service[i].serviceType=Service_ServiceType_ACTUATOR;
+			my_beacon.service[i].value=i%2;
+			switch(i){
+				case 4: strcpy(my_beacon.service[i].info, "heater"); break; 
+				case 5: strcpy(my_beacon.service[i].info, "light bulb"); break;
+				case 6: strcpy(my_beacon.service[i].info, "radio"); break;
+				case 7: strcpy(my_beacon.service[i].info, "television"); break;	
+			}
+		}
+		
+	}
 }
 
 void ZDO_MgmtNwkUpdateNotf(ZDO_MgmtNwkUpdateNotf_t *nwkParams) { nwkParams = nwkParams; }
