@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>6.1</ProjectVersion>
+    <ProjectGuid>{0b8240ee-645f-40ee-8b36-33a49c7eb4b1}</ProjectGuid>
+    <avrdevice>Atmega1281</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>C</Language>
+    <avrtoolinterface>JTAG</avrtoolinterface>
+    <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
+    <ToolchainFlavour>winavr</ToolchainFlavour>
+    <avrtool>com.atmel.avrdbg.tool.jtagicemk3</avrtool>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <OverrideVtorValue>
+    </OverrideVtorValue>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
+    <ProgFlashFromRam>true</ProgFlashFromRam>
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
+    <CacheFlash>true</CacheFlash>
+    <UncachedRange />
+    <BootSegment>2</BootSegment>
+    <Name>MeshBean_900</Name>
+    <AsfFrameworkConfig>
+      <framework-data xmlns="">
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.8.1" />
+        </dependencies>
+      </framework-data>
+    </AsfFrameworkConfig>
+    <com_atmel_avrdbg_tool_jtagicemk3>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.jtagicemk3</ToolType>
+      <ToolName xmlns="">JTAGICE3</ToolName>
+      <ToolNumber xmlns="">J30200018629</ToolNumber>
+      <StimuliFile xmlns="">
+      </StimuliFile>
+      <Channel xmlns="">
+        <host>127.0.0.1</host>
+        <port>49664</port>
+        <ssl>False</ssl>
+      </Channel>
+      <ToolOptions xmlns="">
+        <InterfaceName>JTAG</InterfaceName>
+        <InterfaceProperties>
+          <JtagDbgClock>7500000</JtagDbgClock>
+          <SwdClock>249000</SwdClock>
+          <JtagProgClock>7500000</JtagProgClock>
+          <IspClock>125000</IspClock>
+          <JtagInChain>false</JtagInChain>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
+          <JtagDevicesBefore>0</JtagDevicesBefore>
+          <JtagDevicesAfter>0</JtagDevicesAfter>
+          <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
+          <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
+          <PdiClock>4000000</PdiClock>
+          <AWireMaxBaud>7500000</AWireMaxBaud>
+        </InterfaceProperties>
+      </ToolOptions>
+    </com_atmel_avrdbg_tool_jtagicemk3>
+  </PropertyGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\Vs\AvrGCC.targets" />
+  <PropertyGroup Condition=" '$(Configuration)' == 'All_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\All_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_All_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+    <OutputFileName>App</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <ToolchainSettings>
+      <AvrGcc xmlns="">
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+    <BuildTarget>all</BuildTarget>
+    <CleanTarget>clean</CleanTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+    <OutputFileName>App</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <ToolchainSettings>
+      <AvrGcc xmlns="">
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+    <BuildTarget>all</BuildTarget>
+    <CleanTarget>clean</CleanTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Router_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\Router_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_Router_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+    <OutputFileName>App</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <ToolchainSettings>
+      <AvrGcc xmlns="">
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+    <BuildTarget>all</BuildTarget>
+    <CleanTarget>clean</CleanTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'EndDevice_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\EndDevice_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_EndDevice_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+    <OutputFileName>App</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <ToolchainSettings>
+      <AvrGcc xmlns="">
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+    <BuildTarget>all</BuildTarget>
+    <CleanTarget>clean</CleanTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'All_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\All_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_All_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+    <OutputFileName>App</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <ToolchainSettings>
+      <AvrGcc xmlns="">
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+    <BuildTarget>all</BuildTarget>
+    <CleanTarget>clean</CleanTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Coordinator_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\Coordinator_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_Coordinator_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+    <OutputFileName>App</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <ToolchainSettings>
+      <AvrGcc xmlns="">
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+    <BuildTarget>all</BuildTarget>
+    <CleanTarget>clean</CleanTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Router_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\Router_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_Router_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+    <OutputFileName>App</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <ToolchainSettings>
+      <AvrGcc xmlns="">
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+    <BuildTarget>all</BuildTarget>
+    <CleanTarget>clean</CleanTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'EndDevice_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\EndDevice_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_EndDevice_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+    <OutputFileName>App</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <ToolchainSettings>
+      <AvrGcc xmlns="">
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+    <BuildTarget>all</BuildTarget>
+    <CleanTarget>clean</CleanTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\include\pb.h">
+      <SubType>compile</SubType>
+      <Link>include\pb.h</Link>
+    </Compile>
+    <Compile Include="..\include\pb_decode.h">
+      <SubType>compile</SubType>
+      <Link>include\pb_decode.h</Link>
+    </Compile>
+    <Compile Include="..\include\pb_encode.h">
+      <SubType>compile</SubType>
+      <Link>include\pb_encode.h</Link>
+    </Compile>
+    <Compile Include="..\include\uartmessage.pb.h">
+      <SubType>compile</SubType>
+      <Link>include\uartmessage.pb.h</Link>
+    </Compile>
+    <Compile Include="..\src\pb_decode.c">
+      <SubType>compile</SubType>
+      <Link>src\pb_decode.c</Link>
+    </Compile>
+    <Compile Include="..\src\pb_encode.c">
+      <SubType>compile</SubType>
+      <Link>src\pb_encode.c</Link>
+    </Compile>
+    <Compile Include="..\src\uartManager.c">
+      <SubType>compile</SubType>
+      <Link>src\uartManager.c</Link>
+    </Compile>
+    <Compile Include="..\src\uartmessage.pb.c">
+      <SubType>compile</SubType>
+      <Link>src\uartmessage.pb.c</Link>
+    </Compile>
+    <Compile Include=".\..\src\app.c">
+      <SubType>compile</SubType>
+      <Link>src\app.c</Link>
+    </Compile>
+    <Compile Include=".\..\include\app.h">
+      <SubType>compile</SubType>
+      <Link>include\app.h</Link>
+    </Compile>
+    <Compile Include=".\..\configuration.h">
+      <SubType>compile</SubType>
+      <Link>configuration\configuration.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsMem.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsMem.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsWriteData.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsWriteData.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsDataServer.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsDataServer.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsInit.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsInit.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsTimer.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsTimer.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsEvents.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsEvents.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsMemAccess.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsMemAccess.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsCrcService.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsCrcService.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsDbg.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsDbg.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsMemAccess.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsMemAccess.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsCrcService.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsCrcService.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsTimer.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsTimer.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsMem.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsMem.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsWriteData.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsWriteData.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsMemAbstract.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsMemAbstract.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\pdsDataServer.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\pdsDataServer.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\sensors.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\sensors.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\buttons.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\buttons.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\pwrCtrl.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\pwrCtrl.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\leds.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\leds.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\battery.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\battery.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\lm73.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\lm73.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\tsl2550.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\tsl2550.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\sliders.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\sliders.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\fakeBSP.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\fakeBSP.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\bspTaskManager.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\bspTaskManager.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\src\csPersistentMem.c">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\src\csPersistentMem.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\src\csMem.c">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\src\csMem.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\src\configServer.c">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\src\configServer.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\include\private\csParamTable.h">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\include\private\csParamTable.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\include\private\csDbg.h">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\include\private\csDbg.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\include\private\csBuffers.h">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\include\private\csBuffers.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\include\private\csSIB.h">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\include\private\csSIB.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\include\csDefaulfts.h">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\include\csDefaulfts.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\include\configServer.h">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\include\configServer.h</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Components\BSP\" />
+    <Folder Include="Components\ConfigServer\" />
+    <Folder Include="Components\PersistDataServer\" />
+    <Folder Include="src" />
+    <Folder Include="Components\ConfigServer\src" />
+    <Folder Include="configuration" />
+    <Folder Include="Components\ConfigServer\include\private" />
+    <Folder Include="Components\BSP\src" />
+    <Folder Include="Components\PersistDataServer\src" />
+    <Folder Include="Components\PersistDataServer\include\private" />
+    <Folder Include="Components\ConfigServer\include" />
+    <Folder Include="Components\PersistDataServer\include" />
+    <Folder Include="include" />
+  </ItemGroup>
+</Project>

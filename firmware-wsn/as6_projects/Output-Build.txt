@@ -1,0 +1,39 @@
+﻿------ Build started: Project: MeshBean_900, Configuration: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc AVR ------
+Build started.
+Project "MeshBean_900.cproj" (default targets):
+Target "PreBuildEvent" skipped, due to false condition; ('$(PreBuildEvent)'!='') was evaluated as (''!='').
+Target "CoreBuild" in file "C:\Program Files (x86)\Atmel\Atmel Studio 6.1\Vs\Compiler.targets" from project "C:\Users\toor\Applications\UARTManagerTest\as6_projects\MeshBean_900.cproj" (target "Build" depends on it):
+	Task "RunCompilerTask"
+		C:\WinAVR-20100110\utils\bin\make.exe -C "C:\Users\toor\Applications\UARTManagerTest\as6_projects\..\makefiles\MeshBean_900" -f "Makefile_Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc" all 
+		make: Entering directory `C:/Users/toor/Applications/UARTManagerTest/makefiles/MeshBean_900'
+		avr-gcc -Wl,-Map=Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/List/Blink.map -Wl,--gc-sections -Wl,--script=./../../linkerScr/atmega1281.ld -mmcu=atmega1281 Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/blink.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsMem.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsWriteData.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsDataServer.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsInit.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsTimer.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsEvents.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsMemAccess.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsCrcService.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/sensors.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/buttons.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pwrCtrl.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/leds.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/battery.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/lm73.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/tsl2550.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/sliders.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/fakeBSP.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/bspTaskManager.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/csPersistentMem.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/csMem.o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/configServer.o -Wl,-\( ./../../../../BitCloud/lib/libHAL_ZigBit_Atmega1281_8Mhz_Gcc.a ./../../../../BitCloud/lib/libBc_Coordinator_Atmega1281_Rf212_Gcc.a ./../../../../BitCloud/lib/WdtInitatmega1281_Gcc.o  -Wl,-\) -o Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Exe/Blink.elf
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/blink.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsMem.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsWriteData.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsDataServer.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsInit.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsTimer.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsEvents.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsMemAccess.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pdsCrcService.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/sensors.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/buttons.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/pwrCtrl.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/leds.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/battery.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/lm73.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/tsl2550.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/sliders.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/fakeBSP.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/bspTaskManager.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/csPersistentMem.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/csMem.o: No such file or directory
+		avr-gcc: Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Obj/configServer.o: No such file or directory
+		make: *** [Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc/Exe/Blink.elf] Error 1
+		make: Leaving directory `C:/Users/toor/Applications/UARTManagerTest/makefiles/MeshBean_900'
+	Done executing task "RunCompilerTask" -- FAILED.
+Done building target "CoreBuild" in project "MeshBean_900.cproj" -- FAILED.
+Done building project "MeshBean_900.cproj" -- FAILED.
+
+Build FAILED.
+========== Build: 0 succeeded or up-to-date, 1 failed, 0 skipped ==========

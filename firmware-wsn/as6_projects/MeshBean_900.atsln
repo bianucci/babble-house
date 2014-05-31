@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "MeshBean_900", "MeshBean_900.cproj", "{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		All_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR = All_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		All_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR = All_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		Coordinator_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR = Coordinator_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR = Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		EndDevice_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR = EndDevice_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		EndDevice_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR = EndDevice_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		Router_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR = Router_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		Router_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR = Router_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.All_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.ActiveCfg = All_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.All_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.Build.0 = All_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.All_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.ActiveCfg = All_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.All_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.Build.0 = All_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.Coordinator_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.ActiveCfg = Coordinator_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.Coordinator_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.Build.0 = Coordinator_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.ActiveCfg = Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.Build.0 = Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.EndDevice_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.ActiveCfg = EndDevice_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.EndDevice_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.Build.0 = EndDevice_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.EndDevice_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.ActiveCfg = EndDevice_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.EndDevice_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.Build.0 = EndDevice_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.Router_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.ActiveCfg = Router_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.Router_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.Build.0 = Router_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.Router_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.ActiveCfg = Router_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+		{0B8240EE-645F-40EE-8B36-33A49C7EB4B1}.Router_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR.Build.0 = Router_ZigBit_Atmega1281_Rf212_8Mhz_Gcc|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

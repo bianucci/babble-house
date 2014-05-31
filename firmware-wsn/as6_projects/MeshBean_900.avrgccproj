@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>5.0</ProjectVersion>
+    <ProjectGuid>{0b8240ee-645f-40ee-8b36-33a49c7eb4b1}</ProjectGuid>
+    <avrdevice>Atmega1281</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>C</Language>
+    <OutputFile>App.elf</OutputFile>
+    <UseGlobalToolchain>False</UseGlobalToolchain>
+    <avrtoolinterface />
+    <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
+    <ToolchainFlavour>winavr</ToolchainFlavour>
+  </PropertyGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\Vs\AvrGCC.targets" />
+  <PropertyGroup Condition=" '$(Configuration)' == 'All_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\All_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_All_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Router_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\Router_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_Router_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'EndDevice_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\EndDevice_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_EndDevice_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'All_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\All_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_All_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Coordinator_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\Coordinator_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_Coordinator_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Router_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\Router_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_Router_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'EndDevice_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc' ">
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\..\makefiles\MeshBean_900\EndDevice_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc\Exe</OutputDirectory>
+    <ExternalMakeFilePath>..\makefiles\MeshBean_900\Makefile_EndDevice_Sec_ZigBit_Atmega1281_Rf212_8Mhz_Gcc</ExternalMakeFilePath>
+    <PostBuildEvent>cp -fu $(OutputDirectory)\App.elf $(OutputDirectory)\$(Name).elf</PostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include=".\..\src\app.c">
+      <SubType>compile</SubType>
+      <Link>src\app.c</Link>
+    </Compile>
+    <Compile Include=".\..\include\app.h">
+      <SubType>compile</SubType>
+      <Link>include\app.h</Link>
+    </Compile>
+    <Compile Include=".\..\configuration.h">
+      <SubType>compile</SubType>
+      <Link>configuration\configuration.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsMem.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsMem.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsWriteData.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsWriteData.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsDataServer.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsDataServer.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsInit.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsInit.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsTimer.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsTimer.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsEvents.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsEvents.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsMemAccess.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsMemAccess.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\src\pdsCrcService.c">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\src\pdsCrcService.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsDbg.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsDbg.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsMemAccess.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsMemAccess.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsCrcService.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsCrcService.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsTimer.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsTimer.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsMem.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsMem.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsWriteData.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsWriteData.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\private\pdsMemAbstract.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\private\pdsMemAbstract.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\PersistDataServer\include\pdsDataServer.h">
+      <SubType>compile</SubType>
+      <Link>Components\PersistDataServer\include\pdsDataServer.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\sensors.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\sensors.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\buttons.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\buttons.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\pwrCtrl.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\pwrCtrl.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\leds.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\leds.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\battery.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\battery.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\lm73.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\lm73.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\tsl2550.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\tsl2550.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\sliders.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\sliders.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\fakeBSP.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\fakeBSP.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\BSP\MESHBEAN\src\bspTaskManager.c">
+      <SubType>compile</SubType>
+      <Link>Components\BSP\src\bspTaskManager.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\src\csPersistentMem.c">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\src\csPersistentMem.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\src\csMem.c">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\src\csMem.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\src\configServer.c">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\src\configServer.c</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\include\private\csParamTable.h">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\include\private\csParamTable.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\include\private\csDbg.h">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\include\private\csDbg.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\include\private\csBuffers.h">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\include\private\csBuffers.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\include\private\csSIB.h">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\include\private\csSIB.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\include\csDefaulfts.h">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\include\csDefaulfts.h</Link>
+    </Compile>
+    <Compile Include=".\..\..\..\BitCloud\Components\ConfigServer\include\configServer.h">
+      <SubType>compile</SubType>
+      <Link>Components\ConfigServer\include\configServer.h</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Components\BSP\" />
+    <Folder Include="Components\ConfigServer\" />
+    <Folder Include="Components\PersistDataServer\" />
+    <Folder Include="src" />
+    <Folder Include="Components\ConfigServer\src" />
+    <Folder Include="configuration" />
+    <Folder Include="Components\ConfigServer\include\private" />
+    <Folder Include="Components\BSP\src" />
+    <Folder Include="Components\PersistDataServer\src" />
+    <Folder Include="Components\PersistDataServer\include\private" />
+    <Folder Include="Components\ConfigServer\include" />
+    <Folder Include="Components\PersistDataServer\include" />
+    <Folder Include="include" />
+  </ItemGroup>
+</Project>
