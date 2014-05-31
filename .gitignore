@@ -5,3 +5,5 @@
 *.hex
 *.elf
 *.o
+*.atsuo
+*.srec
