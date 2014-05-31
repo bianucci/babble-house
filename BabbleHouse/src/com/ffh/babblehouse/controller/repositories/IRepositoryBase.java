@@ -9,4 +9,5 @@ public interface IRepositoryBase<T> {
 	void delete(T object);
 	
 	T selectById(Class<T> thisClass, final int Id);
+	
 }

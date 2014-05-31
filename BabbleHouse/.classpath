@@ -33,5 +33,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/log4j-core-2.0-rc1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/protobuf-java-2.5.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jssc.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/vaadin-charts-1.1.6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

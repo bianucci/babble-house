@@ -84,6 +84,23 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 		return t;
 	}	
 	
+	
+	protected Object foreignTransact(Callable<Object> action){
+		Object object = null;
+		try{
+			em.getTransaction().begin(); 
+		
+			object = action.call();
+	
+			em.getTransaction().commit();
+		}
+		catch(Exception e){
+			showConnectionError(e,"Could not commit transaction. Issue in RepositoryBase.Transact(Callable<T> action).");
+		}
+
+		return object;
+	}	
+	
 	private void showConnectionError(Exception e, String messageToShow){
 		System.out.println("");
 		System.out.println(e.getStackTrace());
