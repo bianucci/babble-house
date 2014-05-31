@@ -184,6 +184,8 @@ public class MainUI extends CustomComponent implements View{
 					// Do nothing
 				}
 				
+				// TODO Make Calls to BO only if X time has passed. Normally values can be gotten from normal variables 
+				// Maybe add a list with known recent values
 				if(!ServiceGroupTree.areChildrenAllowed(itemName)){
 					if(itemName.toLowerCase().contains("sensor"))
 						fillChart(itemName, "Measuring unit", new BoSensor().getLastSensorValuesByName(itemName, 24));
