@@ -26,6 +26,9 @@ public class DtoDevice{
 	public int getId() { 
 		return id; 
 	}
+	public void setID(int id){
+	this.id=id;	
+	}
 	
 	public List<DtoValue> getValues() {
 		return values;

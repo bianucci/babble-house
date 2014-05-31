@@ -1,4 +1,6 @@
 package com.ffh.babblehouse.controller.BBNodes;
+import com.ffh.babblehouse.model.DtoGateway;
+
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
@@ -6,19 +8,28 @@ import jssc.SerialPortList;
 
 public class Connector implements Iconnector{
 String PortName;
-private int Baudrate;
-private int Stopbits;
-private int Databits;
-private int Parity_none;
+private int flag=1;
+
 private SerialPort serialPort;
 
-public Connector( int Baudrate,int Stopbits,int Databits,int Parity_none){
-	this.Baudrate=Baudrate;
-	this.Databits= Databits;
-	this.Stopbits=Stopbits;
-	this.Parity_none= Parity_none;
+DtoGateway dtoGateway=new DtoGateway();
+
+//setting the 
+private void setGatewayConnectionDetails(){
+	if(flag==1){
+		dtoGateway.setBaudrate(38400);
+		dtoGateway.setDatabits(8);
+		dtoGateway.setParity_none(1);
+		dtoGateway.setStopbits(0);
+		flag=2;
+	}else{
+		// fetch the deata from the database;
+	}
+	
+	
 }
 	
+
 // return available port 	
 private void AvailblePort(){
 		
@@ -31,6 +42,7 @@ private void AvailblePort(){
 	}
 // open com port for connection 
 public SerialPort PortConnection(){
+	setGatewayConnectionDetails();
 	AvailblePort();  // set availble port
 	 serialPort = new SerialPort(PortName);
 	
@@ -43,7 +55,7 @@ public SerialPort PortConnection(){
         	
           //serialPort.setParams(9600, 8, 1, 0);//Set params.
         	}
-          serialPort.setParams(Baudrate, Databits, Stopbits, Parity_none, false, true);
+          serialPort.setParams(dtoGateway.getBaudrate(), dtoGateway.getDatabits(), dtoGateway.getStopbits(), dtoGateway.getParity_none(), false, true);
         	
 }catch (SerialPortException ex) {
 	System.out.println(ex);
