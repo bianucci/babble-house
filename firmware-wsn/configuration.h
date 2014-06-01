@@ -132,7 +132,7 @@
   //  C-type: uint32_t
   //  Can be set: at any time before network start
   //  Persistent: Yes
-  #define CS_CHANNEL_MASK (1L<<0x01)
+  #define CS_CHANNEL_MASK (1L<<0x00)
   
   // Channel page number defines band and modulation scheme that will be used for
   // communication.
@@ -169,7 +169,7 @@
   //  C-type: uint32_t
   //  Can be set: at any time before network start
   //  Persistent: Yes
-  #define CS_CHANNEL_MASK (1L<<0x0f)
+  #define CS_CHANNEL_MASK (1L<<0x00)
 #endif
 
 // The parameter specifies the predefined extended PANID of the network to be
@@ -231,9 +231,9 @@
 //  C-type: DeviceType_t
 //  Can be set: at any time before network start
 //  Persistent: Yes
-#define CS_DEVICE_TYPE DEVICE_TYPE_ROUTER
+//#define CS_DEVICE_TYPE DEVICE_TYPE_ROUTER
 //Device is a coordinator.
-//#define CS_DEVICE_TYPE DEVICE_TYPE_COORDINATOR
+#define CS_DEVICE_TYPE DEVICE_TYPE_COORDINATOR
 //Device is an end device.
 //#define CS_DEVICE_TYPE DEVICE_TYPE_ENDDEVICE
 
@@ -265,6 +265,8 @@
 //  Can be set: at any time before network start
 //  Persistent: Yes
 #define CS_UID 0x0LL
+//	#define CS_UID 0x1LL
+//	#define CS_UID 0x2LL
 
 // Determines whether the static or automatic addressing mode will be used for the
 // short address.

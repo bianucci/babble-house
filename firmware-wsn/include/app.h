@@ -57,7 +57,9 @@ void appWriteDataToUart(uint8_t* aData, uint8_t aLength);
 typedef enum{
 	APP_INIT_STATE,
 	APP_TRANSMIT_STATE,
-	APP_WAIT_STATE
+	APP_WAIT_STATE,
+	APP_NOTHING_STATE,
+	APP_STARTJOIN_NETWORK_STATE
 } AppState_t;
 
 #endif

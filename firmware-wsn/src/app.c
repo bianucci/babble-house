@@ -19,6 +19,13 @@
  
 static HAL_UsartDescriptor_t usart;
 static HAL_AppTimer_t sendTimer;    
+
+// ZIGBEE BEGIN
+static AppState_t appState = APP_INIT_STATE;
+static uint8_t deviceType;
+static void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo);
+static ZDO_StartNetworkReq_t networkParams;
+// ZIGBEE END
  
 static uint8_t Rx_Buffer[RX_BUFFER_SIZE];
 static uint8_t Tx_Buffer[TX_BUFFER_SIZE];
@@ -82,7 +89,7 @@ void usart_Init()
   usart.flowControl     = USART_FLOW_CONTROL_NONE;
 }
 
-static uint8_t uninitialized = 1;
+static uint8_t uninitialized = 2;
 
 void APL_TaskHandler(void)
 {
@@ -100,10 +107,44 @@ void APL_TaskHandler(void)
 		
 		uninitialized=0;
 	}
+	
+	switch(appState){
+		case APP_INIT_STATE:
+			usart_Init();
+			HAL_OpenUsart(&usart);
+			appState=APP_STARTJOIN_NETWORK_STATE;
+			SYS_PostTask(APL_TASK_ID);
+			break;
+			
+		case APP_STARTJOIN_NETWORK_STATE:
+			networkParams.ZDO_StartNetworkConf=ZDO_StartNetworkConf;
+			ZDO_StartNetworkReq(&networkParams);
+			appState=APP_NOTHING_STATE;
+			break;
+			
+		case APP_NOTHING_STATE:
+			break;
+	}
+}
+
+void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
+	if(ZDO_SUCCESS_STATUS==confirmInfo->status){
+		CS_ReadParameter(CS_DEVICE_TYPE_ID, &deviceType);
+		if(deviceType==DEV_TYPE_COORDINATOR){
+			HAL_WriteUsart(&usart,"coordinator-created-network\r\n",sizeof("coordinator-created-network\r\n"));
+		}else if(deviceType==DEV_TYPE_ROUTER){
+			HAL_WriteUsart(&usart,"router-joined-network\r\n",sizeof("router-joined-network\r\n"));
+		}else if(deviceType==DEV_TYPE_ENDDEVICE){
+			HAL_WriteUsart(&usart,"enddevice-joined-network\r\n",sizeof("enddevice-joined-network\r\n"));
+		}else{
+			HAL_WriteUsart(&usart,"error-reading-devicetype\r\n",sizeof("error-reading-devicetype\r\n"));
+		}
+	}else{
+		HAL_WriteUsart(&usart,"no-zigbee-network-found\r\n",sizeof("no-zigbee-network-found\r\n"));
+	}
 }
 
 static uint8_t encBuffer[200];
-
 static void printMessageFired(){
 
 	// DECODING LAST MESSAGE RECEIVED
