@@ -25,6 +25,7 @@ static AppState_t appState = APP_INIT_STATE;
 static uint8_t deviceType;
 static void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo);
 static ZDO_StartNetworkReq_t networkParams;
+static void printNetworkStatus(void);
 // ZIGBEE END
  
 static uint8_t Rx_Buffer[RX_BUFFER_SIZE];
@@ -113,6 +114,12 @@ void APL_TaskHandler(void)
 			usart_Init();
 			HAL_OpenUsart(&usart);
 			appState=APP_STARTJOIN_NETWORK_STATE;
+			
+			sendTimer.interval = 1000;
+			sendTimer.mode = TIMER_REPEAT_MODE;
+			sendTimer.callback = printNetworkStatus;
+			HAL_StartAppTimer(&sendTimer);
+			
 			SYS_PostTask(APL_TASK_ID);
 			break;
 			
@@ -127,6 +134,7 @@ void APL_TaskHandler(void)
 	}
 }
 
+static uint8_t network_status;
 void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 	if(ZDO_SUCCESS_STATUS==confirmInfo->status){
 		CS_ReadParameter(CS_DEVICE_TYPE_ID, &deviceType);
@@ -141,6 +149,15 @@ void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 		}
 	}else{
 		HAL_WriteUsart(&usart,"no-zigbee-network-found\r\n",sizeof("no-zigbee-network-found\r\n"));
+	}
+	network_status=confirmInfo->status;
+}
+
+static void printNetworkStatus(){
+	if(ZDO_SUCCESS_STATUS==network_status){
+		HAL_WriteUsart(&usart, "JOINED NETWORK\r\n", sizeof("JOINED NETWORK\r\n"));
+	} else {
+		HAL_WriteUsart(&usart, "NO NETWORK\r\n", sizeof("NO NETWORK\r\n"));
 	}
 }
 
