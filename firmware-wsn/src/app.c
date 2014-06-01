@@ -134,30 +134,23 @@ void APL_TaskHandler(void)
 	}
 }
 
-static uint8_t network_status;
+static uint8_t network_status=0;
 void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
-	if(ZDO_SUCCESS_STATUS==confirmInfo->status){
-		CS_ReadParameter(CS_DEVICE_TYPE_ID, &deviceType);
-		if(deviceType==DEV_TYPE_COORDINATOR){
-			HAL_WriteUsart(&usart,"coordinator-created-network\r\n",sizeof("coordinator-created-network\r\n"));
-		}else if(deviceType==DEV_TYPE_ROUTER){
-			HAL_WriteUsart(&usart,"router-joined-network\r\n",sizeof("router-joined-network\r\n"));
-		}else if(deviceType==DEV_TYPE_ENDDEVICE){
-			HAL_WriteUsart(&usart,"enddevice-joined-network\r\n",sizeof("enddevice-joined-network\r\n"));
-		}else{
-			HAL_WriteUsart(&usart,"error-reading-devicetype\r\n",sizeof("error-reading-devicetype\r\n"));
-		}
-	}else{
-		HAL_WriteUsart(&usart,"no-zigbee-network-found\r\n",sizeof("no-zigbee-network-found\r\n"));
-	}
-	network_status=confirmInfo->status;
+	CS_ReadParameter(CS_DEVICE_TYPE_ID, &deviceType);
+	if(ZDO_SUCCESS_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_SUCCESS_STATUS", sizeof("ZDO_SUCCESS_STATUS"));}
+	if(ZDO_INVALID_REQUEST_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_INVALID_REQUEST_STATUS", sizeof("ZDO_INVALID_REQUEST_STATUS"));}
+	if(ZDO_STATIC_ADDRESS_CONFLICT_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_STATIC_ADDRESS_CONFLICT_STATUS", sizeof("ZDO_STATIC_ADDRESS_CONFLICT_STATUS"));}
+	if(ZDO_USER_DESCRIPTOR_UPDATE_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_USER_DESCRIPTOR_UPDATE_STATUS", sizeof("ZDO_USER_DESCRIPTOR_UPDATE_STATUS"));}
+		
+	SYS_PostTask(APL_TASK_ID);
 }
 
 static void printNetworkStatus(){
 	if(ZDO_SUCCESS_STATUS==network_status){
-		HAL_WriteUsart(&usart, "JOINED NETWORK\r\n", sizeof("JOINED NETWORK\r\n"));
+		//HAL_WriteUsart(&usart, "JOINED DUDE\r\n", sizeof("JOINED DUDE\r\n"));
 	} else {
-		HAL_WriteUsart(&usart, "NO NETWORK\r\n", sizeof("NO NETWORK\r\n"));
+		//HAL_WriteUsart(&usart, "FAILED DUDE\r\n", sizeof("FAILED DUDE\r\n"));
+		//HAL_WriteUsart(&usart, network_status, 1);
 	}
 }
 

@@ -182,7 +182,7 @@
 //  C-type: ExtPanId_t (equal to uint64_t)
 //  Can be set: at any time before network start
 //  Persistent: Yes
-#define CS_EXT_PANID 0x00LL
+#define CS_EXT_PANID 0x5854484353545354LL
 
 // Enables or disables use of predefined PAN ID. Actual PAN ID is specified via
 // CS_NWK_PANID parameter. If predefined PAN ID is disabled then PAN ID is selected
@@ -203,7 +203,7 @@
 //  C-type: PanId_t (typedef for uint16_t)
 //  Can be set: at any time before network start
 //  Persistent: Yes
-#define CS_NWK_PANID 0x1234
+#define CS_NWK_PANID 0x0000
 
 // A period in ms of polling a parent for data by an end device. On a sleeping end
 // device the parameter determines a period with which poll requests are sent to
@@ -233,9 +233,9 @@
 //  Persistent: Yes
 //#define CS_DEVICE_TYPE DEVICE_TYPE_ROUTER
 //Device is a coordinator.
-#define CS_DEVICE_TYPE DEVICE_TYPE_COORDINATOR
+//#define CS_DEVICE_TYPE DEVICE_TYPE_COORDINATOR 
 //Device is an end device.
-//#define CS_DEVICE_TYPE DEVICE_TYPE_ENDDEVICE
+#define CS_DEVICE_TYPE DEV_TYPE_ENDDEVICE
 
 // While scanning channels during network join the node keeps listening to each
 // channel specified by the ::CS_CHANNEL_MASK for a period of time calculated
@@ -264,7 +264,7 @@
 //  C-type: ExtAddr_t
 //  Can be set: at any time before network start
 //  Persistent: Yes
-#define CS_UID 0x0LL
+#define CS_UID 0x5854544245441001LL  
 //	#define CS_UID 0x1LL
 //	#define CS_UID 0x2LL
 
@@ -279,8 +279,8 @@
 //  C-type: bool
 //  Can be set: at any time before network start
 //  Persistent: Yes
-#define CS_NWK_UNIQUE_ADDR 0
-//#define CS_NWK_UNIQUE_ADDR 1
+//#define CS_NWK_UNIQUE_ADDR 0
+#define CS_NWK_UNIQUE_ADDR 1
 
 //-----------------------------------------------
 //CS_NWK_UNIQUE_ADDR == 1
@@ -300,7 +300,7 @@
   //  C-type: ShortAddr_t
   //  Can be set: at any time before network start
   //  Persistent: Yes
-  #define CS_NWK_ADDR 0x0001
+  #define CS_NWK_ADDR 0x0123 
 #endif
 
 // The method of automatic address assignment.
@@ -347,7 +347,7 @@
 //  C-type: uint8_t
 //  Can be set: at compile time only
 //  Persistent: No
-#define CS_MAX_CHILDREN_AMOUNT 4
+#define CS_MAX_CHILDREN_AMOUNT 8
 
 // The maximum number of routers among the direct children of the device
 // 
@@ -705,7 +705,7 @@
 //  C-type: uint8_t
 //  Can be set: at compile time only
 //  Persistent: No
-#define CS_NEIB_TABLE_SIZE 7
+#define CS_NEIB_TABLE_SIZE 8
 
 // Maximum amount of records in the network Route Table.
 // 
@@ -722,7 +722,7 @@
 //  C-type: uint8_t
 //  Can be set: at compile time only
 //  Persistent: No
-#define CS_ROUTE_TABLE_SIZE 4
+#define CS_ROUTE_TABLE_SIZE 10
 
 // Maximum amount of records in the network Address Map Table.
 // 
@@ -764,7 +764,7 @@
 //  C-type: uint8_t
 //  Can be set: at compile time only
 //  Persistent: No
-#define CS_DUPLICATE_REJECTION_TABLE_SIZE 10
+#define CS_DUPLICATE_REJECTION_TABLE_SIZE 8
 
 // Maximum amount of records in the Broadcast Transaction Table.
 // 

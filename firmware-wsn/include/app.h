@@ -27,6 +27,7 @@
 #include "pb_encode.h"
 #include "pb_decode.h"
 #include "pb.h"
+#include "configuration.h"
 
 /******************************************************************************
                     Defines section
