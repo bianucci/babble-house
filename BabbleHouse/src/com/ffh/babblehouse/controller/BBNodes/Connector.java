@@ -33,6 +33,7 @@ public class Connector implements Iconnector {
 	}
 
 	// return available port
+	/** DANGEROUS: CODE FAILS IF TWO OR MORE COMPORTS AVAILABLE **/
 	private void SetComPort() {
 		String[] portNames = SerialPortList.getPortNames();
 		for (int i = 0; i < portNames.length; i++) {
@@ -43,8 +44,6 @@ public class Connector implements Iconnector {
 	// open com port for connection
 	public SerialPort PortConnection() {
 		setGatewayConnectionDetails();
-		
-		/** THIS FUNCTION CALL ACTUALLY HAS NO EFFECT AT ALL**/
 		SetComPort(); // set availble port
 		serialPort = new SerialPort(PortName);
 		try {

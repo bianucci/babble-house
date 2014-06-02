@@ -55,18 +55,18 @@ public class SendReceiveServiceMessages {
 	}
 
 	// static SerialPort serialPort = new SerialPort("COM4");
-	static SerialPort serialPort = new SerialPort("COM14");
+	// static SerialPort serialPort = new SerialPort("COM14");
 
 	public static void main(String[] args) throws SerialPortException,
 			InterruptedException, SerialPortTimeoutException {
-		
-		serialPort.openPort();
-		serialPort.setParams(38400, 8, 1, 0);
+
+		// serialPort.openPort();
+		// serialPort.setParams(38400, 8, 1, 0);
 
 		Receiver r = new Receiver();
-		//Sender s = new Sender();
+		// Sender s = new Sender();
 
 		r.start();
-		//s.start();
+		// s.start();
 	}
 }
