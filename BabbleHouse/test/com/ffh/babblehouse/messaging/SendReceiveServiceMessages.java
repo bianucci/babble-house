@@ -54,7 +54,7 @@ public class SendReceiveServiceMessages {
 
 	}
 
-	// static SerialPort serialPort = new SerialPort("COM4");
+	 static SerialPort serialPort = new SerialPort("COM4");
 	// static SerialPort serialPort = new SerialPort("COM14");
 
 	public static void main(String[] args) throws SerialPortException,
