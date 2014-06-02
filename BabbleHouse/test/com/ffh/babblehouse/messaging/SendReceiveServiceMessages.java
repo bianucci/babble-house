@@ -14,7 +14,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 public class SendReceiveServiceMessages {
 
-	private static class Sender extends Thread {
+	/*private static class Sender extends Thread {
 		public void run() {
 			while (true) {
 
@@ -53,6 +53,7 @@ public class SendReceiveServiceMessages {
 			}
 		}
 	}
+	*/
 
 	private static class Receiver extends Thread {
 		@SuppressWarnings("unused")
@@ -82,15 +83,22 @@ public class SendReceiveServiceMessages {
 					e.printStackTrace();
 				}
 
-				System.err.println("RECEIVED FOLLOWING PROTOBUF MESSAGE:");
+				System.err.println("FOLLOWING PROTOBUF MESSAGE:");
 				System.err.println(m);
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
 		}
 
 	}
 
 	// static SerialPort serialPort = new SerialPort("COM4");
-	static SerialPort serialPort = new SerialPort("COM5");
+	static SerialPort serialPort = new SerialPort("COM14");
 
 	public static void main(String[] args) throws SerialPortException,
 			InterruptedException, SerialPortTimeoutException {
@@ -98,9 +106,9 @@ public class SendReceiveServiceMessages {
 		serialPort.setParams(38400, 8, 1, 0);
 
 		Receiver r = new Receiver();
-		Sender s = new Sender();
+		//Sender s = new Sender();
 
 		r.start();
-		s.start();
+		//s.start();
 	}
 }

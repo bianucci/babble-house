@@ -24,6 +24,10 @@ private void setGatewayConnectionDetails(){
 		flag=2;
 	}else{
 		// fetch the deata from the database;
+		dtoGateway.setBaudrate(38400);
+		dtoGateway.setDatabits(8);
+		dtoGateway.setParity_none(1);
+		dtoGateway.setStopbits(0);
 	}
 	
 	
@@ -31,7 +35,7 @@ private void setGatewayConnectionDetails(){
 	
 
 // return available port 	
-private void AvailblePort(){
+private void SetComPort(){
 		
 	String[] portNames = SerialPortList.getPortNames();
     for(int i = 0; i < portNames.length; i++){
@@ -41,25 +45,22 @@ private void AvailblePort(){
     
 	}
 // open com port for connection 
-public SerialPort PortConnection(){
+public SerialPort PortConnection( ){
 	setGatewayConnectionDetails();
-	AvailblePort();  // set availble port
+	SetComPort();  // set availble port
+
 	 serialPort = new SerialPort(PortName);
-	
-	 try { 
+		
+
+          try {
+        	  serialPort.openPort();
+			serialPort.setParams(dtoGateway.getBaudrate(), dtoGateway.getDatabits(), dtoGateway.getStopbits(), dtoGateway.getParity_none());
+		} catch (SerialPortException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         	
-        // open port if its closed
-        	if(serialPort.closePort()){
-        		 
-            serialPort.openPort();//Open serial port
-        	
-          //serialPort.setParams(9600, 8, 1, 0);//Set params.
-        	}
-          serialPort.setParams(dtoGateway.getBaudrate(), dtoGateway.getDatabits(), dtoGateway.getStopbits(), dtoGateway.getParity_none(), false, true);
-        	
-}catch (SerialPortException ex) {
-	System.out.println(ex);
-}
+
   return serialPort;      
 	
 }
