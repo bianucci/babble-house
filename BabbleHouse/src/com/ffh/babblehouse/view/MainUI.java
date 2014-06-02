@@ -123,16 +123,20 @@ public class MainUI extends CustomComponent implements View{
 		sensorChartConf.setTitle("Last Records of " + itemName + " (Max: 24)");
 		ListSeries series = new ListSeries(itemName);
 		
-		for(DtoValue value : valueList){
+		// Printing data into Chart
+		for(DtoValue value : valueList)
 			series.addData(value.getValue());
-			System.out.println(value.getValue());
-		}
+
+		// Adding Measuring unit to Y axis
 		sensorChartConf.addSeries(series);
 		YAxis yAxis = new YAxis();
 		yAxis.setTitle(measuringUnit);
 		sensorChartConf.addyAxis(yAxis);
 		
+		// Assigning chart to vertical layout ( General information )
 		GeneralInformationVerticalLayout.addComponent(sensorChart);
+		
+		// Setting chart as visible
 		sensorChart.setVisible(true);
 		
 	}
