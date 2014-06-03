@@ -1,5 +1,5 @@
 COMPONENTS_PATH = ./../../../../BitCloud/Components
-APP_NAME = Blink
+APP_NAME = App
 CONFIG_NAME = Coordinator_ZigBit_Atmega1281_Rf212_8Mhz_Gcc
 LIST_PATH = $(CONFIG_NAME)/List
 EXE_PATH = $(CONFIG_NAME)/Exe
@@ -51,7 +51,11 @@ LIBS = \
   ./../../../../BitCloud/lib/WdtInitatmega1281_Gcc.o 
 
 SRCS = \
-  ./../../src/blink.c \
+  ./../../src/app.c \
+  ./../../src/pb_decode.c \
+  ./../../src/pb_encode.c \
+  ./../../src/uartManager.c \
+  ./../../src/uartmessage.pb.c \
   ./../../../../BitCloud/Components/PersistDataServer/src/pdsMem.c \
   ./../../../../BitCloud/Components/PersistDataServer/src/pdsWriteData.c \
   ./../../../../BitCloud/Components/PersistDataServer/src/pdsDataServer.c \

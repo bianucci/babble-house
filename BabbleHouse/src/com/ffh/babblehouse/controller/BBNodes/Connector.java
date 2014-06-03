@@ -1,60 +1,62 @@
 package com.ffh.babblehouse.controller.BBNodes;
+
+import com.ffh.babblehouse.model.DtoGateway;
+
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
 
+public class Connector implements Iconnector {
+	String PortName;
+	private int flag = 1;
 
-public class Connector implements Iconnector{
-String PortName;
-private int Baudrate;
-private int Stopbits;
-private int Databits;
-private int Parity_none;
-private SerialPort serialPort;
+	private SerialPort serialPort;
 
-public Connector( int Baudrate,int Stopbits,int Databits,int Parity_none){
-	this.Baudrate=Baudrate;
-	this.Databits= Databits;
-	this.Stopbits=Stopbits;
-	this.Parity_none= Parity_none;
-}
-	
-// return available port 	
-private void AvailblePort(){
-		
-	String[] portNames = SerialPortList.getPortNames();
-    for(int i = 0; i < portNames.length; i++){
-       
-        PortName=portNames[i];
-    }	
-    
+	DtoGateway dtoGateway = new DtoGateway();
+
+	// setting the
+	private void setGatewayConnectionDetails() {
+		if (flag == 1) {
+			dtoGateway.setBaudrate(38400);
+			dtoGateway.setDatabits(8);
+			dtoGateway.setParity_none(1);
+			dtoGateway.setStopbits(0);
+			flag = 2;
+		} else {
+			// fetch the deata from the database;
+			dtoGateway.setBaudrate(38400);
+			dtoGateway.setDatabits(8);
+			dtoGateway.setParity_none(1);
+			dtoGateway.setStopbits(0);
+		}
+
 	}
-// open com port for connection 
-public SerialPort PortConnection(){
-	AvailblePort();  // set availble port
-	 serialPort = new SerialPort(PortName);
-	
-	 try { 
-        	
-        // open port if its closed
-        	if(serialPort.closePort()){
-        		 
-            serialPort.openPort();//Open serial port
-        	
-          //serialPort.setParams(9600, 8, 1, 0);//Set params.
-        	}
-          serialPort.setParams(Baudrate, Databits, Stopbits, Parity_none, false, true);
-        	
-}catch (SerialPortException ex) {
-	System.out.println(ex);
+
+	// return available port
+	/** DANGEROUS: CODE FAILS IF TWO OR MORE COMPORTS AVAILABLE **/
+	private void SetComPort() {
+		String[] portNames = SerialPortList.getPortNames();
+		for (int i = 0; i < portNames.length; i++) {
+			PortName = portNames[i];
+		}
+	}
+
+	// open com port for connection
+	public SerialPort PortConnection() {
+		setGatewayConnectionDetails();
+		SetComPort(); // set availble port
+		serialPort = new SerialPort(PortName);
+		try {
+			serialPort.openPort();
+			serialPort.setParams(dtoGateway.getBaudrate(),
+					dtoGateway.getDatabits(), dtoGateway.getStopbits(),
+					dtoGateway.getParity_none());
+		} catch (SerialPortException e) {
+			e.printStackTrace();
+		}
+
+		return serialPort;
+
+	}
+
 }
-  return serialPort;      
-	
-}
-
-
-}
-
-
-
-

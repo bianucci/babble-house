@@ -19,6 +19,14 @@
  
 static HAL_UsartDescriptor_t usart;
 static HAL_AppTimer_t sendTimer;    
+
+// ZIGBEE BEGIN
+static AppState_t appState = APP_INIT_STATE;
+static uint8_t deviceType;
+static void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo);
+static ZDO_StartNetworkReq_t networkParams;
+static void printNetworkStatus(void);
+// ZIGBEE END
  
 static uint8_t Rx_Buffer[RX_BUFFER_SIZE];
 static uint8_t Tx_Buffer[TX_BUFFER_SIZE];
@@ -82,7 +90,7 @@ void usart_Init()
   usart.flowControl     = USART_FLOW_CONTROL_NONE;
 }
 
-static uint8_t uninitialized = 1;
+static uint8_t uninitialized = 2;
 
 void APL_TaskHandler(void)
 {
@@ -100,10 +108,53 @@ void APL_TaskHandler(void)
 		
 		uninitialized=0;
 	}
+	
+	switch(appState){
+		case APP_INIT_STATE:
+			usart_Init();
+			HAL_OpenUsart(&usart);
+			appState=APP_STARTJOIN_NETWORK_STATE;
+			
+			sendTimer.interval = 1000;
+			sendTimer.mode = TIMER_REPEAT_MODE;
+			sendTimer.callback = printNetworkStatus;
+			HAL_StartAppTimer(&sendTimer);
+			
+			SYS_PostTask(APL_TASK_ID);
+			break;
+			
+		case APP_STARTJOIN_NETWORK_STATE:
+			networkParams.ZDO_StartNetworkConf=ZDO_StartNetworkConf;
+			ZDO_StartNetworkReq(&networkParams);
+			appState=APP_NOTHING_STATE;
+			break;
+			
+		case APP_NOTHING_STATE:
+			break;
+	}
+}
+
+static uint8_t network_status=0;
+void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
+	CS_ReadParameter(CS_DEVICE_TYPE_ID, &deviceType);
+	if(ZDO_SUCCESS_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_SUCCESS_STATUS", sizeof("ZDO_SUCCESS_STATUS"));}
+	if(ZDO_INVALID_REQUEST_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_INVALID_REQUEST_STATUS", sizeof("ZDO_INVALID_REQUEST_STATUS"));}
+	if(ZDO_STATIC_ADDRESS_CONFLICT_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_STATIC_ADDRESS_CONFLICT_STATUS", sizeof("ZDO_STATIC_ADDRESS_CONFLICT_STATUS"));}
+	if(ZDO_USER_DESCRIPTOR_UPDATE_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_USER_DESCRIPTOR_UPDATE_STATUS", sizeof("ZDO_USER_DESCRIPTOR_UPDATE_STATUS"));}
+		
+	SYS_PostTask(APL_TASK_ID);
+}
+
+static void printNetworkStatus(){
+	if(ZDO_SUCCESS_STATUS==network_status){
+		//HAL_WriteUsart(&usart, "JOINED DUDE\r\n", sizeof("JOINED DUDE\r\n"));
+	} else {
+		//HAL_WriteUsart(&usart, "FAILED DUDE\r\n", sizeof("FAILED DUDE\r\n"));
+		//HAL_WriteUsart(&usart, network_status, 1);
+	}
 }
 
 static uint8_t encBuffer[200];
-
 static void printMessageFired(){
 
 	// DECODING LAST MESSAGE RECEIVED

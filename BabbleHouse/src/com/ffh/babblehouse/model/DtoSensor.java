@@ -12,6 +12,7 @@ public class DtoSensor {
 	@Id 
 	@GeneratedValue
 	protected int id;
+
 	
 	String SensorName;
 	
@@ -23,6 +24,9 @@ public class DtoSensor {
 
 	public int getId() { 
 		return id; 
+	}
+	public void setId(int id) { 
+		 this.id=id;
 	}
 
 	public List<DtoValue> getValues() {

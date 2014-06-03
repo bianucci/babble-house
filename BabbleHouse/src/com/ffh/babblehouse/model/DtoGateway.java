@@ -14,8 +14,7 @@ public class DtoGateway {
 @Id 
 @GeneratedValue
 protected int id;
-
-private int Baudrate;
+ int Baudrate;
 private int Stopbits;
 private int Databits;
 private int Parity_none;

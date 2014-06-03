@@ -52,6 +52,10 @@ LIBS = \
 
 SRCS = \
   ./../../src/app.c \
+  ./../../src/pb_decode.c \
+  ./../../src/pb_encode.c \
+  ./../../src/uartManager.c \
+  ./../../src/uartmessage.pb.c \
   ./../../../../BitCloud/Components/PersistDataServer/src/pdsMem.c \
   ./../../../../BitCloud/Components/PersistDataServer/src/pdsWriteData.c \
   ./../../../../BitCloud/Components/PersistDataServer/src/pdsDataServer.c \
