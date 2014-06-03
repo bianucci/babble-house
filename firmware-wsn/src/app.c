@@ -123,7 +123,7 @@ void APL_TaskHandler(void)
 	if(uninitialized==1){
 		usart_Init();
 		HAL_OpenUsart(&usart);
-	
+		HAL_WriteUsart(&usart, "APP_INIT_STATE\r\n", sizeof("APP_INIT_STATE\r\n"));
 		srand(42);
 		createBeaconList();
 		
@@ -134,22 +134,26 @@ void APL_TaskHandler(void)
 		
 		uninitialized=0;
 	}
-	
+
+	if(	uninitialized==2){
 	switch(appState){
 		case APP_INIT_STATE:
 			usart_Init();
 			HAL_OpenUsart(&usart);
+			HAL_WriteUsart(&usart, "APP_INIT_STATE\r\n", sizeof("APP_INIT_STATE\r\n"));
 			appState=APP_START_NETWORK_STATE;
 			SYS_PostTask(APL_TASK_ID);
 			break;
 			
 		case APP_START_NETWORK_STATE:
+		HAL_WriteUsart(&usart, "APP_START_NETWORK_STATE\r\n", sizeof("APP_START_NETWORK_STATE\r\n"));
 			networkParams.ZDO_StartNetworkConf=ZDO_StartNetworkConf;
 			ZDO_StartNetworkReq(&networkParams);
 			appState=APP_INIT_ENDPOINT_STATE;
 			break;
 			
 		case APP_INIT_ENDPOINT_STATE:
+			HAL_WriteUsart(&usart, "APP_INIT_ENDPOINT_STATE\r\n", sizeof("APP_INIT_ENDPOINT_STATE\r\n"));
 			initEndpoint();
 			#if CS_DEVICE_TYPE==DEV_TYPE_COORDINATOR
 				appState=APP_NOTHING_STATE;
@@ -159,7 +163,8 @@ void APL_TaskHandler(void)
 			SYS_PostTask(APL_TASK_ID);
 			break;
 			
-		case APP_INIT_TRANSMITDATA_STATE: 		
+		case APP_INIT_TRANSMITDATA_STATE:
+			HAL_WriteUsart(&usart, "APP_INIT_TRANSMITDATA_STATE\r\n", sizeof("APP_INIT_TRANSMITDATA_STATE\r\n")); 		
 			initTransmitData();
 			appState=APP_NOTHING_STATE;
 			HAL_StartAppTimer(&transmitTimer);
@@ -167,6 +172,7 @@ void APL_TaskHandler(void)
 			break;
 			
 		case APP_TRANSMIT_STATE:
+			HAL_WriteUsart(&usart, "APP_TRANSMIT_STATE\r\n", sizeof("APP_TRANSMIT_STATE\r\n"));
 			#if CS_DEVICE_TYPE==DEV_TYPE_ENDDEVICE
 				transmitData.data[0]='H'; transmitData.data[0]='a'; transmitData.data[0]='l'; 
 				transmitData.data[0]='l'; transmitData.data[0]='o'; transmitData.data[0]=' ';
@@ -178,7 +184,9 @@ void APL_TaskHandler(void)
 			break;
 		
 		case APP_NOTHING_STATE:
+			HAL_WriteUsart(&usart, "APP_NOTHING_STATE\r\n", sizeof("APP_NOTHING_STATE\r\n"));
 			break;
+	}
 	}
 }
 
