@@ -139,22 +139,44 @@ void APL_TaskHandler(void)
 		case APP_INIT_STATE:
 			usart_Init();
 			HAL_OpenUsart(&usart);
-			appState=APP_STARTJOIN_NETWORK_STATE;
-			
-			sendTimer.interval = 1000;
-			sendTimer.mode = TIMER_REPEAT_MODE;
-			sendTimer.callback = printNetworkStatus;
-			HAL_StartAppTimer(&sendTimer);
-			
+			appState=APP_START_NETWORK_STATE;
 			SYS_PostTask(APL_TASK_ID);
 			break;
 			
-		case APP_STARTJOIN_NETWORK_STATE:
+		case APP_START_NETWORK_STATE:
 			networkParams.ZDO_StartNetworkConf=ZDO_StartNetworkConf;
 			ZDO_StartNetworkReq(&networkParams);
-			appState=APP_NOTHING_STATE;
+			appState=APP_INIT_ENDPOINT_STATE;
 			break;
 			
+		case APP_INIT_ENDPOINT_STATE:
+			initEndpoint();
+			#if CS_DEVICE_TYPE==DEV_TYPE_COORDINATOR
+				appState=APP_NOTHING_STATE;
+			#else
+				appState=APP_INIT_TRANSMITDATA_STATE;
+			#endif;
+			SYS_PostTask(APL_TASK_ID);
+			break;
+			
+		case APP_INIT_TRANSMITDATA_STATE: 		
+			initTransmitData();
+			appState=APP_NOTHING_STATE;
+			HAL_StartAppTimer(&transmitTimer);
+			SYS_PostTask(APL_TASK_ID);
+			break;
+			
+		case APP_TRANSMIT_STATE:
+			#if CS_DEVICE_TYPE==DEV_TYPE_ENDDEVICE
+				transmitData.data[0]='H'; transmitData.data[0]='a'; transmitData.data[0]='l'; 
+				transmitData.data[0]='l'; transmitData.data[0]='o'; transmitData.data[0]=' ';
+			#else
+				transmitData.data[0]='Z'; transmitData.data[0]='i'; transmitData.data[0]='g';
+				transmitData.data[0]='B'; transmitData.data[0]='e'; transmitData.data[0]='e';
+			#endif;
+			APS_DataReq(&dataReq);
+			break;
+		
 		case APP_NOTHING_STATE:
 			break;
 	}
