@@ -141,6 +141,7 @@ void APL_TaskHandler(void)
 			usart_Init();
 			HAL_OpenUsart(&usart);
 			HAL_WriteUsart(&usart, "APP_INIT_STATE\r\n", sizeof("APP_INIT_STATE\r\n"));
+			initTimer();
 			appState=APP_START_NETWORK_STATE;
 			SYS_PostTask(APL_TASK_ID);
 			break;
@@ -233,7 +234,7 @@ static void receiveTimerLedFired(void){
 
 static void transmitTimerFired(void){
 	appState=APP_TRANSMIT_STATE;
-	SYS_PostTaks(APL_TASK_ID);
+	SYS_PostTask(APL_TASK_ID);
 }
 
 void APS_DataInd(APS_DataInd_t *indData){
