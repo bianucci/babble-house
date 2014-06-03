@@ -32,9 +32,9 @@ public class BabbleHouseUI extends UI {
         navigator = new Navigator(this, this);
         
         // Create and register the views
-//        navigator.addView("", new LoginUI(navigator,MAINUI));
-//        navigator.addView(MAINUI, new MainUI(navigator));
-        navigator.addView("", new MainUI(navigator));
+        navigator.addView("", new LoginUI(navigator,MAINUI));
+        navigator.addView(MAINUI, new MainUI(navigator));
+     //   navigator.addView("", new MainUI(navigator));
 	}
 
 	// TODO This method will be removed
