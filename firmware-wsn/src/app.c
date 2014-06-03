@@ -44,6 +44,32 @@ static uint8_t last_msg_length=0;
 
 static uint8_t beacon_sent=0;
 
+BEGIN_PACK
+typedef struct _AppMessage_t{
+	uint8_t header[APS_ASDU_OFFSET];
+	uint8_t data[9];
+	uint8_t footer[APS_AFFIX_LENGTH - APS_ASDU_OFFSET];
+} PACK AppMessage_t;
+END_PACK
+
+static AppMessage_t transmitData;
+APS_DataReq_t dataReq;
+static void APS_DataConf(APS_DataConf_t *confInfo);
+static void initTransmitData(void);
+
+static SimpleDescriptor_t simpleDescriptor;
+static APS_RegisterEndpointReq_t endPoint;
+static void initEndpoint (void);
+void APS_DataInd(APS_DataInd_t *indData);
+
+HAL_AppTimer_t receiveTimerLed;
+HAL_AppTimer_t transmitTimerLed;
+HAL_AppTimer_t transmitTimer;
+static void receiveTimerLedFired(void);
+static void transmitTimerLedFired(void);
+static void transmitTimerFired(void);
+static void initTimer(void);
+
 void usartRcvd(uint8_t size)
 {
 	if(message_length==0){
@@ -132,6 +158,65 @@ void APL_TaskHandler(void)
 		case APP_NOTHING_STATE:
 			break;
 	}
+}
+
+static void initEndpoint(void){
+	simpleDescriptor.AppDeviceId = 1;
+	simpleDescriptor.AppProfileId = 1;
+	simpleDescriptor.endpoint = 1;
+	simpleDescriptor.AppDeviceVersion = 1;
+	endPoint.simpleDescriptor = &simpleDescriptor;
+	endPoint.APS_DataInd = APS_DataInd;
+	APS_RegisterEndpointReq(&endPoint);
+}
+
+static void initTimer(void){
+	transmitTimerLed.interval=500;
+	transmitTimerLed.mode=TIMER_ONE_SHOT_MODE;
+	transmitTimerLed.callback=transmitTimerLedFired;
+	
+	receiveTimerLed.interval=500;
+	receiveTimerLed.mode=TIMER_ONE_SHOT_MODE;
+	receiveTimerLed.callback=receiveTimerLedFired;
+
+	transmitTimer.interval=3000;
+	transmitTimer.mode=TIMER_REPEAT_MODE;
+	transmitTimer.callback=transmitTimerFired;
+}
+
+static void initTransmitData(){
+	dataReq.profileId=1;
+	dataReq.dstAddrMode=APS_SHORT_ADDRESS;
+	dataReq.dstAddress.shortAddress=CPU_TO_LE16(0);
+	dataReq.dstEndpoint=1;
+	dataReq.asdu=transmitData.data;
+	dataReq.asduLength=sizeof(transmitData.data);
+	dataReq.srcEndpoint=1;
+	dataReq.APS_DataConf=APS_DataConf;
+}
+
+static void transmitTimerLedFired(void){
+}
+
+static void receiveTimerLedFired(void){
+}
+
+static void transmitTimerFired(void){
+	appState=APP_TRANSMIT_STATE;
+	SYS_PostTaks(APL_TASK_ID);
+}
+
+void APS_DataInd(APS_DataInd_t *indData){
+	HAL_WriteUsart(&usart, "RCVD_DATA\r\n", sizeof("RCVD_DATA\r\n"));
+	//HAL_StartAppTimer(&receiveTimerLed);
+	HAL_WriteUsart(&usart, indData->asdu, indData->asduLength);
+}
+
+static void APS_DataConf(APS_DataConf_t *confInfo){
+	HAL_WriteUsart(&usart, "SENT_DATA\r\n", sizeof("SENT_DATA\r\n"));
+	//HAL_StartAppTimer(&transmitTimerLed);
+	appState=APP_NOTHING_STATE;
+	SYS_PostTask(APL_TASK_ID);
 }
 
 static uint8_t network_status=0;
