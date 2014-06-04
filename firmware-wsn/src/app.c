@@ -63,7 +63,7 @@ static uint8_t beacon_sent=0;
 BEGIN_PACK
 typedef struct _AppMessage_t{
 	uint8_t header[APS_ASDU_OFFSET];
-	uint8_t data[5];
+	uint8_t data[1];
 	uint8_t footer[APS_AFFIX_LENGTH - APS_ASDU_OFFSET];
 } PACK AppMessage_t;
 END_PACK
@@ -139,7 +139,7 @@ void APL_TaskHandler(void)
 	if(uninitialized==1){
 		usart_Init();
 		HAL_OpenUsart(&usart);
-		HAL_WriteUsart(&usart, "APP_INIT_STATE\r\n", sizeof("APP_INIT_STATE\r\n"));
+		//HAL_WriteUsart(&usart, "APP_INIT_STATE\r\n", sizeof("APP_INIT_STATE\r\n"));
 		srand(42);
 		createBeaconList();
 		
@@ -155,24 +155,21 @@ void APL_TaskHandler(void)
 		case APP_INIT_STATE:
 			usart_Init();
 			HAL_OpenUsart(&usart);
-			#if CS_DEVICE_TYPE==DEV_TYPE_ENDDEVICE
-				HAL_StartAppTimer(&readADCTimer);
-			#endif;
-			HAL_WriteUsart(&usart, "APP_INIT_STATE\r\n", sizeof("APP_INIT_STATE\r\n"));
+			//HAL_WriteUsart(&usart, "APP_INIT_STATE\r\n", sizeof("APP_INIT_STATE\r\n"));
 			initTimer();
 			appState=APP_START_NETWORK_STATE;
 			SYS_PostTask(APL_TASK_ID);
 			break;
 			
 		case APP_START_NETWORK_STATE:
-		HAL_WriteUsart(&usart, "APP_START_NETWORK_STATE\r\n", sizeof("APP_START_NETWORK_STATE\r\n"));
+			//HAL_WriteUsart(&usart, "APP_START_NETWORK_STATE\r\n", sizeof("APP_START_NETWORK_STATE\r\n"));
 			networkParams.ZDO_StartNetworkConf=ZDO_StartNetworkConf;
 			ZDO_StartNetworkReq(&networkParams);
 			appState=APP_INIT_ENDPOINT_STATE;
 			break;
 			
 		case APP_INIT_ENDPOINT_STATE:
-			HAL_WriteUsart(&usart, "APP_INIT_ENDPOINT_STATE\r\n", sizeof("APP_INIT_ENDPOINT_STATE\r\n"));
+			//HAL_WriteUsart(&usart, "APP_INIT_ENDPOINT_STATE\r\n", sizeof("APP_INIT_ENDPOINT_STATE\r\n"));
 			initEndpoint();
 			#if CS_DEVICE_TYPE==DEV_TYPE_COORDINATOR
 				appState=APP_NOTHING_STATE;
@@ -183,33 +180,34 @@ void APL_TaskHandler(void)
 			break;
 			
 		case APP_INIT_TRANSMITDATA_STATE:
-			HAL_WriteUsart(&usart, "APP_INIT_TRANSMITDATA_STATE\r\n", sizeof("APP_INIT_TRANSMITDATA_STATE\r\n")); 		
+			//HAL_WriteUsart(&usart, "APP_INIT_TRANSMITDATA_STATE\r\n", sizeof("APP_INIT_TRANSMITDATA_STATE\r\n")); 		
 			initTransmitData();
 			appState=APP_NOTHING_STATE;
-			HAL_StartAppTimer(&transmitTimer);
+			//HAL_StartAppTimer(&transmitTimer);
+			HAL_StartAppTimer(&readADCTimer);
 			SYS_PostTask(APL_TASK_ID);
 			break;
 			
 		case APP_TRANSMIT_STATE:
-			HAL_WriteUsart(&usart, "APP_TRANSMIT_STATE\r\n", sizeof("APP_TRANSMIT_STATE\r\n"));
+			//HAL_WriteUsart(&usart, "APP_TRANSMIT_STATE\r\n", sizeof("APP_TRANSMIT_STATE\r\n"));
 			#if CS_DEVICE_TYPE==DEV_TYPE_ENDDEVICE
-				transmitData.data[0]=str[0]; transmitData.data[1]=str[1];transmitData.data[2]=str[2];
-				transmitData.data[3]=str[3];transmitData.data[4]=str[4];
+				transmitData.data[0]=adcData;
 			#else
-				transmitData.data[0]='Z'; transmitData.data[1]='i';
+				transmitData.data[0]=0;
 			#endif;
 			APS_DataReq(&dataReq);
 			break;
 			
 		case APP_READ_ADC_STATE:
-//			appWriteDataToUart((uint8_t*)"read begn\r", sizeof("read begn\r"));
+			//HAL_WriteUsart(&usart, "READ BEGN\r", sizeof("read begn\r"));
 			HAL_ReadAdc(&adcdescriptor, HAL_ADC_CHANNEL_1);
-			appState=APP_NOTHING_STATE;
-//			appWriteDataToUart((uint8_t*)"read done\r", sizeof("read done\r"));
+			appState=APP_TRANSMIT_STATE;
+			//appWriteDataToUart((uint8_t*)"read done\r", sizeof("read done\r"));
+			SYS_PostTask(APL_TASK_ID);
 			break;
 		
 		case APP_NOTHING_STATE:
-			HAL_WriteUsart(&usart, "APP_NOTHING_STATE\r\n", sizeof("APP_NOTHING_STATE\r\n"));
+			//HAL_WriteUsart(&usart, "APP_NOTHING_STATE\r\n", sizeof("APP_NOTHING_STATE\r\n"));
 			break;
 	}
 }
@@ -246,7 +244,7 @@ static void initTimer(void){
 	transmitTimer.mode=TIMER_REPEAT_MODE;
 	transmitTimer.callback=transmitTimerFired;
 	
-	readADCTimer.interval = 300;
+	readADCTimer.interval = 1000;
 	readADCTimer.mode = TIMER_REPEAT_MODE;
 	readADCTimer.callback = readADCTimerFired;
 }
@@ -281,7 +279,7 @@ void APS_DataInd(APS_DataInd_t *indData){
 	service.serviceGroupId=1;
 	service.serviceId=3;
 	service.has_value=true;
-	service.value=adcData;
+	service.value=indData->asdu;
 	service.has_info=true;
 	strcpy(service.info, "light");
 	
@@ -304,7 +302,7 @@ void APS_DataInd(APS_DataInd_t *indData){
 }
 
 static void APS_DataConf(APS_DataConf_t *confInfo){
-	HAL_WriteUsart(&usart, "SENT_DATA\r\n", sizeof("SENT_DATA\r\n"));
+	//HAL_WriteUsart(&usart, "SENT_DATA\r\n", sizeof("SENT_DATA\r\n"));
 	//HAL_StartAppTimer(&transmitTimerLed);
 	appState=APP_NOTHING_STATE;
 	SYS_PostTask(APL_TASK_ID);
@@ -313,10 +311,10 @@ static void APS_DataConf(APS_DataConf_t *confInfo){
 static uint8_t network_status=0;
 void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 	CS_ReadParameter(CS_DEVICE_TYPE_ID, &deviceType);
-	if(ZDO_SUCCESS_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_SUCCESS_STATUS", sizeof("ZDO_SUCCESS_STATUS"));}
-	if(ZDO_INVALID_REQUEST_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_INVALID_REQUEST_STATUS", sizeof("ZDO_INVALID_REQUEST_STATUS"));}
-	if(ZDO_STATIC_ADDRESS_CONFLICT_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_STATIC_ADDRESS_CONFLICT_STATUS", sizeof("ZDO_STATIC_ADDRESS_CONFLICT_STATUS"));}
-	if(ZDO_USER_DESCRIPTOR_UPDATE_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_USER_DESCRIPTOR_UPDATE_STATUS", sizeof("ZDO_USER_DESCRIPTOR_UPDATE_STATUS"));}
+	//if(ZDO_SUCCESS_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_SUCCESS_STATUS", sizeof("ZDO_SUCCESS_STATUS"));}
+	//if(ZDO_INVALID_REQUEST_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_INVALID_REQUEST_STATUS", sizeof("ZDO_INVALID_REQUEST_STATUS"));}
+	//if(ZDO_STATIC_ADDRESS_CONFLICT_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_STATIC_ADDRESS_CONFLICT_STATUS", sizeof("ZDO_STATIC_ADDRESS_CONFLICT_STATUS"));}
+	//if(ZDO_USER_DESCRIPTOR_UPDATE_STATUS==confirmInfo->status){HAL_WriteUsart(&usart, "ZDO_USER_DESCRIPTOR_UPDATE_STATUS", sizeof("ZDO_USER_DESCRIPTOR_UPDATE_STATUS"));}
 		
 	SYS_PostTask(APL_TASK_ID);
 }
