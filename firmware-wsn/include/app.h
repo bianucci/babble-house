@@ -28,6 +28,8 @@
 #include "pb_decode.h"
 #include "pb.h"
 #include "configuration.h"
+#include <halAdc.h>
+#include <adc.h>
 
 /******************************************************************************
                     Defines section
@@ -52,6 +54,16 @@
 #define TEXT_TWO "MARTINN\r"
 #define TEXT_THR "CLAUDIO\r"
 
+/* Channels */
+#define HAL_ADC_CHANNEL_0          0x00
+#define HAL_ADC_CHANNEL_1          0x01
+#define HAL_ADC_CHANNEL_2          0x02
+#define HAL_ADC_CHANNEL_3          0x03
+#define HAL_ADC_CHANNEL_4          0x04
+#define HAL_ADC_CHANNEL_5          0x05
+#define HAL_ADC_CHANNEL_6          0x06
+#define HAL_ADC_CHANNEL_7          0x07
+
 void appInitUARTManager(void);
 void appWriteDataToUart(uint8_t* aData, uint8_t aLength);
 
@@ -62,7 +74,8 @@ typedef enum{
 	APP_NOTHING_STATE,
 	APP_START_NETWORK_STATE,
 	APP_INIT_ENDPOINT_STATE,
-	APP_INIT_TRANSMITDATA_STATE
+	APP_INIT_TRANSMITDATA_STATE,
+	APP_READ_ADC_STATE
 } AppState_t;
 
 #endif

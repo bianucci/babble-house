@@ -42,12 +42,28 @@ static uint8_t message_length = 0;
 static uint8_t last_msg[100]; 
 static uint8_t last_msg_length=0;
 
+static uint8_t adcData;
+char str[5];
+static HAL_AppTimer_t readADCTimer;
+
+static void readSensorDonceCb(void);
+static void readADCTimerFired(void);
+
+static HAL_AdcDescriptor_t adcdescriptor = {
+	.resolution=RESOLUTION_8_BIT,
+	.sampleRate=ADC_4800SPS,
+	.voltageReference=AVCC,
+	.bufferPointer=&adcData,
+	.selectionsAmount=1,
+	.callback = readSensorDonceCb
+};
+
 static uint8_t beacon_sent=0;
 
 BEGIN_PACK
 typedef struct _AppMessage_t{
 	uint8_t header[APS_ASDU_OFFSET];
-	uint8_t data[9];
+	uint8_t data[5];
 	uint8_t footer[APS_AFFIX_LENGTH - APS_ASDU_OFFSET];
 } PACK AppMessage_t;
 END_PACK
@@ -135,11 +151,13 @@ void APL_TaskHandler(void)
 		uninitialized=0;
 	}
 
-	if(	uninitialized==2){
 	switch(appState){
 		case APP_INIT_STATE:
 			usart_Init();
 			HAL_OpenUsart(&usart);
+			#if CS_DEVICE_TYPE==DEV_TYPE_ENDDEVICE
+				HAL_StartAppTimer(&readADCTimer);
+			#endif;
 			HAL_WriteUsart(&usart, "APP_INIT_STATE\r\n", sizeof("APP_INIT_STATE\r\n"));
 			initTimer();
 			appState=APP_START_NETWORK_STATE;
@@ -175,20 +193,34 @@ void APL_TaskHandler(void)
 		case APP_TRANSMIT_STATE:
 			HAL_WriteUsart(&usart, "APP_TRANSMIT_STATE\r\n", sizeof("APP_TRANSMIT_STATE\r\n"));
 			#if CS_DEVICE_TYPE==DEV_TYPE_ENDDEVICE
-				transmitData.data[0]='H'; transmitData.data[0]='a'; transmitData.data[0]='l'; 
-				transmitData.data[0]='l'; transmitData.data[0]='o'; transmitData.data[0]=' ';
+				transmitData.data[0]=str[0]; transmitData.data[1]=str[1];transmitData.data[2]=str[2];
+				transmitData.data[3]=str[3];transmitData.data[4]=str[4];
 			#else
-				transmitData.data[0]='Z'; transmitData.data[0]='i'; transmitData.data[0]='g';
-				transmitData.data[0]='B'; transmitData.data[0]='e'; transmitData.data[0]='e';
+				transmitData.data[0]='Z'; transmitData.data[1]='i';
 			#endif;
 			APS_DataReq(&dataReq);
+			break;
+			
+		case APP_READ_ADC_STATE:
+//			appWriteDataToUart((uint8_t*)"read begn\r", sizeof("read begn\r"));
+			HAL_ReadAdc(&adcdescriptor, HAL_ADC_CHANNEL_1);
+			appState=APP_NOTHING_STATE;
+//			appWriteDataToUart((uint8_t*)"read done\r", sizeof("read done\r"));
 			break;
 		
 		case APP_NOTHING_STATE:
 			HAL_WriteUsart(&usart, "APP_NOTHING_STATE\r\n", sizeof("APP_NOTHING_STATE\r\n"));
 			break;
 	}
-	}
+}
+
+static void readADCTimerFired(void){
+	appState=APP_READ_ADC_STATE;
+	SYS_PostTask(APL_TASK_ID);
+}
+
+static void readSensorDonceCb(void){
+	sprintf(str, "%d", adcData);
 }
 
 static void initEndpoint(void){
@@ -210,9 +242,13 @@ static void initTimer(void){
 	receiveTimerLed.mode=TIMER_ONE_SHOT_MODE;
 	receiveTimerLed.callback=receiveTimerLedFired;
 
-	transmitTimer.interval=3000;
+	transmitTimer.interval=1000;
 	transmitTimer.mode=TIMER_REPEAT_MODE;
 	transmitTimer.callback=transmitTimerFired;
+	
+	readADCTimer.interval = 300;
+	readADCTimer.mode = TIMER_REPEAT_MODE;
+	readADCTimer.callback = readADCTimerFired;
 }
 
 static void initTransmitData(){
