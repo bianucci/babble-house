@@ -273,10 +273,34 @@ static void transmitTimerFired(void){
 	SYS_PostTask(APL_TASK_ID);
 }
 
+static uint8_t encBuffer[200];
 void APS_DataInd(APS_DataInd_t *indData){
-	HAL_WriteUsart(&usart, "RCVD_DATA\r\n", sizeof("RCVD_DATA\r\n"));
-	//HAL_StartAppTimer(&receiveTimerLed);
-	HAL_WriteUsart(&usart, indData->asdu, indData->asduLength);
+	// CREATING A NEW SERVICE OBJECT
+    Service service = {0};
+	service.serviceType=Service_ServiceType_SENSOR;
+	service.serviceGroupId=1;
+	service.serviceId=3;
+	service.has_value=true;
+	service.value=adcData;
+	service.has_info=true;
+	strcpy(service.info, "light");
+	
+	// WRAPPING SERVICE OBJECT IN A NEW UART MESSAGE
+	UARTMessage u;
+	u.has_service=true;
+	u.service=service;
+	u.type=UARTMessage_Type_SERVICE;
+	u.has_beacon=false;
+	
+	// ENCODING A MESSAGE
+	/* Create a stream that will write to our buffer. */
+	pb_ostream_t ostream = pb_ostream_from_buffer(encBuffer, sizeof(encBuffer));
+	pb_encode(&ostream, UARTMessage_fields, &u);
+	uint8_t size = ostream.bytes_written;
+	
+	// SENDING A MESSAGE
+	HAL_WriteUsart(&usart,&size,1);
+	HAL_WriteUsart(&usart,&encBuffer,size);
 }
 
 static void APS_DataConf(APS_DataConf_t *confInfo){
@@ -306,7 +330,6 @@ static void printNetworkStatus(){
 	}
 }
 
-static uint8_t encBuffer[200];
 static void printMessageFired(){
 
 	// DECODING LAST MESSAGE RECEIVED
