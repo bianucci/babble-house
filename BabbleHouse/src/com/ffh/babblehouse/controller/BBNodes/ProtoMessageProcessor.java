@@ -52,7 +52,7 @@ class ProtoMessageProcessor extends Thread {
 						if (serviceType.equals(ServiceType.ACTUATOR)) {
 							// an actuator value was received
 							DtoDevice newDevices = new DtoDevice();
-							newDevices.setID(service.getServiceId());
+							newDevices.setId(service.getServiceId());
 
 							DtoValue newDtoValue = new DtoValue();
 							newDtoValue.setValue(service.getValue());

@@ -35,6 +35,10 @@ public class DtoDevice{
 		return id; 
 	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public DtoType getType() {
 		return type;
 	}
