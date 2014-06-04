@@ -6,6 +6,7 @@ import java.util.concurrent.Callable;
 import javax.persistence.Query;
 
 import com.ffh.babblehouse.model.DtoDevice;
+import com.ffh.babblehouse.model.DtoSensor;
 import com.ffh.babblehouse.model.DtoValue;
 
 public class DeviceRepository extends RepositoryBase<DtoDevice> {
@@ -24,5 +25,19 @@ public class DeviceRepository extends RepositoryBase<DtoDevice> {
 			}};
 
 			return (List<DtoValue>) this.foreignTransact(transaction);
+	}
+
+	public DtoDevice getDeviceByName(final String deviceName,final int amountOfRecords) {
+		Callable<DtoDevice> transaction = new Callable<DtoDevice>() {
+			@Override
+			public DtoDevice call() throws Exception {
+				
+				Query query = em.createQuery("SELECT device FROM DtoDevice device WHERE device.deviceName='"+ String.valueOf(deviceName) +"'");
+				
+				query.setMaxResults(amountOfRecords);
+				return (DtoDevice) query.getSingleResult();
+			}};
+
+			return this.transact(transaction);
 	}
 }

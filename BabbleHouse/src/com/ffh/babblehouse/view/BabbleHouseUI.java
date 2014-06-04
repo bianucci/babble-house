@@ -1,9 +1,6 @@
 package com.ffh.babblehouse.view;
 
 import javax.servlet.annotation.WebServlet;
-
-import com.ffh.babblehouse.controller.BusinessObjects.BoProduct;
-import com.ffh.babblehouse.model.DtoProduct;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
@@ -34,6 +31,5 @@ public class BabbleHouseUI extends UI {
         // Create and register the views
         navigator.addView("", new LoginUI(navigator,MAINUI));
         navigator.addView(MAINUI, new MainUI(navigator));
-     //   navigator.addView("", new MainUI(navigator));
 	}
 }

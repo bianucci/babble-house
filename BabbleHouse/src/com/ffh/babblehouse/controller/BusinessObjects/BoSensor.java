@@ -15,9 +15,10 @@ public class BoSensor extends BoBase<DtoSensor>{
 	public List<DtoValue> getLastSensorValuesById(int sensorId, int amountOfRecords){
 		return this.getLastSensorValuesById(sensorId, amountOfRecords);
 	}
-	
-	public List<DtoValue> getLastSensorValuesByName(String sensorName, int amountOfRecords){
-		return ((SensorRepository) this.repository).getLastSensorValuesByName(sensorName, amountOfRecords);
+
+
+	public DtoSensor getSensorByName(String sensorName,int amountOfRecords) {
+		return ((SensorRepository) this.repository).getSensorByName(sensorName,amountOfRecords); 
 	}
 	
 }

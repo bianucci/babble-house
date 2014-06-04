@@ -15,5 +15,10 @@ public class BoDevice extends BoBase<DtoDevice>{
 	public List<DtoValue> getLastDeviceValuesByName(String deviceName, int amountOfRecords){
 		return ((DeviceRepository) this.repository).getLastDeviceValuesByName(deviceName, amountOfRecords);
 	}
+
+	public DtoDevice getDeviceByName(String deviceName,int amountOfRecords) {
+		DtoDevice dtoDevice = ((DeviceRepository) this.repository).getDeviceByName(deviceName,amountOfRecords);
+		return dtoDevice == null ? new DtoDevice() : dtoDevice;
+	}
 	
 }

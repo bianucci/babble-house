@@ -41,5 +41,27 @@ public class SensorRepository extends RepositoryBase<DtoSensor>{
 
 			return (List<DtoValue>) this.foreignTransact(transaction);
 	}
+
+	public DtoSensor getSensorByName(final String sensorName, final int amountOfRecords) {
+		
+		Callable<DtoSensor> transaction = new Callable<DtoSensor>() {
+			@Override
+			public DtoSensor call() throws Exception {
+				
+				Query query = em.createQuery("SELECT sensor FROM DtoSensor sensor WHERE sensor.SensorName='"+ String.valueOf(sensorName) +"'");
+				
+				query.setMaxResults(amountOfRecords);
+				return (DtoSensor) query.getSingleResult();
+			}};
+
+		DtoSensor dtoSensor;
+		try {
+			dtoSensor = this.transact(transaction);
+		}catch(Exception e){
+			dtoSensor = null;
+		}
+			return dtoSensor;
+	}
+
 	
 }
