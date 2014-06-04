@@ -104,7 +104,7 @@ public class MainUI extends CustomComponent implements View{
 		// Generate Service Groups Tree
 		generateTree(boServiceGroup.getServiceGrouplist());
 		
-		//TODO this call will be removed
+		//TODO This method must be integrated to DB
 		generateTable();
 		
 //		List<DtoValue> valueList = new SensorRepository().getLastSensorValues(1, 2);
@@ -225,7 +225,7 @@ public class MainUI extends CustomComponent implements View{
 		}
 	}		
 	
-	//TODO this method will be removed
+	//TODO this method must be integrated
 	private void generateTable(){
 		// Adds field names to column in table
 		UDRTable.addContainerProperty("Id", String.class, null);

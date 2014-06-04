@@ -47,7 +47,6 @@ public class BoServiceGroup extends BoBase<DtoServiceGroup> {
 			return tempOuter.toArray();
 		}
 		
-		// TODO Change this method to get the data from DB
 		public DtoServiceGroup getServiceGroupByName(String serviceGroupName){
 			return ((ServiceGroupRepository)this.repository).getServiceGroupByName(serviceGroupName);	
 		}
