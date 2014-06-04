@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity; 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -15,6 +16,7 @@ public class DtoDevice{
 	@Id 
 	@GeneratedValue
 	protected int id;
+	
 	String deviceName;
 	
 	@OneToMany(cascade= CascadeType.REMOVE)
@@ -22,13 +24,25 @@ public class DtoDevice{
 	
 	@OneToMany(cascade= CascadeType.REMOVE)
 	List<DtoValue> values;
+	
+	@ManyToOne
+	DtoType type;
 
+	@ManyToOne
+	DtoServiceGroup dtoServiceGroup;
+	
 	public int getId() { 
 		return id; 
 	}
-	public void setID(int id){
-	this.id=id;	
+	
+	public DtoType getType() {
+		return type;
 	}
+
+	public void setType(DtoType type) {
+		this.type = type;
+	}
+
 	
 	public List<DtoValue> getValues() {
 		return values;
@@ -36,6 +50,12 @@ public class DtoDevice{
 
 	public void setValues(List<DtoValue> values) {
 		this.values = values;
+	}
+
+	public DtoValue getLatestValue(){
+		if(this.values.size()>0)
+			return this.values.get(this.values.size()-1);
+		return null;
 	}
 	
 	public List<DtoUDR> getUserDefineRules() {

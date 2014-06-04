@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 @Entity
 public class DtoSensor {
@@ -13,8 +14,13 @@ public class DtoSensor {
 	@GeneratedValue
 	protected int id;
 
-	
 	String SensorName;
+	
+	@ManyToOne
+	DtoMeasuringUnit measuringUnit;
+	
+	@ManyToOne
+	DtoServiceGroup dtoServiceGroup;
 	
 	@OneToMany(cascade= CascadeType.REMOVE)
 	List<DtoUDR> userDefineRules;
@@ -29,6 +35,14 @@ public class DtoSensor {
 		 this.id=id;
 	}
 
+	public DtoMeasuringUnit getMeasuringUnit() {
+		return measuringUnit;
+	}
+	
+	public void setMeasuringUnit(DtoMeasuringUnit measuringUnit) {
+		this.measuringUnit = measuringUnit;
+	}
+	
 	public List<DtoValue> getValues() {
 		return values;
 	}
@@ -37,6 +51,12 @@ public class DtoSensor {
 		this.values = values;
 	}
 
+	public DtoValue getLatestValue(){
+		if(this.values.size()>0)
+			return this.values.get(this.values.size()-1);
+		return null;
+	}
+	
 	public List<DtoUDR> getUserDefineRules() {
 		return userDefineRules;
 	}
