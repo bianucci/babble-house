@@ -28,6 +28,8 @@ public class DtoSensor {
 	@OneToMany(cascade= CascadeType.REMOVE)
 	List<DtoValue> values;
 
+	//region Getters and Setters
+	
 	public int getId() { 
 		return id; 
 	}
@@ -72,6 +74,7 @@ public class DtoSensor {
 	public void setSensorName(String sensorName) {
 		SensorName = sensorName;
 	}
-
+	
+	//endregion Getters and Setters
 	
 }

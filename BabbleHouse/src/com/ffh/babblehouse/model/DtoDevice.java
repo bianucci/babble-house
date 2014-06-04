@@ -31,6 +31,7 @@ public class DtoDevice{
 	@ManyToOne
 	DtoServiceGroup dtoServiceGroup;
 	
+	//region Getters and Setters
 	public int getId() { 
 		return id; 
 	}
@@ -74,7 +75,7 @@ public class DtoDevice{
 	public void setDeviceName(String deviceName) {
 		this.deviceName = deviceName;
 	}
-	
+	//endregion Getters and Setters
 		
 
 }
