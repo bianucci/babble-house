@@ -43,12 +43,10 @@ static uint8_t last_msg[100];
 static uint8_t last_msg_length=0;
 
 static uint8_t adcData;
-char str[5];
 static HAL_AppTimer_t readADCTimer;
-
+char str[5];
 static void readSensorDonceCb(void);
 static void readADCTimerFired(void);
-
 static HAL_AdcDescriptor_t adcdescriptor = {
 	.resolution=RESOLUTION_8_BIT,
 	.sampleRate=ADC_4800SPS,
@@ -139,6 +137,7 @@ void APL_TaskHandler(void)
 	if(uninitialized==1){
 		usart_Init();
 		HAL_OpenUsart(&usart);
+		
 		//HAL_WriteUsart(&usart, "APP_INIT_STATE\r\n", sizeof("APP_INIT_STATE\r\n"));
 		srand(42);
 		createBeaconList();
@@ -154,9 +153,11 @@ void APL_TaskHandler(void)
 	switch(appState){
 		case APP_INIT_STATE:
 			usart_Init();
+			HAL_OpenAdc(&adcdescriptor);	
 			HAL_OpenUsart(&usart);
 			//HAL_WriteUsart(&usart, "APP_INIT_STATE\r\n", sizeof("APP_INIT_STATE\r\n"));
 			initTimer();
+			
 			appState=APP_START_NETWORK_STATE;
 			SYS_PostTask(APL_TASK_ID);
 			break;
@@ -202,6 +203,9 @@ void APL_TaskHandler(void)
 			//HAL_WriteUsart(&usart, "READ BEGN\r", sizeof("read begn\r"));
 			HAL_ReadAdc(&adcdescriptor, HAL_ADC_CHANNEL_1);
 			appState=APP_TRANSMIT_STATE;
+			#if CS_DEVICE_TYPE==DEV_TYPE_ENDDEVICE
+				HAL_WriteUsart(&usart, &adcData, 1);
+			#endif
 			//appWriteDataToUart((uint8_t*)"read done\r", sizeof("read done\r"));
 			SYS_PostTask(APL_TASK_ID);
 			break;
@@ -279,7 +283,7 @@ void APS_DataInd(APS_DataInd_t *indData){
 	service.serviceGroupId=1;
 	service.serviceId=3;
 	service.has_value=true;
-	service.value=indData->asdu;
+	service.value=indData->asdu[0];
 	service.has_info=true;
 	strcpy(service.info, "light");
 	
