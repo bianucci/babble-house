@@ -6,28 +6,32 @@ import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
 
-public class Connector implements Iconnector {
+public class Connector {
 	String PortName;
 	private int flag = 1;
 
 	private SerialPort serialPort;
 
 	DtoGateway dtoGateway = new DtoGateway();
+	public Connector(){
+		PortConnection();
+	}
 
 	// setting the
 	private void setGatewayConnectionDetails() {
 		if (flag == 1) {
+		// default setting
 			dtoGateway.setBaudrate(38400);
 			dtoGateway.setDatabits(8);
-			dtoGateway.setParity_none(1);
-			dtoGateway.setStopbits(0);
+			dtoGateway.setParity_none(0);
+			dtoGateway.setStopbits(1);
 			flag = 2;
 		} else {
 			// fetch the deata from the database;
 			dtoGateway.setBaudrate(38400);
 			dtoGateway.setDatabits(8);
-			dtoGateway.setParity_none(1);
-			dtoGateway.setStopbits(0);
+			dtoGateway.setParity_none(0);
+			dtoGateway.setStopbits(1);
 		}
 
 	}
@@ -42,7 +46,7 @@ public class Connector implements Iconnector {
 	}
 
 	// open com port for connection
-	public SerialPort PortConnection() {
+	public void PortConnection() {
 		setGatewayConnectionDetails();
 		SetComPort(); // set availble port
 		serialPort = new SerialPort(PortName);
@@ -55,8 +59,10 @@ public class Connector implements Iconnector {
 			e.printStackTrace();
 		}
 
-		return serialPort;
 
 	}
 
+	public SerialPort getserialPort(){
+		return serialPort;
+	}
 }
