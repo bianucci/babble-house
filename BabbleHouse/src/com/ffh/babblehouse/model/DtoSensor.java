@@ -10,71 +10,71 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 @Entity
 public class DtoSensor {
-	@Id 
-	@GeneratedValue
-	protected int id;
+        @Id
+        @GeneratedValue
+        protected int id;
 
-	String SensorName;
-	
-	@ManyToOne
-	DtoMeasuringUnit measuringUnit;
-	
-	@ManyToOne
-	DtoServiceGroup dtoServiceGroup;
-	
-	@OneToMany(cascade= CascadeType.REMOVE)
-	List<DtoUDR> userDefineRules;
-	
-	@OneToMany(cascade= CascadeType.REMOVE)
-	List<DtoValue> values;
+        String SensorName;
+       
+        @ManyToOne
+        DtoMeasuringUnit measuringUnit;
+       
+        @ManyToOne
+        DtoServiceGroup dtoServiceGroup;
+       
+        @OneToMany(cascade= CascadeType.REMOVE)
+        List<DtoUDR> userDefineRules;
+       
+        @OneToMany(cascade= CascadeType.REMOVE)
+        List<DtoValue> values;
 
-	//region Getters and Setters
-	
-	public int getId() { 
-		return id; 
-	}
-	public void setId(int id) { 
-		 this.id=id;
-	}
+        //region Getters and Setters
+       
+        public int getId() {
+                return id;
+        }
+        public void setId(int id) {
+                 this.id=id;
+        }
 
-	public DtoMeasuringUnit getMeasuringUnit() {
-		return measuringUnit;
-	}
-	
-	public void setMeasuringUnit(DtoMeasuringUnit measuringUnit) {
-		this.measuringUnit = measuringUnit;
-	}
-	
-	public List<DtoValue> getValues() {
-		return values;
-	}
+        public DtoMeasuringUnit getMeasuringUnit() {
+                return measuringUnit;
+        }
+       
+        public void setMeasuringUnit(DtoMeasuringUnit measuringUnit) {
+                this.measuringUnit = measuringUnit;
+        }
+       
+        public List<DtoValue> getValues() {
+                return values;
+        }
 
-	public void setValues(List<DtoValue> values) {
-		this.values = values;
-	}
+        public void setValues(List<DtoValue> values) {
+                this.values = values;
+        }
 
-	public DtoValue getLatestValue(){
-		if(this.values.size()>0)
-			return this.values.get(this.values.size()-1);
-		return null;
-	}
-	
-	public List<DtoUDR> getUserDefineRules() {
-		return userDefineRules;
-	}
+        public DtoValue getLatestValue(){
+                if(this.values.size()>0)
+                        return this.values.get(this.values.size()-1);
+                return null;
+        }
+       
+        public List<DtoUDR> getUserDefineRules() {
+                return userDefineRules;
+        }
 
-	public void setUserDefineRules(List<DtoUDR> userDefineRules) {
-		this.userDefineRules = userDefineRules;
-	}
+        public void setUserDefineRules(List<DtoUDR> userDefineRules) {
+                this.userDefineRules = userDefineRules;
+        }
 
-	public String getSensorName() {
-		return SensorName;
-	}
+        public String getSensorName() {
+                return SensorName;
+        }
 
-	public void setSensorName(String sensorName) {
-		SensorName = sensorName;
-	}
-	
-	//endregion Getters and Setters
-	
+        public void setSensorName(String sensorName) {
+                SensorName = sensorName;
+        }
+       
+        //endregion Getters and Setters
+       
 }

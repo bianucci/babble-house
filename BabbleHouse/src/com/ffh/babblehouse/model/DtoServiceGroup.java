@@ -1,5 +1,6 @@
 package com.ffh.babblehouse.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -23,7 +24,11 @@ public class DtoServiceGroup {
 	private List<DtoSensor> sensors;
 	
 	private int batterylevel; // percentage
-	
+	public DtoServiceGroup(){
+		devices= new ArrayList<DtoDevice>();
+		sensors= new ArrayList<DtoSensor>();
+		
+	}
 	public int getId() { 
 		return id; 
 	}

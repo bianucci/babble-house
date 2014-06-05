@@ -10,6 +10,10 @@ public class ServiceGroupQueue {
 	private static ServiceGroupQueue instance = null;
 	private List<DtoServiceGroup> dtoServiceGroup = new ArrayList<DtoServiceGroup>();
 
+	public List<DtoServiceGroup> getDtoServiceGroup() {
+		return dtoServiceGroup;
+	}
+
 	public static ServiceGroupQueue getInstance() {
 		if (instance == null) {
 			instance = new ServiceGroupQueue();
@@ -17,20 +21,6 @@ public class ServiceGroupQueue {
 		return instance;
 	}
 
-	public DtoServiceGroup getFirstGroupFromQueue() {
-		DtoServiceGroup sg = dtoServiceGroup.get(0);
-		if (sg != null) {
-			dtoServiceGroup.remove(sg);
-			return sg;
-		} else {
-			return null;
-		}
-	}
-
-	public List<DtoServiceGroup> getDtoServiceGroup() {
-		ArrayList<DtoServiceGroup> toReturn = new ArrayList<DtoServiceGroup>(this.dtoServiceGroup);
-		this.dtoServiceGroup = new ArrayList<DtoServiceGroup>();
-		return toReturn;
-	}
+	
 	
 }
