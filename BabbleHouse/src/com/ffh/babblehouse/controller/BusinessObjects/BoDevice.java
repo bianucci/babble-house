@@ -31,8 +31,6 @@ public class BoDevice extends BoBase<DtoDevice> {
 		dtoValue.setCurrentTimestamp(new Timestamp(System.currentTimeMillis()));
 
 		dtoDevice.getValues().add(dtoValue);
-
-		// this.SaveOrUpdate(dtoDevice);
 	}
 
 }

@@ -18,12 +18,23 @@ public class DtoValue {
 	@ManyToOne
 	private DtoDevice dtoDevice;
 	
+	@ManyToOne
+	private DtoSensor dtoSensor;
+	
 	public DtoDevice getDtoDevice() {
 		return dtoDevice;
 	}
 
 	public void setDtoDevice(DtoDevice dtoDevice) {
+		if(dtoSensor != null)	
+			dtoSensor = null;
 		this.dtoDevice = dtoDevice;
+	}
+	
+	public void setDtoSensor(DtoSensor dtoSensor) {
+		if(dtoDevice != null)
+			dtoDevice = null;
+		this.dtoSensor = dtoSensor;
 	}
 
 	public int getId() { 

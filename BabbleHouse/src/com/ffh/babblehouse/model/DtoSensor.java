@@ -22,10 +22,10 @@ public class DtoSensor {
         @ManyToOne
         DtoServiceGroup dtoServiceGroup;
        
-        @OneToMany(cascade= CascadeType.REMOVE)
+        @OneToMany(cascade= CascadeType.ALL)
         List<DtoUDR> userDefineRules;
        
-        @OneToMany(cascade= CascadeType.REMOVE)
+        @OneToMany(cascade= CascadeType.ALL)
         List<DtoValue> values;
 
         //region Getters and Setters
@@ -77,4 +77,9 @@ public class DtoSensor {
        
         //endregion Getters and Setters
        
+        public void addValue(DtoValue dtoValue){
+        	if(dtoValue != null)
+        		values.add(dtoValue);
+        	dtoValue.setDtoSensor(this);
+        }
 }
