@@ -160,8 +160,9 @@ public class MainUI extends CustomComponent implements View{
 				
 				GeneralInformationVerticalLayout.removeAllComponents();
 
-				//region IF it is a leaf
+				
 				if(!ServiceGroupTree.areChildrenAllowed(itemName)){
+					//region IF it is a leaf
 					int maximumAmount = 24;
 					if(itemName.toLowerCase().contains("sensor")){
 						DtoSensor dtoSensor = boSensor.getSensorByName(itemName,maximumAmount);
@@ -176,16 +177,17 @@ public class MainUI extends CustomComponent implements View{
 							fillChart(dtoDevice.getDeviceName(), "Measuring unit", dtoDevice.getValues(),maximumAmount);
 						else
 							Notification.show("Device not found in DB", Type.ERROR_MESSAGE);
-					}
-				} //endregion IF it is a leaf
+					}//endregion IF it is a leaf
+				} 
 				else
 				{	
-					//region IF it is a root
 					if(ServiceGroupTree.isRoot(itemName)){
+						//region IF it is a root
 						DtoServiceGroup dtoServiceGroup = boServiceGroup.getServiceGroupByName(itemName);
 						GenInfo = new GeneralInfo(dtoServiceGroup);
 						GeneralInformationVerticalLayout.addComponent(GenInfo);
-					}	//endregion IF it is a root
+						//endregion IF it is a root
+					}	
 				}
 			}
 		});
