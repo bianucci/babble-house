@@ -271,6 +271,10 @@
       <SubType>compile</SubType>
       <Link>include\pb_encode.h</Link>
     </Compile>
+    <Compile Include="..\include\sensoring.h">
+      <SubType>compile</SubType>
+      <Link>include\sensoring.h</Link>
+    </Compile>
     <Compile Include="..\include\uartmessage.pb.h">
       <SubType>compile</SubType>
       <Link>include\uartmessage.pb.h</Link>
@@ -290,6 +294,10 @@
     <Compile Include="..\src\pb_encode.c">
       <SubType>compile</SubType>
       <Link>src\pb_encode.c</Link>
+    </Compile>
+    <Compile Include="..\src\sensoring.c">
+      <SubType>compile</SubType>
+      <Link>src\sensoring.c</Link>
     </Compile>
     <Compile Include="..\src\uartManager.c">
       <SubType>compile</SubType>
