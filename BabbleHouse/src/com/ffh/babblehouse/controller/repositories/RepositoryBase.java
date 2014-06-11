@@ -1,9 +1,12 @@
 package com.ffh.babblehouse.controller.repositories;
 
 import java.util.concurrent.Callable;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
+import org.hibernate.PersistentObjectException;
 
 public class RepositoryBase<T> implements IRepositoryBase<T> {
 	
@@ -40,8 +43,12 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 	public void saveOrUpdate(final T object){
 		transact( new Runnable() { 
 			public void run(){
-				em.persist(object);
-			} 
+				try {
+					em.persist(object);
+				} catch(PersistentObjectException e){
+					em.merge(object);
+				}
+			}
 		});
 	}
 	
