@@ -251,6 +251,14 @@
     <CleanTarget>clean</CleanTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\include\messaging.h">
+      <SubType>compile</SubType>
+      <Link>include\messaging.h</Link>
+    </Compile>
+    <Compile Include="..\include\netting.h">
+      <SubType>compile</SubType>
+      <Link>include\netting.h</Link>
+    </Compile>
     <Compile Include="..\include\pb.h">
       <SubType>compile</SubType>
       <Link>include\pb.h</Link>
@@ -266,6 +274,14 @@
     <Compile Include="..\include\uartmessage.pb.h">
       <SubType>compile</SubType>
       <Link>include\uartmessage.pb.h</Link>
+    </Compile>
+    <Compile Include="..\src\messaging.c">
+      <SubType>compile</SubType>
+      <Link>src\messaging.c</Link>
+    </Compile>
+    <Compile Include="..\src\netting.c">
+      <SubType>compile</SubType>
+      <Link>src\netting.c</Link>
     </Compile>
     <Compile Include="..\src\pb_decode.c">
       <SubType>compile</SubType>
