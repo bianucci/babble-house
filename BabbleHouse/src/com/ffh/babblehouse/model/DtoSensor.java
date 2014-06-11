@@ -8,78 +8,88 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
 @Entity
 public class DtoSensor {
-        @Id
-        @GeneratedValue
-        protected int id;
+	@Id
+	@GeneratedValue
+	protected int id;
 
-        String SensorName;
-       
-        @ManyToOne
-        DtoMeasuringUnit measuringUnit;
-       
-        @ManyToOne
-        DtoServiceGroup dtoServiceGroup;
-       
-        @OneToMany(cascade= CascadeType.ALL)
-        List<DtoUDR> userDefineRules;
-       
-        @OneToMany(cascade= CascadeType.ALL)
-        List<DtoValue> values;
+	String SensorName;
 
-        //region Getters and Setters
-       
-        public int getId() {
-                return id;
-        }
-        public void setId(int id) {
-                 this.id=id;
-        }
+	@ManyToOne
+	DtoMeasuringUnit measuringUnit;
 
-        public DtoMeasuringUnit getMeasuringUnit() {
-                return measuringUnit;
-        }
-       
-        public void setMeasuringUnit(DtoMeasuringUnit measuringUnit) {
-                this.measuringUnit = measuringUnit;
-        }
-       
-        public List<DtoValue> getValues() {
-                return values;
-        }
+	@ManyToOne
+	DtoServiceGroup dtoServiceGroup;
 
-        public void setValues(List<DtoValue> values) {
-                this.values = values;
-        }
+	public DtoServiceGroup getDtoServiceGroup() {
+		return dtoServiceGroup;
+	}
 
-        public DtoValue getLatestValue(){
-                if(this.values.size()>0)
-                        return this.values.get(this.values.size()-1);
-                return null;
-        }
-       
-        public List<DtoUDR> getUserDefineRules() {
-                return userDefineRules;
-        }
+	public void setDtoServiceGroup(DtoServiceGroup dtoServiceGroup) {
+		this.dtoServiceGroup = dtoServiceGroup;
+	}
 
-        public void setUserDefineRules(List<DtoUDR> userDefineRules) {
-                this.userDefineRules = userDefineRules;
-        }
+	@OneToMany(cascade = CascadeType.ALL)
+	List<DtoUDR> userDefineRules;
 
-        public String getSensorName() {
-                return SensorName;
-        }
+	@OneToMany(cascade = CascadeType.ALL)
+	List<DtoValue> values;
 
-        public void setSensorName(String sensorName) {
-                SensorName = sensorName;
-        }
-       
-        //endregion Getters and Setters
-       
-        public void addValue(DtoValue dtoValue){
-        	if(dtoValue != null)
-        		values.add(dtoValue);
-        	dtoValue.setDtoSensor(this);
-        }
+	// region Getters and Setters
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public DtoMeasuringUnit getMeasuringUnit() {
+		return measuringUnit;
+	}
+
+	public void setMeasuringUnit(DtoMeasuringUnit measuringUnit) {
+		this.measuringUnit = measuringUnit;
+	}
+
+	public List<DtoValue> getValues() {
+		return values;
+	}
+
+	public void setValues(List<DtoValue> values) {
+		this.values = values;
+	}
+
+	public DtoValue getLatestValue() {
+		if (this.values.size() > 0)
+			return this.values.get(this.values.size() - 1);
+		return null;
+	}
+
+	public List<DtoUDR> getUserDefineRules() {
+		return userDefineRules;
+	}
+
+	public void setUserDefineRules(List<DtoUDR> userDefineRules) {
+		this.userDefineRules = userDefineRules;
+	}
+
+	public String getSensorName() {
+		return SensorName;
+	}
+
+	public void setSensorName(String sensorName) {
+		SensorName = sensorName;
+	}
+
+	// endregion Getters and Setters
+
+	public void addValue(DtoValue dtoValue) {
+		if (dtoValue != null)
+			values.add(dtoValue);
+		dtoValue.setDtoSensor(this);
+	}
 }

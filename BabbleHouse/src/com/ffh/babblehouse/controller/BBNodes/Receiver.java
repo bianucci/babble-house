@@ -121,6 +121,8 @@ for(int i=0; i< obsrevers.size(); i++){
 						} else if (serviceType.equals(ServiceType.SENSOR)) {
 							// a sensor value was received
 							
+							
+						
 							// create a dto sensor instance
 							DtoSensor newDtoSensor = new DtoSensor();
 							newDtoSensor.setValues(new  ArrayList<DtoValue>());
@@ -131,6 +133,12 @@ for(int i=0; i< obsrevers.size(); i++){
 							newmeasuringUnit.setUnit_name(service.getInfo());
 							newDtoSensor.setMeasuringUnit(newmeasuringUnit);
 							
+							// create a dummy service dtoservice group
+							DtoServiceGroup  newdummyDtoServiceGroup= new DtoServiceGroup ();
+                            // set  dtoservicegroup		id					
+							newdummyDtoServiceGroup.setId(service.getServiceGroupId());
+							// setDtoServiceGroup
+							newDtoSensor.setDtoServiceGroup(newdummyDtoServiceGroup);
                             // create newDtoValue  instance
 							DtoValue newDtoValue = new DtoValue();
 							// set newDtoValue value from service mesage
