@@ -1,23 +1,24 @@
 package com.ffh.babblehouse.controller.BBNodes;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Beacon;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type;
 import com.ffh.babblehouse.model.DtoDevice;
+import com.ffh.babblehouse.model.DtoMeasuringUnit;
 import com.ffh.babblehouse.model.DtoSensor;
 import com.ffh.babblehouse.model.DtoServiceGroup;
 import com.ffh.babblehouse.model.DtoValue;
 import com.ffh.babblehouse.observing.Observer;
-import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
 import com.google.protobuf.InvalidProtocolBufferException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.sql.*;
 
 public class Receiver extends Thread implements Subject{
 	SerialPort serialPort;
@@ -97,7 +98,7 @@ for(int i=0; i< obsrevers.size(); i++){
 							// creat dto device instance
 							DtoDevice newDevice = new DtoDevice();
 							// set newdevice id from service message
-							newDevice.setID(service.getServiceId());
+							
                              // create newdto Value
 							DtoValue newDtoValue = new DtoValue();
 							// set  newDtoValue from service message 
@@ -106,7 +107,7 @@ for(int i=0; i< obsrevers.size(); i++){
 							Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 							// set newDtoValue current time stamp 
 							newDtoValue.setCurrentTimestamp(currentTimestamp);
-							newDevice.setServiceGroupId(service.getServiceGroupId());
+			
 							// add the value to dto value list
 							newDevice.getValues().add(newDtoValue);
 							
@@ -123,10 +124,13 @@ for(int i=0; i< obsrevers.size(); i++){
 							
 							// create a dto sensor instance
 							DtoSensor newDtoSensor = new DtoSensor();
+							newDtoSensor.setValues(new  ArrayList<DtoValue>());
 							// set newDtoSensor id from service message value
 							newDtoSensor.setId(service.getServiceId());
 							// set newDtoSensor measuring units
-							newDtoSensor.setMeasuringUnit(service.getInfo());
+							DtoMeasuringUnit newmeasuringUnit=new DtoMeasuringUnit();
+							newmeasuringUnit.setUnit_name(service.getInfo());
+							newDtoSensor.setMeasuringUnit(newmeasuringUnit);
 							
                             // create newDtoValue  instance
 							DtoValue newDtoValue = new DtoValue();
@@ -139,7 +143,7 @@ for(int i=0; i< obsrevers.size(); i++){
 							newDtoValue.setCurrentTimestamp(currentTimestamp);
 							//add newDtoValue to newDtoSensor value list
 						    newDtoSensor.getValues().add(newDtoValue);
-						    newDtoSensor.setServiceGroupId(service.getServiceGroupId());
+						    
 						
 						    NotifyObserever(newDtoSensor);
 						    
@@ -170,7 +174,7 @@ for(int i=0; i< obsrevers.size(); i++){
 
 									DtoDevice newDevices = new DtoDevice();
 									newDevices.setDeviceName(NewService);
-									newDevices.setID(newService.getServiceId());
+									newDevices.setId(newService.getServiceId());
 
 									dtoServiceGroup.getDevices()
 											.add(newDevices);

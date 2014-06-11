@@ -13,7 +13,7 @@ import com.ffh.babblehouse.model.DtoSensor;
  * @author zziwa
  */
 public interface Observer {
-    public void updateDtoDevice(DtoDevice dtoSensor );
+    public void updateDtoDevice(DtoDevice dtoDevice );
     public void  updateSensor(DtoSensor dtoSensor);
    
 }

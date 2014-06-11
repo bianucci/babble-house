@@ -32,7 +32,6 @@ public class ObjectHandler implements Observer{
 	System.out.println(dtoSensor.getMeasuringUnit());
 	System.out.println(dtoSensor.getId());
 	
-	System.out.println(dtoSensor.getServiceGroupId()+"-----"+"service id");
 
 	}
 
