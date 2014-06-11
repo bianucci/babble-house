@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 @Entity
 public class DtoValue {
 	@Id 
@@ -13,6 +14,17 @@ public class DtoValue {
 	
 	private int value;
 	private Timestamp currentTimestamp;
+	
+	@ManyToOne
+	private DtoDevice dtoDevice;
+	
+	public DtoDevice getDtoDevice() {
+		return dtoDevice;
+	}
+
+	public void setDtoDevice(DtoDevice dtoDevice) {
+		this.dtoDevice = dtoDevice;
+	}
 
 	public int getId() { 
 		return id; 

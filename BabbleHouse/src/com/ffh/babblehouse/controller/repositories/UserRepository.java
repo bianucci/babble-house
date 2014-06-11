@@ -6,7 +6,7 @@ import javax.persistence.Query;
 
 import com.ffh.babblehouse.model.DtoUser;
 
-public class UserRepository extends RepositoryBase<DtoUser> implements IRepositoryBase<DtoUser>{
+public class UserRepository extends RepositoryBase<DtoUser>{
 	// Here go specific queries. Basic queries as Save, Update, and delete are inherited from RepositoryBase
 	
 	public DtoUser selectByUserName(final String userName){

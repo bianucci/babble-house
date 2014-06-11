@@ -31,5 +31,4 @@ public abstract class BoBase<T>{
 		repository.delete(object);
 		return this;
 	}
-	
 }

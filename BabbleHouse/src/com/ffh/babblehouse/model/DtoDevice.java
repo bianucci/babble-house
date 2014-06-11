@@ -19,10 +19,10 @@ public class DtoDevice{
        
         String deviceName;
        
-        @OneToMany(cascade= CascadeType.REMOVE)
+        @OneToMany(cascade= CascadeType.ALL)
         List<DtoUDR> userDefineRules;
        
-        @OneToMany(cascade= CascadeType.REMOVE)
+        @OneToMany(cascade= CascadeType.ALL)
         List<DtoValue> values;
        
         @ManyToOne
@@ -77,6 +77,10 @@ public class DtoDevice{
         }
         //endregion Getters and Setters
                
-
+        public void addValue(DtoValue dtoValue){
+        	if(dtoValue != null)
+        		values.add(dtoValue);
+        	dtoValue.setDtoDevice(this);
+        }
 }
 

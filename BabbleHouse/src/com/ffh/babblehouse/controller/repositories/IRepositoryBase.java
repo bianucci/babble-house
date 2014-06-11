@@ -10,4 +10,6 @@ public interface IRepositoryBase<T> {
 	
 	T selectById(Class<T> thisClass, final int Id);
 	
+	void transact(Runnable action);
+	void flush();
 }

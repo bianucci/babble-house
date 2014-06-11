@@ -1,18 +1,16 @@
 package com.ffh.babblehouse.controller.repositories;
 
 import java.util.concurrent.Callable;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import org.hibernate.PersistentObjectException;
 
 public class RepositoryBase<T> implements IRepositoryBase<T> {
 	
 	private EntityManagerFactory factory = Persistence.createEntityManagerFactory("babblehousedb"); 
 	protected EntityManager em = factory.createEntityManager();  
-	
+
 	// Saves data to DB
 	public T selectById(Class<T> dtoClass, final int Id){
 		
@@ -41,15 +39,11 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 	
 	// Saves or Updates data to DB
 	public void saveOrUpdate(final T object){
-		transact( new Runnable() { 
-			public void run(){
-				try {
-					em.persist(object);
-				} catch(PersistentObjectException e){
-					em.merge(object);
-				}
-			}
-		});
+		em.merge(object);
+	}
+	
+	public void flush(){
+		em.flush();
 	}
 	
 	// Deletes data from DB
@@ -61,7 +55,7 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 		});
 	}
 	
-	protected void transact(Runnable action){
+	public void transact(Runnable action){
 		
 		try{
 			em.getTransaction().begin(); 
@@ -71,6 +65,7 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 			em.getTransaction().commit();
 		}
 		catch(Exception e){
+			em.getTransaction().rollback();
 			showConnectionError(e,"Could not commit transaction. Issue in RepositoryBase.Transact(Runnable action).");
 		}
 	}
@@ -90,8 +85,7 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 
 		return t;
 	}	
-	
-	
+		
 	protected Object foreignTransact(Callable<Object> action){
 		Object object = null;
 		try{
@@ -109,7 +103,7 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 	}	
 	
 	private void showConnectionError(Exception e, String messageToShow){
-		System.out.println("");
+		System.out.println(messageToShow);
 		System.out.println(e.getStackTrace());
 		System.out.println(e.getMessage());
 	}
