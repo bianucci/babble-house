@@ -6,7 +6,6 @@ import java.util.concurrent.Callable;
 import javax.persistence.Query;
 
 import com.ffh.babblehouse.model.DtoDevice;
-import com.ffh.babblehouse.model.DtoSensor;
 import com.ffh.babblehouse.model.DtoValue;
 
 public class DeviceRepository extends RepositoryBase<DtoDevice> {

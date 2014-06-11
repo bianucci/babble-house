@@ -5,7 +5,6 @@ import jssc.SerialPort;
 import com.ffh.babblehouse.controller.BBNodes.Connector;
 import com.ffh.babblehouse.controller.BBNodes.Receiver;
 import com.ffh.babblehouse.controller.BBNodes.ServiceGroupQueue;
-import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service;
 import com.ffh.babblehouse.model.DtoServiceGroup;
 
 public class TestHandler {

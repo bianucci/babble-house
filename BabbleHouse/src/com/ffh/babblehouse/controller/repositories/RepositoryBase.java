@@ -4,7 +4,6 @@ import java.util.concurrent.Callable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import org.hibernate.PersistentObjectException;
 
 public class RepositoryBase<T> implements IRepositoryBase<T> {
 	
