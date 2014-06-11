@@ -32,7 +32,7 @@ public class TestHandler {
 		// get service group list
 
 		ServiceGroupQueue 	newServiceGroupQueue= ServiceGroupQueue.getInstance();
-		for (DtoServiceGroup dtoServiceGroup : newServiceGroupQueue.getDtoServiceGroup()){
+		for (DtoServiceGroup dtoServiceGroup : newServiceGroupQueue.getDtoServiceGroupList()){
 			System.out.println("Beacon Message received");
 			System.out.println(dtoServiceGroup.getName());
 			System.out.println(dtoServiceGroup.getSensors().size()+"-------"+"number of sensor");

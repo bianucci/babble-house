@@ -20,7 +20,7 @@ import com.ffh.babblehouse.model.DtoValue;
 import com.ffh.babblehouse.observing.Observer;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-public class Receiver extends Thread implements Subject{
+public class Receiver extends Thread implements IObseverable{
 	SerialPort serialPort;
 	DtoServiceGroup dtoServiceGroup;
 	ServiceGroupQueue newServiceGroupQueue;
@@ -196,8 +196,7 @@ for(int i=0; i< obsrevers.size(); i++){
 									
 
 								}
-								newServiceGroupQueue.getDtoServiceGroup().add(dtoServiceGroup);
-								
+								newServiceGroupQueue.getDtoServiceGroupList().add(dtoServiceGroup);
 							}
 
 						}

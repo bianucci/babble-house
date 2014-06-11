@@ -1,14 +1,14 @@
 package com.ffh.babblehouse.observing;
 
-import com.ffh.babblehouse.controller.BBNodes.Subject;
+import com.ffh.babblehouse.controller.BBNodes.IObseverable;
 import com.ffh.babblehouse.model.DtoDevice;
 import com.ffh.babblehouse.model.DtoSensor;
 
 public class ObjectHandler implements Observer{
-	   private Subject Objectcreator;
+	   private IObseverable Objectcreator;
 	   private DtoDevice dtoDevice;
 	   private DtoSensor dtoSensor;
-	   public ObjectHandler (Subject dtoObject){
+	   public ObjectHandler (IObseverable dtoObject){
 		   
 		      this.Objectcreator= dtoObject;
 		      Objectcreator.RegisterObserver(this);

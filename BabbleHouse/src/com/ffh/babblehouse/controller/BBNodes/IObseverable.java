@@ -12,7 +12,7 @@ import com.ffh.babblehouse.observing.Observer;
  *
  * @author zziwa
  */
-public interface Subject {
+public interface IObseverable {
  public void RegisterObserver(Observer o); 
    public void RemoveTheObserver(Observer o);
    public void NotifyObserever(Object o);   
