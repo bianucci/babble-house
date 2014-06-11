@@ -68,11 +68,19 @@ public class GeneralInfo extends CustomComponent {
 	}
 
 	private Object[] convertDtoDeviceToArray(final DtoDevice dtoDevice, Button button) {
+		String status = "";
+		if(dtoDevice.getLatestValue().getValue() == 1)
+			status = "Active";
+		else if(dtoDevice.getLatestValue().getValue() == 0)
+			status = "Inactive";
+		else 
+			status = "ERROR OCCURED";
+		
 		return new Object[] {
 				String.valueOf(dtoDevice.getId()), 
 				dtoDevice.getDeviceName(),
 				"Type : " + dtoDevice.getType().getName(),
-				String.valueOf(dtoDevice.getLatestValue().getValue()), 
+				status, 
 				button
 		};
 	}
