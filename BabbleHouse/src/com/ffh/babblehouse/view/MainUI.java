@@ -85,11 +85,7 @@ public class MainUI extends CustomComponent implements View{
 	Navigator navigator;
 	BoServiceGroup boServiceGroup = new BoServiceGroup();
 	BoSensor boSensor = new BoSensor();
-	
-	Connector c = Connector.getInstance();
-	Sender s = new Sender(c.getserialPort());
-	IBBDataBridge dataBridge = new ServiceMsgCreator(s);
-	BoDevice boDevice = new BoDevice(dataBridge);
+	BoDevice boDevice = new BoDevice();
 	
 	Chart sensorChart = new Chart(ChartType.LINE);
 

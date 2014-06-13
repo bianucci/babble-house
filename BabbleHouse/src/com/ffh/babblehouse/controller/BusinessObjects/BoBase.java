@@ -1,6 +1,9 @@
 package com.ffh.babblehouse.controller.BusinessObjects;
 
+import com.ffh.babblehouse.controller.BBNodes.Connector;
 import com.ffh.babblehouse.controller.BBNodes.IBBDataBridge;
+import com.ffh.babblehouse.controller.BBNodes.Sender;
+import com.ffh.babblehouse.controller.BBNodes.ServiceMsgCreator;
 import com.ffh.babblehouse.controller.repositories.*;
 
 // Extends BBNode to communicate with sensors and actuators
@@ -13,7 +16,9 @@ public abstract class BoBase<T>{
 	IRepositoryBase<T> repository = new RepositoryBase<T>(); 
 
 	// Adds a bridge to allow communication between BO layer and BB layer
-	IBBDataBridge bbDataBridge;
+	private Connector c = Connector.getInstance();
+	private Sender s = new Sender(c.getserialPort());
+	IBBDataBridge bbDataBridge = new ServiceMsgCreator(s);
 	
 	// Adds basic DB operations
 	public T SelectById(Class<T> DtoClass, int Id){

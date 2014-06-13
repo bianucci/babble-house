@@ -27,10 +27,8 @@ public class GeneralInfo extends CustomComponent {
 	private Table table_1;
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 	DtoServiceGroup dtoServiceGroup;
-	Connector c = Connector.getInstance();
-	Sender s = new Sender(c.getserialPort());
-	IBBDataBridge dataBridge = new ServiceMsgCreator(s);
-	BoDevice boDevice = new BoDevice(dataBridge);
+	
+	BoDevice boDevice = new BoDevice();
 	public enum TurnDevice{
 		On,
 		Off
