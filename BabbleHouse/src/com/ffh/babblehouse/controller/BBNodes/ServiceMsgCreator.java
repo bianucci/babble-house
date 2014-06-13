@@ -37,9 +37,8 @@ public class ServiceMsgCreator implements IBBDataBridge{
 	@Override
 	public void changeDeviceStatus(DtoDevice dtoDevice) {
 		this.deviceStatus=dtoDevice.getLatestValue().getValue();
-		// TODO Auto-generated method stub
 		this.serviceId= dtoDevice.getId();
-		this.serviceType=serviceType.ACTUATOR;
+		this.serviceType=ServiceType.ACTUATOR;
 		this.serviceGroupId=dtoDevice.getDtoServiceGroup().getId();
 		createServiceMsg();
 	}
