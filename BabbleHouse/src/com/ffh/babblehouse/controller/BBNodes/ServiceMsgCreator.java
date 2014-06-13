@@ -8,19 +8,18 @@ import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type
 import com.ffh.babblehouse.model.DtoDevice;
 
 public class ServiceMsgCreator implements IBBDataBridge{
-	int serviceGroupId;
-	ServiceType serviceType;
-	int serviceId;
-	int Serviceid;
-	int deviceStatus;
-	UARTMessage uartMessage;
-	Isender sender;
+	private int serviceGroupId;
+	private ServiceType serviceType;
+	private int serviceId;
+	private int deviceStatus;
+	private UARTMessage uartMessage;
+	private Isender sender;
 	
 	public ServiceMsgCreator(Isender sender ){
 		this.sender=sender;
 		
 	}
-	public void createServiceMsg(){
+	private void createServiceMsg(){
 		Builder serviceBuilder = Service.newBuilder();
 		serviceBuilder.setInfo("" + System.currentTimeMillis());
 		serviceBuilder.setServiceId(serviceGroupId);
