@@ -119,16 +119,6 @@ public class GeneralInfo extends CustomComponent {
 			    	IBBDataBridge bbDataBridge = new IBBDataBridge() {
 						
 						@Override
-						public DtoValue getSensorValue(DtoSensor dtoSensor) {
-							return null;
-						}
-						
-						@Override
-						public int getDeviceStatus(DtoDevice dtoDevice) {
-							return 0;
-						}
-						
-						@Override
 						public void changeDeviceStatus(DtoDevice dtoDevice) {
 						}
 					};

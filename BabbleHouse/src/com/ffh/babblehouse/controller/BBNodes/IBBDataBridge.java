@@ -4,7 +4,5 @@ import com.ffh.babblehouse.model.DtoDevice;
 import com.ffh.babblehouse.model.DtoValue;
 
 public interface IBBDataBridge {
-	void changeDeviceStatus(DtoDevice dtoDevice, int newStatus);
-	
-//toValue getSensorValue(DtoSensor dtoSensor);
+	void changeDeviceStatus(DtoDevice dtoDevice);
 }
