@@ -20,6 +20,10 @@ public abstract class BoBase<T>{
 	private Sender s = new Sender(c.getserialPort());
 	IBBDataBridge bbDataBridge = new ServiceMsgCreator(s);
 	
+	public IBBDataBridge getBBDataBridge() {
+		return bbDataBridge;
+	}
+
 	// Adds basic DB operations
 	public T SelectById(Class<T> DtoClass, int Id){
 		return repository.selectById(DtoClass,Id);
