@@ -3,13 +3,17 @@ package com.ffh.babblehouse.controller.BusinessObjects;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.ffh.babblehouse.controller.BBNodes.IBBDataBridge;
 import com.ffh.babblehouse.controller.repositories.DeviceRepository;
 import com.ffh.babblehouse.model.DtoDevice;
 import com.ffh.babblehouse.model.DtoValue;
 
 public class BoDevice extends BoBase<DtoDevice> {
 
-	public BoDevice() {
+	private IBBDataBridge dataBridge;
+
+	public BoDevice(IBBDataBridge dataBridge) {
+		this.dataBridge = dataBridge;
 		this.repository = new DeviceRepository();
 	}
 
@@ -31,6 +35,7 @@ public class BoDevice extends BoBase<DtoDevice> {
 		dtoValue.setCurrentTimestamp(new Timestamp(System.currentTimeMillis()));
 
 		dtoDevice.getValues().add(dtoValue);
+		dataBridge.changeDeviceStatus(dtoDevice);
 	}
 
 }

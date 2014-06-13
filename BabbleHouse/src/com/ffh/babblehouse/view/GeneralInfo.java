@@ -1,6 +1,9 @@
 package com.ffh.babblehouse.view;
 
+import com.ffh.babblehouse.controller.BBNodes.Connector;
 import com.ffh.babblehouse.controller.BBNodes.IBBDataBridge;
+import com.ffh.babblehouse.controller.BBNodes.Sender;
+import com.ffh.babblehouse.controller.BBNodes.ServiceMsgCreator;
 import com.ffh.babblehouse.controller.BusinessObjects.BoDevice;
 import com.ffh.babblehouse.model.DtoDevice;
 import com.ffh.babblehouse.model.DtoSensor;
@@ -24,7 +27,10 @@ public class GeneralInfo extends CustomComponent {
 	private Table table_1;
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 	DtoServiceGroup dtoServiceGroup;
-	final BoDevice boDevice = new BoDevice();
+	Connector c = Connector.getInstance();
+	Sender s = new Sender(c.getserialPort());
+	IBBDataBridge dataBridge = new ServiceMsgCreator(s);
+	BoDevice boDevice = new BoDevice(dataBridge);
 	public enum TurnDevice{
 		On,
 		Off
@@ -115,15 +121,6 @@ public class GeneralInfo extends CustomComponent {
 			    	
 			    	showTurningNotification(dtoDevice, turn);
 			    	
-			    	//TODO add call to send information to actuator (Backers method) REMOVE empty implementation
-			    	IBBDataBridge bbDataBridge = new IBBDataBridge() {
-						
-						@Override
-						public void changeDeviceStatus(DtoDevice dtoDevice) {
-						}
-					};
-					bbDataBridge.changeDeviceStatus(dtoDevice);
-										
 			    	// Save change to DB
 					if(turn == TurnDevice.On)
 			    		boDevice.addDeviceValue(dtoDevice, 1);

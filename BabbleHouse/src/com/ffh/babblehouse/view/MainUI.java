@@ -2,6 +2,10 @@ package com.ffh.babblehouse.view;
 
 import java.util.List;
 
+import com.ffh.babblehouse.controller.BBNodes.Connector;
+import com.ffh.babblehouse.controller.BBNodes.IBBDataBridge;
+import com.ffh.babblehouse.controller.BBNodes.Sender;
+import com.ffh.babblehouse.controller.BBNodes.ServiceMsgCreator;
 import com.ffh.babblehouse.controller.BusinessObjects.BoDevice;
 import com.ffh.babblehouse.controller.BusinessObjects.BoSensor;
 import com.ffh.babblehouse.controller.BusinessObjects.BoServiceGroup;
@@ -81,7 +85,12 @@ public class MainUI extends CustomComponent implements View{
 	Navigator navigator;
 	BoServiceGroup boServiceGroup = new BoServiceGroup();
 	BoSensor boSensor = new BoSensor();
-	BoDevice boDevice = new BoDevice();
+	
+	Connector c = Connector.getInstance();
+	Sender s = new Sender(c.getserialPort());
+	IBBDataBridge dataBridge = new ServiceMsgCreator(s);
+	BoDevice boDevice = new BoDevice(dataBridge);
+	
 	Chart sensorChart = new Chart(ChartType.LINE);
 
 	public MainUI(Navigator navigator) {

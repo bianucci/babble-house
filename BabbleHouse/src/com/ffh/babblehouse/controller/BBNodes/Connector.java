@@ -7,14 +7,25 @@ import jssc.SerialPortException;
 import jssc.SerialPortList;
 
 public class Connector {
+	
+	private static Connector c = null;
+	
 	String PortName;
 	private int flag = 1;
 
 	private SerialPort serialPort;
 
 	DtoGateway dtoGateway = new DtoGateway();
-	public Connector(){
+	
+	private Connector(){
 		PortConnection();
+	}
+	
+	public static Connector getInstance(){
+		if(c==null){
+			c=new Connector();
+		}
+		return c;
 	}
 
 	// setting the

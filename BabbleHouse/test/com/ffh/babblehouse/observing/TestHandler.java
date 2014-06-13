@@ -12,7 +12,7 @@ public class TestHandler {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method s
-		Connector newConnector = new Connector();
+		Connector newConnector = Connector.getInstance();
 
 
 		SerialPort serialPort = newConnector.getserialPort();
