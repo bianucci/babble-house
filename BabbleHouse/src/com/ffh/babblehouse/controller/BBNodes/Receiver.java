@@ -12,59 +12,25 @@ import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type;
+import com.ffh.babblehouse.controller.BusinessObjects.IBoStateChangedHandler;
 import com.ffh.babblehouse.model.DtoDevice;
 import com.ffh.babblehouse.model.DtoMeasuringUnit;
 import com.ffh.babblehouse.model.DtoSensor;
 import com.ffh.babblehouse.model.DtoServiceGroup;
 import com.ffh.babblehouse.model.DtoValue;
-import com.ffh.babblehouse.observing.Observer;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-public class Receiver extends Thread implements IObseverable{
+public class Receiver extends Thread implements IChangeReceiver {
 	SerialPort serialPort;
 	DtoServiceGroup dtoServiceGroup;
 	ServiceGroupQueue newServiceGroupQueue;
-	  private List<Observer>  obsrevers;
-	 
-	
+	IBoStateChangedHandler changeHandler;
+
 	public Receiver(SerialPort serialPort) {
 		this.serialPort = serialPort;
 		dtoServiceGroup = new DtoServiceGroup();
-	     obsrevers= new ArrayList<Observer > ();
-	     newServiceGroupQueue= ServiceGroupQueue.getInstance();
-	     
-
+		newServiceGroupQueue = ServiceGroupQueue.getInstance();
 	}
-	 public void RegisterObserver(Observer o){
-		   //add an observer to be notified
-
-         obsrevers.add(o);
-        } 
-         public void RemoveTheObserver(Observer o){
-      	   //remove an observers from list
-
-             int i= obsrevers.indexOf(o);
-             if(i >=0){
-             obsrevers.remove(i);
-             }
-         }
-   public void NotifyObserever(Object thisObject){
-	   
-	   //notify all  observersin the list when a new object is created
-for(int i=0; i< obsrevers.size(); i++){
-  Observer obsrever= (Observer)obsrevers.get(i);
-  if(thisObject instanceof DtoSensor){
-
-  obsrever.updateSensor((DtoSensor)thisObject); 
- 
-  }
-  if(thisObject instanceof DtoDevice){
-	  obsrever.updateDtoDevice( (DtoDevice)thisObject);
-	 
-
-  }
-}
-   }
 
 	public void run() {
 		while (true) {
@@ -87,9 +53,6 @@ for(int i=0; i< obsrevers.size(); i++){
 
 						// get id of ZigBee device offering the service
 
-						
-						
-
 						// get type of service: either actuator or sensor
 						ServiceType serviceType = service.getServiceType();
 						if (serviceType.equals(ServiceType.ACTUATOR)) {
@@ -97,65 +60,61 @@ for(int i=0; i< obsrevers.size(); i++){
 							// creat dto device instance
 							DtoDevice newDevice = new DtoDevice();
 							// set newdevice id from service message
-							
-                             // create newdto Value
+
+							// create newdto Value
 							DtoValue newDtoValue = new DtoValue();
-							// set  newDtoValue from service message 
+							// set newDtoValue from service message
 							newDtoValue.setValue(service.getValue());
 							// creat time stamp
-							Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
-							// set newDtoValue current time stamp 
+							Timestamp currentTimestamp = new Timestamp(
+									System.currentTimeMillis());
+							// set newDtoValue current time stamp
 							newDtoValue.setCurrentTimestamp(currentTimestamp);
-			
+
 							// add the value to dto value list
 							newDevice.getValues().add(newDtoValue);
-							
+
 							// create an instance on Dto Device
-							
+
 							// calling the notifying method
 
-							NotifyObserever(newDevice);
-						
-
+							valueChanged(newDevice);
 
 						} else if (serviceType.equals(ServiceType.SENSOR)) {
 							// a sensor value was received
-							
-							
-						
+
 							// create a dto sensor instance
 							DtoSensor newDtoSensor = new DtoSensor();
-							newDtoSensor.setValues(new  ArrayList<DtoValue>());
+							newDtoSensor.setValues(new ArrayList<DtoValue>());
 							// set newDtoSensor id from service message value
 							newDtoSensor.setId(service.getServiceId());
 							// set newDtoSensor measuring units
-							DtoMeasuringUnit newmeasuringUnit=new DtoMeasuringUnit();
+							DtoMeasuringUnit newmeasuringUnit = new DtoMeasuringUnit();
 							newmeasuringUnit.setUnit_name(service.getInfo());
 							newDtoSensor.setMeasuringUnit(newmeasuringUnit);
-							
+
 							// create a dummy service dtoservice group
-							DtoServiceGroup  newdummyDtoServiceGroup= new DtoServiceGroup ();
-                            // set  dtoservicegroup		id					
-							newdummyDtoServiceGroup.setId(service.getServiceGroupId());
+							DtoServiceGroup newdummyDtoServiceGroup = new DtoServiceGroup();
+							// set dtoservicegroup id
+							newdummyDtoServiceGroup.setId(service
+									.getServiceGroupId());
 							// setDtoServiceGroup
-							newDtoSensor.setDtoServiceGroup(newdummyDtoServiceGroup);
-                            // create newDtoValue  instance
+							newDtoSensor
+									.setDtoServiceGroup(newdummyDtoServiceGroup);
+							// create newDtoValue instance
 							DtoValue newDtoValue = new DtoValue();
 							// set newDtoValue value from service mesage
 							newDtoValue.setValue(service.getValue());
-							
+
 							// create a current time stamp
-							Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+							Timestamp currentTimestamp = new Timestamp(
+									System.currentTimeMillis());
 							// Set newDtoValue current time stamp
 							newDtoValue.setCurrentTimestamp(currentTimestamp);
-							//add newDtoValue to newDtoSensor value list
-						    newDtoSensor.getValues().add(newDtoValue);
-						    
-						
-						    NotifyObserever(newDtoSensor);
-						    
+							// add newDtoValue to newDtoSensor value list
+							newDtoSensor.getValues().add(newDtoValue);
 
-
+							valueChanged(newDtoSensor);
 
 						}
 
@@ -167,7 +126,6 @@ for(int i=0; i< obsrevers.size(); i++){
 							// id of the new ZigBee device in our ZigBee network
 							// set dtoServiceGroup Id from beacon message info
 							dtoServiceGroup.setId(beacon.getServiceGroupId());
-							
 
 							// all services that this ZigBee device offers
 							List<Service> serviceList = beacon.getServiceList();
@@ -200,10 +158,10 @@ for(int i=0; i< obsrevers.size(); i++){
 											newDtoSensor);
 									dtoServiceGroup.setDevices((dtoServiceGroup
 											.getDevices()));
-									
 
 								}
-								newServiceGroupQueue.getDtoServiceGroupList().add(dtoServiceGroup);
+								newServiceGroupQueue.getDtoServiceGroupList()
+										.add(dtoServiceGroup);
 							}
 
 						}
@@ -215,8 +173,6 @@ for(int i=0; i< obsrevers.size(); i++){
 				e.printStackTrace();
 			}
 
-		
-
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -224,7 +180,25 @@ for(int i=0; i< obsrevers.size(); i++){
 				e.printStackTrace();
 			}
 
-		//System.out.println(m);
+			// System.out.println(m);
 		}
 	}
+
+	@Override
+	public void registerChangeHander(IBoStateChangedHandler o) {
+		this.changeHandler = o;
+
+	}
+
+	@Override
+	public void valueChanged(Object o) {
+		// notify all observersin the list when a new object is created
+		if (o instanceof DtoSensor) {
+			changeHandler.sensorDataChanged((DtoSensor) o);
+		}
+		if (o instanceof DtoDevice) {
+			changeHandler.deviceDataChanged((DtoDevice) o);
+		}
+	}
+
 }
