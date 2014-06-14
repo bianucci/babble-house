@@ -2,10 +2,6 @@ package com.ffh.babblehouse.view;
 
 import java.util.List;
 
-import com.ffh.babblehouse.controller.BBNodes.Connector;
-import com.ffh.babblehouse.controller.BBNodes.IBBDataBridge;
-import com.ffh.babblehouse.controller.BBNodes.Sender;
-import com.ffh.babblehouse.controller.BBNodes.ServiceMsgCreator;
 import com.ffh.babblehouse.controller.BusinessObjects.BoDevice;
 import com.ffh.babblehouse.controller.BusinessObjects.BoSensor;
 import com.ffh.babblehouse.controller.BusinessObjects.BoServiceGroup;

@@ -1,17 +1,9 @@
 package com.ffh.babblehouse.controller.BBNodes;
 
-import java.sql.Timestamp;
-
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
-import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service;
-import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.Builder;
-import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
-import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type;
-import com.ffh.babblehouse.model.DtoDevice;
-import com.ffh.babblehouse.model.DtoSensor;
 
 public class Sender implements Isender {
 	boolean status;
