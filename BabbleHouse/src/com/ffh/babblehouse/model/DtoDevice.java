@@ -29,6 +29,9 @@ public class DtoDevice {
 
 	@ManyToOne
 	DtoServiceGroup dtoServiceGroup;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	List<DtoUDR> dtoUDR;
 
 	public DtoServiceGroup getDtoServiceGroup() {
 		return dtoServiceGroup;
@@ -88,9 +91,16 @@ public class DtoDevice {
 	// endregion Getters and Setters
 
 	public void addValue(DtoValue dtoValue) {
-		if (dtoValue != null)
+		if (dtoValue != null){
+			dtoValue.setDtoDevice(this);
 			values.add(dtoValue);
-		dtoValue.setDtoDevice(this);
+		}
 	}
 
+	public void addUDR(DtoUDR dtoUDR){
+		if(dtoUDR != null){
+			dtoUDR.setDtoDevice(this);
+			this.dtoUDR.add(dtoUDR);
+		}
+	}
 }

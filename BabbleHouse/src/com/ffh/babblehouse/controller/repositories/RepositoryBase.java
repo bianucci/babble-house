@@ -12,8 +12,7 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 
 	// Saves data to DB
 	public T selectById(Class<T> dtoClass, final int Id){
-		
-		
+				
 		try {
 			T class1 = dtoClass.newInstance();
 			final Class<? extends Object> class1Class = class1.getClass();
@@ -30,9 +29,7 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-				
 
-		
 		return null;
 	}
 	

@@ -23,20 +23,15 @@ public class DtoSensor {
 	@ManyToOne
 	DtoServiceGroup dtoServiceGroup;
 
-	public DtoServiceGroup getDtoServiceGroup() {
-		return dtoServiceGroup;
-	}
-
-	public void setDtoServiceGroup(DtoServiceGroup dtoServiceGroup) {
-		this.dtoServiceGroup = dtoServiceGroup;
-	}
-
 	@OneToMany(cascade = CascadeType.ALL)
 	List<DtoUDR> userDefineRules;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	List<DtoValue> values;
 
+	@OneToMany(cascade = CascadeType.ALL)
+	List<DtoUDR> dtoUDR;
+	
 	// region Getters and Setters
 
 	public int getId() {
@@ -84,6 +79,14 @@ public class DtoSensor {
 	public void setSensorName(String sensorName) {
 		SensorName = sensorName;
 	}
+	
+	public DtoServiceGroup getDtoServiceGroup() {
+		return dtoServiceGroup;
+	}
+
+	public void setDtoServiceGroup(DtoServiceGroup dtoServiceGroup) {
+		this.dtoServiceGroup = dtoServiceGroup;
+	}
 
 	// endregion Getters and Setters
 
@@ -91,5 +94,12 @@ public class DtoSensor {
 		if (dtoValue != null)
 			values.add(dtoValue);
 		dtoValue.setDtoSensor(this);
+	}
+	
+	public void addUDR(DtoUDR dtoUDR){
+		if(dtoUDR != null){
+			dtoUDR.setDtoSensor(this);
+			this.dtoUDR.add(dtoUDR);
+		}
 	}
 }
