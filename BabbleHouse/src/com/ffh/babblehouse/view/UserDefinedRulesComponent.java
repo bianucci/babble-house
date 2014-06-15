@@ -17,6 +17,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
 public class UserDefinedRulesComponent extends CustomComponent {
@@ -93,12 +94,16 @@ public class UserDefinedRulesComponent extends CustomComponent {
 					Notification.show("An item must be selected to be removed.",Type.ERROR_MESSAGE);
 			}
 		});
-		
+		final Window addUserDefinedRuleWindow = new AddUserDefinedRuleWindow(serviceGroupList);
 		addRuleButton.addClickListener(new ClickListener() {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				ui.addWindow(new AddUserDefinedRuleWindow(serviceGroupList));
+				try{
+					ui.addWindow(addUserDefinedRuleWindow);
+				}catch(Exception e){
+					// Do nothing
+				}
 			}
 		});
 	}
