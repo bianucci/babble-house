@@ -1,5 +1,7 @@
 package com.ffh.babblehouse.controller.BBNodes;
 
+import java.util.Random;
+
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
@@ -18,11 +20,10 @@ public class DummyConnector extends IConnector {
 		serviceBuilder.setServiceId(1);
 		serviceBuilder.setServiceType(ServiceType.SENSOR);
 		serviceBuilder.setServiceGroupId(2);
-		final Service service = serviceBuilder.build();
 
 		SerialPort s = new SerialPort("") {
 
-			private int tempMax;
+			private int TEMPMAX = 100;
 
 			@Override
 			public boolean openPort() throws SerialPortException {
@@ -38,7 +39,12 @@ public class DummyConnector extends IConnector {
 			@Override
 			public byte[] readBytes(int byteCount) throws SerialPortException {
 
-				serviceBuilder.setValue((int) (Math.random() * tempMax));
+				Random r = new Random();
+				int randVal = r.nextInt(TEMPMAX);
+				serviceBuilder.setValue(randVal);
+				Service service = serviceBuilder.build();
+				System.out.println(randVal);
+
 				UARTMessage uartMessage = UARTMessage.newBuilder()
 						.setType(Type.SERVICE).setService(service).build();
 				if (byteCount == 1) {
