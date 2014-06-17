@@ -23,13 +23,11 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 public class Receiver extends Thread implements IChangeReceiver {
 	SerialPort serialPort;
-	DtoServiceGroup dtoServiceGroup;
 	ServiceGroupQueue newServiceGroupQueue;
 	IBoStateChangedHandler changeHandler;
 
 	public Receiver(SerialPort serialPort) {
 		this.serialPort = serialPort;
-		dtoServiceGroup = new DtoServiceGroup();
 		newServiceGroupQueue = ServiceGroupQueue.getInstance();
 	}
 
@@ -121,56 +119,56 @@ public class Receiver extends Thread implements IChangeReceiver {
 							valueChanged(newDtoSensor);
 
 						}
+					} else if (m.getType() == Type.BEACON) {
+						DtoServiceGroup dtoServiceGroup = new DtoServiceGroup();
 
-						if (m.getType() == Type.BEACON) {
-							beacon = m.getBeacon();
-							// set dtoServiceGroup name from beacon message info
-							dtoServiceGroup.setName(beacon.getName());
+						beacon = m.getBeacon();
+						// set dtoServiceGroup name from beacon message info
+						dtoServiceGroup.setName(beacon.getName());
 
-							// id of the new ZigBee device in our ZigBee network
-							// set dtoServiceGroup Id from beacon message info
-							dtoServiceGroup.setId(beacon.getServiceGroupId());
+						// id of the new ZigBee device in our ZigBee network
+						// set dtoServiceGroup Id from beacon message info
+						dtoServiceGroup.setId(beacon.getServiceGroupId());
 
-							// all services that this ZigBee device offers
-							List<Service> serviceList = beacon.getServiceList();
+						// all services that this ZigBee device offers
+						List<Service> serviceList = beacon.getServiceList();
 
-							for (Service newService : serviceList) {
-								ServiceType t = newService.getServiceType();
-								String NewService;
-								if (t.equals(ServiceType.ACTUATOR)) {
-									// new actuator available in our system
-									NewService = t.toString();
+						for (Service newService : serviceList) {
+							ServiceType t = newService.getServiceType();
+							String NewService;
+							if (t.equals(ServiceType.ACTUATOR)) {
+								// new actuator available in our system
+								NewService = t.toString();
 
-									DtoDevice newDevices = new DtoDevice();
-									newDevices.setDeviceName(NewService);
-									newDevices.setId(newService.getServiceId());
+								DtoDevice newDevices = new DtoDevice();
+								newDevices.setDeviceName(NewService);
+								newDevices.setId(newService.getServiceId());
 
-									dtoServiceGroup.getDevices()
-											.add(newDevices);
-									dtoServiceGroup.setDevices((dtoServiceGroup
-											.getDevices()));
+								dtoServiceGroup.getDevices().add(newDevices);
+								dtoServiceGroup.setDevices((dtoServiceGroup
+										.getDevices()));
 
-								} else if (t.equals(ServiceType.SENSOR)) {
-									// new sensor available in out system
-									NewService = t.toString();
-									DtoSensor newDtoSensor = new DtoSensor();
-									newDtoSensor.setSensorName(NewService);
-									newDtoSensor.setId(newService
-											.getServiceId());
+							} else if (t.equals(ServiceType.SENSOR)) {
+								// new sensor available in out system
+								NewService = t.toString();
+								DtoSensor newDtoSensor = new DtoSensor();
+								newDtoSensor.setSensorName(NewService);
+								newDtoSensor.setId(newService.getServiceId());
 
-									dtoServiceGroup.getSensors().add(
-											newDtoSensor);
-									dtoServiceGroup.setDevices((dtoServiceGroup
-											.getDevices()));
+								dtoServiceGroup.getSensors().add(newDtoSensor);
+								dtoServiceGroup.setDevices((dtoServiceGroup
+										.getDevices()));
 
-								}
-								newServiceGroupQueue.getDtoServiceGroupList()
-										.add(dtoServiceGroup);
 							}
-
 						}
+						newServiceGroupQueue.getDtoServiceGroupList().add(
+								dtoServiceGroup);
+						System.out.println("NEW BEACON IN QUEUE");
+						System.out.println(dtoServiceGroup);
+
 					}
 				}
+
 			} catch (SerialPortException e) {
 				e.printStackTrace();
 			} catch (InvalidProtocolBufferException e) {
