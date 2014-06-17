@@ -57,6 +57,7 @@ SRCS = \
   ./../../src/uartManager.c \
   ./../../src/netting.c \
   ./../../src/messaging.c \
+  ./../../src/sensoring.c \
   ./../../src/uartmessage.pb.c \
   ./../../../../BitCloud/Components/PersistDataServer/src/pdsMem.c \
   ./../../../../BitCloud/Components/PersistDataServer/src/pdsWriteData.c \
