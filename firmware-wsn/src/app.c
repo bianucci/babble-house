@@ -9,26 +9,41 @@ void APL_TaskHandler(void)
 {
 	switch(appState){
 		
-		case APP_INIT_STATE:
-			break;
-			
-		case APP_START_NETWORK_STATE:
-			break;
-			
-		case APP_INIT_ENDPOINT_STATE:
-			break;
-			
-		case APP_INIT_TRANSMITDATA_STATE:
-			break;
-			
-		case APP_TRANSMIT_STATE:
-			break;
-			
-		case APP_READ_ADC_STATE:
-			break;
+		case APP_INIT_SYSTEM:
+		break;
 		
-		case APP_NOTHING_STATE:
-			break;
+		case APP_INIT_UART:
+		break;
+		
+		case APP_INIT_SENSORS:
+		break;
+		
+		case APP_INIT_ENDPOINT:
+		break;
+		
+		case APP_START_NETWORK:
+		break;
+		
+		case APP_ZGBE_RECVD:
+		break;
+		
+		case APP_UART_RECVD:
+		break;
+		
+		case APP_SEND_BEACON:
+		break;
+		
+		case APP_SEND_SERVICE_REQST:
+		break;
+		
+		case APP_SEND_SERVICE_RSPNS:
+		break;
+		
+		case APP_READ_ADC:
+		break;
+		
+		case APP_IDLE:
+		break;
 	}
 }
 
