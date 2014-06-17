@@ -2,7 +2,7 @@ package com.ffh.babblehouse.observing;
 
 import jssc.SerialPort;
 
-import com.ffh.babblehouse.controller.BBNodes.Connector;
+import com.ffh.babblehouse.controller.BBNodes.IConnector;
 import com.ffh.babblehouse.controller.BBNodes.Receiver;
 import com.ffh.babblehouse.controller.BBNodes.ServiceGroupQueue;
 import com.ffh.babblehouse.controller.BusinessObjects.ExampleStateChangedHandler;
@@ -12,7 +12,7 @@ public class TestHandler {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method s
-		Connector newConnector = Connector.getInstance();
+		IConnector newConnector = IConnector.getInstance();
 
 
 		SerialPort serialPort = newConnector.getserialPort();

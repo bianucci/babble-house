@@ -1,37 +1,28 @@
 package com.ffh.babblehouse.controller.BBNodes;
 
-import com.ffh.babblehouse.model.DtoGateway;
-
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
 
-public class Connector {
-	
-	private static Connector c = null;
-	
+import com.ffh.babblehouse.model.DtoGateway;
+
+public class UARTConnector extends IConnector {
+
 	String PortName;
 	private int flag = 1;
 
 	private SerialPort serialPort;
 
 	DtoGateway dtoGateway = new DtoGateway();
-	
-	private Connector(){
+
+	public UARTConnector() throws SerialPortException {
 		PortConnection();
-	}
-	
-	public static Connector getInstance(){
-		if(c==null){
-			c=new Connector();
-		}
-		return c;
 	}
 
 	// setting the
 	private void setGatewayConnectionDetails() {
 		if (flag == 1) {
-		// default setting
+			// default setting
 			dtoGateway.setBaudrate(38400);
 			dtoGateway.setDatabits(8);
 			dtoGateway.setParity_none(0);
@@ -57,23 +48,19 @@ public class Connector {
 	}
 
 	// open com port for connection
-	public void PortConnection() {
+	private void PortConnection() throws SerialPortException {
 		setGatewayConnectionDetails();
 		SetComPort(); // set availble port
 		serialPort = new SerialPort(PortName);
-		try {
-			serialPort.openPort();
-			serialPort.setParams(dtoGateway.getBaudrate(),
-					dtoGateway.getDatabits(), dtoGateway.getStopbits(),
-					dtoGateway.getParity_none());
-		} catch (SerialPortException e) {
-			e.printStackTrace();
-		}
-
+		serialPort.openPort();
+		serialPort.setParams(dtoGateway.getBaudrate(),
+				dtoGateway.getDatabits(), dtoGateway.getStopbits(),
+				dtoGateway.getParity_none());
 
 	}
 
-	public SerialPort getserialPort(){
+	@Override
+	public SerialPort getserialPort() {
 		return serialPort;
 	}
 }

@@ -14,9 +14,8 @@ public class ExampleStateChangedHandler implements IBoStateChangedHandler {
 
 	@Override
 	public void sensorDataChanged(DtoSensor updatedDtoSensor) {
-		System.out.println("New sensor dto  created");
-		System.out.println(updatedDtoSensor.getMeasuringUnit().getUnit_name());
-		System.out.println(updatedDtoSensor.getId());
+		System.out.println("Sensor value changed:");
+		System.out.println(updatedDtoSensor);
 	}
 
 	@Override
