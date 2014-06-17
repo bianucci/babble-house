@@ -28,8 +28,8 @@
 #include "pb_decode.h"
 #include "pb.h"
 #include "configuration.h"
-#include <halAdc.h>
-#include <adc.h>
+#include "messaging.h"
+
 
 /******************************************************************************
                     Defines section

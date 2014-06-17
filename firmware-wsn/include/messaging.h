@@ -16,5 +16,6 @@ extern HAL_UsartDescriptor_t usart;
 void createBeaconList();
 void usartRcvd(uint8_t size);
 void usart_Init();
+void sendUart(uint8_t* string, uint8_t size);
 
 #endif MESSAGING_H

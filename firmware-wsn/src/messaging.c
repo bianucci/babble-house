@@ -12,6 +12,10 @@ uint8_t message_length = 0;
 uint8_t last_msg[RX_BUFFER_SIZE]; 
 uint8_t last_msg_length=0;
 
+HAL_UsartDescriptor_t* getStandardDescriptor(){
+	return &usart;
+}
+
 void usartRcvd(uint8_t size)
 {
 	if(message_length==0){
@@ -88,4 +92,9 @@ void usart_Init()
   usart.rxCallback      = usartRcvd;
   usart.txCallback      = NULL;
   usart.flowControl     = USART_FLOW_CONTROL_NONE;
+  HAL_OpenUsart(&usart);
+}
+
+void sendUart(uint8_t* string, uint8_t size){
+	HAL_WriteUsart(&usart, string, size);
 }
