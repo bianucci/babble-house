@@ -143,10 +143,15 @@ public class Receiver extends Thread implements IChangeReceiver {
 								DtoDevice newDevices = new DtoDevice();
 								newDevices.setDeviceName(NewService);
 								newDevices.setId(newService.getServiceId());
-
+								newDevices.setUserDefineRules(new ArrayList<DtoUDR>());
+								newDevices.setValues(new ArrayList<DtoValue>());
+								
 								dtoServiceGroup.getDevices().add(newDevices);
 								dtoServiceGroup.setDevices((dtoServiceGroup
 										.getDevices()));
+								
+								newDevices.setDtoServiceGroup(dtoServiceGroup);
+								
 
 							} else if (t.equals(ServiceType.SENSOR)) {
 								// new sensor available in out system
@@ -158,7 +163,9 @@ public class Receiver extends Thread implements IChangeReceiver {
 								dtoServiceGroup.getSensors().add(newDtoSensor);
 								dtoServiceGroup.setDevices((dtoServiceGroup
 										.getDevices()));
-
+								newDtoSensor.setDtoServiceGroup(dtoServiceGroup);
+								newDtoSensor.setUserDefineRules(new ArrayList<DtoUDR>());
+								newDtoSensor.setValues(new ArrayList<DtoValue>());
 							}
 						}
 						newServiceGroupQueue.getDtoServiceGroupList().add(

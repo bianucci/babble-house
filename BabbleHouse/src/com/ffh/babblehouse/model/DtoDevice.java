@@ -29,7 +29,7 @@ public class DtoDevice {
 
 	@ManyToOne
 	DtoServiceGroup dtoServiceGroup;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	List<DtoUDR> dtoUDR;
 
@@ -91,16 +91,24 @@ public class DtoDevice {
 	// endregion Getters and Setters
 
 	public void addValue(DtoValue dtoValue) {
-		if (dtoValue != null){
+		if (dtoValue != null) {
 			dtoValue.setDtoDevice(this);
 			values.add(dtoValue);
 		}
 	}
 
-	public void addUDR(DtoUDR dtoUDR){
-		if(dtoUDR != null){
+	public void addUDR(DtoUDR dtoUDR) {
+		if (dtoUDR != null) {
 			dtoUDR.setDtoDevice(this);
 			this.dtoUDR.add(dtoUDR);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "DtoDevice [id=" + id + ", DeviceName=" + deviceName
+				+ ", dtoServiceGroupID=" + dtoServiceGroup.getId()
+				+ ", nuberOfUserDefineRules=" + userDefineRules.size()
+				+ ", lastValueMeassured=" + getLatestValue() + "]";
 	}
 }
