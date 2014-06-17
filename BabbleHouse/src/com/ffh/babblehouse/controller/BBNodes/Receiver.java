@@ -17,6 +17,7 @@ import com.ffh.babblehouse.model.DtoDevice;
 import com.ffh.babblehouse.model.DtoMeasuringUnit;
 import com.ffh.babblehouse.model.DtoSensor;
 import com.ffh.babblehouse.model.DtoServiceGroup;
+import com.ffh.babblehouse.model.DtoUDR;
 import com.ffh.babblehouse.model.DtoValue;
 import com.google.protobuf.InvalidProtocolBufferException;
 
@@ -105,6 +106,7 @@ public class Receiver extends Thread implements IChangeReceiver {
 							DtoValue newDtoValue = new DtoValue();
 							// set newDtoValue value from service mesage
 							newDtoValue.setValue(service.getValue());
+							newDtoValue.setDtoSensor(newDtoSensor);
 
 							// create a current time stamp
 							Timestamp currentTimestamp = new Timestamp(
@@ -114,6 +116,8 @@ public class Receiver extends Thread implements IChangeReceiver {
 							// add newDtoValue to newDtoSensor value list
 							newDtoSensor.getValues().add(newDtoValue);
 
+							newDtoSensor
+									.setUserDefineRules(new ArrayList<DtoUDR>());
 							valueChanged(newDtoSensor);
 
 						}

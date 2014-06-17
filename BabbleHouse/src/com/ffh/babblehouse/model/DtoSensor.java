@@ -31,7 +31,7 @@ public class DtoSensor {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	List<DtoUDR> dtoUDR;
-	
+
 	// region Getters and Setters
 
 	public int getId() {
@@ -79,7 +79,7 @@ public class DtoSensor {
 	public void setSensorName(String sensorName) {
 		SensorName = sensorName;
 	}
-	
+
 	public DtoServiceGroup getDtoServiceGroup() {
 		return dtoServiceGroup;
 	}
@@ -95,11 +95,21 @@ public class DtoSensor {
 			values.add(dtoValue);
 		dtoValue.setDtoSensor(this);
 	}
-	
-	public void addUDR(DtoUDR dtoUDR){
-		if(dtoUDR != null){
+
+	public void addUDR(DtoUDR dtoUDR) {
+		if (dtoUDR != null) {
 			dtoUDR.setDtoSensor(this);
 			this.dtoUDR.add(dtoUDR);
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "DtoSensor [id=" + id + ", SensorName=" + SensorName
+				+ ", measuringUnit=" + measuringUnit + ", dtoServiceGroupID="
+				+ dtoServiceGroup.getId() + ", nuberOfUserDefineRules="
+				+ userDefineRules.size() + ", lastValueMeassured="
+				+ getLatestValue() + "]";
+	}
+
 }
