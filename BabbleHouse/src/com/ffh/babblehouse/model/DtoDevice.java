@@ -109,6 +109,6 @@ public class DtoDevice {
 		return "DtoDevice [id=" + id + ", DeviceName=" + deviceName
 				+ ", dtoServiceGroupID=" + dtoServiceGroup.getId()
 				+ ", nuberOfUserDefineRules=" + userDefineRules.size()
-				+ ", lastValueMeassured=" + getLatestValue() + "]";
+				+ ", currentState=" + getLatestValue() + "]";
 	}
 }

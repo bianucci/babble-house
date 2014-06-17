@@ -126,17 +126,19 @@ public class DummyConnector extends IConnector {
 							return u.getService().getServiceGroupId();
 						};
 					});
-					d.setValues(new ArrayList<DtoValue>(Arrays
-							.asList(new DtoValue[] { new DtoValue() {
-								public int getValue() {
-									return u.getService().getValue();
-								};
-							} })));
+					d.setValues(new ArrayList<DtoValue>());
+					DtoValue value = new DtoValue();
+					value.setValue(u.getService().getValue());
+					d.getValues().add(value);
 					d.setUserDefineRules(new ArrayList<DtoUDR>());
 					return d.toString();
 				} else {
 					DtoSensor s = new DtoSensor();
 					s.setId(u.getService().getServiceId());
+					s.setValues(new ArrayList<DtoValue>());
+					DtoValue value = new DtoValue();
+					value.setValue(u.getService().getValue());
+					s.getValues().add(value);
 					s.setMeasuringUnit(new DtoMeasuringUnit() {
 						public String getUnit_name() {
 							return u.getService().getInfo();

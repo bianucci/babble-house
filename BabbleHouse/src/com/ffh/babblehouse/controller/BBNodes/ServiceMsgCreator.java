@@ -22,9 +22,9 @@ public class ServiceMsgCreator implements IBBDataBridge{
 	private void createServiceMsg(){
 		Builder serviceBuilder = Service.newBuilder();
 		serviceBuilder.setInfo("" + System.currentTimeMillis());
-		serviceBuilder.setServiceId(serviceGroupId);
+		serviceBuilder.setServiceId(serviceId);
 		serviceBuilder.setServiceType(serviceType);
-		serviceBuilder.setServiceGroupId(serviceId);
+		serviceBuilder.setServiceGroupId(serviceGroupId);
 		serviceBuilder.setValue(deviceStatus);
 		Service service = serviceBuilder.build();
 		 uartMessage = UARTMessage.newBuilder()
