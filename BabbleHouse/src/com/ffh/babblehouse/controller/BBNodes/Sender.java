@@ -31,8 +31,6 @@ public class Sender implements Isender {
 			// send the next message
 			status = serialPort.writeBytes(message);
 
-			System.out.println("SENT FOLLOWING PROTOBUF MESSAGE:");
-
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

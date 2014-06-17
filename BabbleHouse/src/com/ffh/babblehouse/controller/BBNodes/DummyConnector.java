@@ -2,6 +2,7 @@ package com.ffh.babblehouse.controller.BBNodes;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +15,13 @@ import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.Builder;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type;
+import com.ffh.babblehouse.model.DtoDevice;
+import com.ffh.babblehouse.model.DtoMeasuringUnit;
+import com.ffh.babblehouse.model.DtoSensor;
+import com.ffh.babblehouse.model.DtoServiceGroup;
+import com.ffh.babblehouse.model.DtoUDR;
+import com.ffh.babblehouse.model.DtoValue;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 public class DummyConnector extends IConnector {
 
@@ -25,8 +33,9 @@ public class DummyConnector extends IConnector {
 			serviceBuilder
 					.setInfo(
 							"RandomInfo:"
-									+ new BigInteger(32, new Random()).toString(32))
-					.setServiceGroupId(1).setServiceId(i).setValue(0);
+									+ new BigInteger(32, new Random())
+											.toString(32)).setServiceGroupId(1)
+					.setServiceId(i).setValue(0);
 			if (i < 3) {
 				serviceBuilder.setServiceType(ServiceType.SENSOR);
 			} else {
@@ -96,7 +105,56 @@ public class DummyConnector extends IConnector {
 
 			@Override
 			public boolean writeBytes(byte[] buffer) throws SerialPortException {
-				System.out.println("SENT: " + new String(buffer));
+				try {
+					System.out.println("SENT: "
+							+ dtoToString(UARTMessageProtos.UARTMessage
+									.parseFrom(buffer)));
+				} catch (InvalidProtocolBufferException e) {
+					e.printStackTrace();
+				}
+				return true;
+			}
+
+			public String dtoToString(final UARTMessage u) {
+				if (u.getService().getServiceType()
+						.equals(ServiceType.ACTUATOR)) {
+					DtoDevice d = new DtoDevice();
+					d.setDeviceName(u.getService().getInfo());
+					d.setId(u.getService().getServiceId());
+					d.setDtoServiceGroup(new DtoServiceGroup() {
+						public int getId() {
+							return u.getService().getServiceGroupId();
+						};
+					});
+					d.setValues(new ArrayList<DtoValue>(Arrays
+							.asList(new DtoValue[] { new DtoValue() {
+								public int getValue() {
+									return u.getService().getValue();
+								};
+							} })));
+					d.setUserDefineRules(new ArrayList<DtoUDR>());
+					return d.toString();
+				} else {
+					DtoSensor s = new DtoSensor();
+					s.setId(u.getService().getServiceId());
+					s.setMeasuringUnit(new DtoMeasuringUnit() {
+						public String getUnit_name() {
+							return u.getService().getInfo();
+						};
+					});
+					s.setDtoServiceGroup(new DtoServiceGroup() {
+						public int getId() {
+							return u.getService().getServiceGroupId();
+						};
+					});
+					s.setUserDefineRules(new ArrayList<DtoUDR>());
+					return s.toString();
+				}
+			}
+
+			@Override
+			public boolean writeByte(byte singleByte)
+					throws SerialPortException {
 				return true;
 			}
 		};
