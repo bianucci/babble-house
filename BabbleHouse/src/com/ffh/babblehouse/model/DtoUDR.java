@@ -100,7 +100,6 @@ public class DtoUDR{
 	}
 
 	public void setDtoDevice(DtoDevice dtoDevice) {
-		this.dtoSensor = null;
 		this.dtoDevice = dtoDevice;
 	}
 
@@ -109,7 +108,6 @@ public class DtoUDR{
 	}
 
 	public void setDtoSensor(DtoSensor dtoSensor) {
-		this.dtoDevice = null;
 		this.dtoSensor = dtoSensor;
 	}
 	
