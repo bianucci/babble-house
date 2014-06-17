@@ -14,6 +14,7 @@ import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.Builder;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type;
+import com.ffh.babblehouse.controller.BusinessObjects.ExampleStateChangedHandler;
 import com.ffh.babblehouse.model.DtoDevice;
 import com.ffh.babblehouse.model.DtoMeasuringUnit;
 import com.ffh.babblehouse.model.DtoSensor;
@@ -24,7 +25,9 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 public class DummyConnector extends IConnector {
 
-	private class DummySerialPort extends SerialPort {
+	private static DummySerialPort s = null;
+
+	private static class DummySerialPort extends SerialPort {
 
 		public DummySerialPort() {
 			super("");
@@ -105,6 +108,11 @@ public class DummyConnector extends IConnector {
 				}
 				return new byte[] { (byte) uartMessage.getSerializedSize() };
 			} else {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				return uartMessage.toByteArray();
 			}
 		}
@@ -167,7 +175,12 @@ public class DummyConnector extends IConnector {
 
 	@Override
 	public SerialPort getserialPort() {
-		SerialPort s = new DummySerialPort();
+		if (s == null) {
+			s = new DummySerialPort();
+			Receiver r = new Receiver(s);
+			new ExampleStateChangedHandler(r);
+			r.start();
+		}
 		return s;
 	}
 }
