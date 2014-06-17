@@ -31,6 +31,8 @@ public class BoDevice extends BoBase<DtoDevice> {
 		dtoValue.setCurrentTimestamp(new Timestamp(System.currentTimeMillis()));
 		dtoDevice.getValues().add(dtoValue);
 		
+		// TODO Add call to send information to actuator (Backers method) REMOVE empty implementation
+		// TODO The instruction on top of this has been done. waiting for implementation of changeDeviceStatus()
 		bbDataBridge.changeDeviceStatus(dtoDevice);
 	}
 

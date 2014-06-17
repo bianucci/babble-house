@@ -119,11 +119,7 @@ public class GeneralInfoComponent extends CustomComponent {
 			    		boDevice.addDeviceValue(dtoDevice, 1);
 					else if(turn == TurnDevice.Off)
 						boDevice.addDeviceValue(dtoDevice, 0);
-						
-					// TODO Add call to send information to actuator (Backers method) REMOVE empty implementation
-					// TODO The instruction on top of this has been done. waiting for implementation of changeDeviceStatus()
-					boDevice.getBBDataBridge().changeDeviceStatus(dtoDevice);
-										
+														
 			    	// Repainting the table
 			    	refillTable();
 			    }
