@@ -26,27 +26,18 @@ public class DtoUDR{
 	private int lessMinState;
 	
 	public Object[] toArray(){
-		String componentName = verifyComponentType();
 		String smallerThanMin = getActionText(this.getLessMinState());
 		String greaterThanMax = getActionText(this.getGreatMaxState());
 		
 		return new Object[] { 
+				this.getDtoSensor().getSensorName(),
 				Integer.valueOf(this.getMinValue()) , 
 				Integer.valueOf(this.getMaxValue()), 
-				componentName, 
 				smallerThanMin,
-				greaterThanMax };
+				greaterThanMax, 
+				this.getDtoDevice().getDeviceName()};
 	}
 	
-	private String verifyComponentType() {
-		String componentName = "";
-		if(this.getDtoDevice() != null )
-			componentName = this.getDtoDevice().getDeviceName();
-		else if(this.getDtoSensor() != null )
-			componentName = this.getDtoSensor().getSensorName();
-		return componentName;
-	}
-
 	private String getActionText(int value) {
 		String text;
 		if(value == 0)
