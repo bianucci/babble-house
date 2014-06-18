@@ -1,5 +1,6 @@
 package com.ffh.babblehouse.controller.repositories;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -38,5 +39,26 @@ public class DeviceRepository extends RepositoryBase<DtoDevice> {
 			}};
 
 			return this.transact(transaction);
+	}
+	
+	public DeviceRepository addDeviceValue(final DtoDevice dtoDevice, final int value){
+		
+		Runnable transaction = new Runnable() {
+			@Override
+			public void run() {
+				
+				DtoValue dtoValue = new DtoValue();
+				dtoValue.setValue(value);
+				dtoValue.setCurrentTimestamp(new Timestamp(System.currentTimeMillis()));
+				dtoValue.setDtoDevice(dtoDevice);
+				
+				dtoDevice.getValues().add(dtoValue);
+								
+				saveOrUpdate(dtoDevice);
+			}};
+			
+		this.transact(transaction);
+
+		return this;
 	}
 }

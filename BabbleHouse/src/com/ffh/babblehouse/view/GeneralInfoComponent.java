@@ -113,7 +113,6 @@ public class GeneralInfoComponent extends CustomComponent {
 				public void buttonClick(ClickEvent event) {
 			    	
 			    	showTurningNotification(dtoDevice, turn);
-			    	
 			    	// Save change to DB
 					if(turn == TurnDevice.On)
 			    		boDevice.addDeviceValue(dtoDevice, 1);

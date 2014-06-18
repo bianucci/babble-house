@@ -57,7 +57,7 @@ public class RepositoryBase<T> implements IRepositoryBase<T> {
 			em.getTransaction().begin(); 
 		
 			action.run();
-	
+				
 			em.getTransaction().commit();
 		}
 		catch(Exception e){
