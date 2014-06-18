@@ -1,8 +1,6 @@
 package com.ffh.babblehouse.controller.BusinessObjects;
 
-import java.sql.Timestamp;
 import java.util.List;
-
 import com.ffh.babblehouse.controller.repositories.DeviceRepository;
 import com.ffh.babblehouse.model.DtoDevice;
 import com.ffh.babblehouse.model.DtoValue;
@@ -26,13 +24,10 @@ public class BoDevice extends BoBase<DtoDevice> {
 	}
 
 	public void addDeviceValue(DtoDevice dtoDevice, int value) {
-		DtoValue dtoValue = new DtoValue();
-		dtoValue.setValue(value);
-		dtoValue.setCurrentTimestamp(new Timestamp(System.currentTimeMillis()));
-		dtoDevice.getValues().add(dtoValue);
-		
-		// TODO Add call to send information to actuator (Backers method) REMOVE empty implementation
-		// TODO The instruction on top of this has been done. waiting for implementation of changeDeviceStatus()
+		// Saves data to DB
+		((DeviceRepository)this.repository).addDeviceValue(dtoDevice, value);
+				
+		// Adds call to send information to actuator
 		bbDataBridge.changeDeviceStatus(dtoDevice);
 	}
 

@@ -100,7 +100,7 @@ public class LoginUI extends CustomComponent implements View{
 		
 	@Override
 	public void enter(ViewChangeEvent event) {
-		Notification welcome = new Notification("Welcome to BabbleHouse!!!",Type.HUMANIZED_MESSAGE);
+		Notification welcome = new Notification("Welcome to BabbleHouse",Type.HUMANIZED_MESSAGE);
 		welcome.setDelayMsec(3000);
 		welcome.setPosition(Position.TOP_CENTER);
 		welcome.show(this.getUI().getPage());

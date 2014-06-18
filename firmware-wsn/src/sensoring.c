@@ -1,12 +1,9 @@
+#include <sensoring.h>
 
-
-static uint8_t adcData;
-static HAL_AppTimer_t readADCTimer;
+uint8_t adcData;
 char str[5];
-static void readSensorDonceCb(void);
-static void readADCTimerFired(void);
 
-static HAL_AdcDescriptor_t adcdescriptor = {
+HAL_AdcDescriptor_t adcdescriptor = {
 	.resolution=RESOLUTION_8_BIT,
 	.sampleRate=ADC_4800SPS,
 	.voltageReference=AVCC,
@@ -15,6 +12,14 @@ static HAL_AdcDescriptor_t adcdescriptor = {
 	.callback = readSensorDonceCb
 };
 
-static void readSensorDonceCb(void){
+void readSensorDonceCb(void){
 	sprintf(str, "%d", adcData);
+}
+
+void initSensors(){
+	HAL_OpenAdc(&adcdescriptor);
+}
+
+void refreshSensorValues(){
+	HAL_ReadAdc(&adcdescriptor, HAL_ADC_CHANNEL_1);
 }

@@ -61,6 +61,8 @@ public class GeneralInfoComponent extends CustomComponent {
 		for(final DtoDevice dtoDevice: dtoServiceGroup.getDevices()){
 			itemId++;
 			Button button = getTurnOnOrOffButton(dtoDevice,itemId);
+			if(button == null)
+				button = new Button("State not Found");
 			table_1.addItem(convertDtoDeviceToArray(dtoDevice, button),itemId);
 		}
 	}
@@ -113,7 +115,6 @@ public class GeneralInfoComponent extends CustomComponent {
 				public void buttonClick(ClickEvent event) {
 			    	
 			    	showTurningNotification(dtoDevice, turn);
-			    	
 			    	// Save change to DB
 					if(turn == TurnDevice.On)
 			    		boDevice.addDeviceValue(dtoDevice, 1);

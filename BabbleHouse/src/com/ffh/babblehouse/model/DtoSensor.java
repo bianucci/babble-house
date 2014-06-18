@@ -61,7 +61,7 @@ public class DtoSensor {
 	public DtoValue getLatestValue() {
 		if (this.values.size() > 0)
 			return this.values.get(this.values.size() - 1);
-		return null;
+		return new DtoValue();
 	}
 
 	public List<DtoUDR> getUserDefineRules() {
