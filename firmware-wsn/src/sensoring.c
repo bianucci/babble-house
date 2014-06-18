@@ -15,3 +15,11 @@ HAL_AdcDescriptor_t adcdescriptor = {
 void readSensorDonceCb(void){
 	sprintf(str, "%d", adcData);
 }
+
+void initSensors(){
+	HAL_OpenAdc(&adcdescriptor);
+}
+
+void refreshSensorValues(){
+	HAL_ReadAdc(&adcdescriptor, HAL_ADC_CHANNEL_1);
+}

@@ -42,4 +42,10 @@ void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 	uint8_t deviceType;
 	CS_ReadParameter(CS_DEVICE_TYPE_ID, &deviceType);
 	uint8_t status = confirmInfo->status;
+	SYS_PostTask(APL_TASK_ID);
+}
+
+void startNetwork(){
+	networkParams.ZDO_StartNetworkConf=ZDO_StartNetworkConf;
+	ZDO_StartNetworkReq(&networkParams);
 }

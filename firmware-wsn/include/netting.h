@@ -27,5 +27,6 @@ void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo);
 void initTransmitData(void);
 void initEndpoint(void);
 void APS_DataInd(APS_DataInd_t *indData);
+void startNetwork();
 
 #endif NETTING_H

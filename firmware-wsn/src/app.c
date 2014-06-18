@@ -36,13 +36,15 @@ void APL_TaskHandler(void)
 		break;
 		
 		case APP_INIT_SENSORS:
-		if(log_enabled){sendUart((uint8_t*)"APP_INIT_SENSORS\n\r", sizeof("APP_INIT_SENSORS\n\r"));}
+			if(log_enabled){sendUart((uint8_t*)"APP_INIT_SENSORS\n\r", sizeof("APP_INIT_SENSORS\n\r"));}
+			initSensors();
 			appState=APP_START_NETWORK;
 			SYS_PostTask(APL_TASK_ID);
 		break;
 		
 		case APP_START_NETWORK:
 		if(log_enabled){sendUart((uint8_t*)"APP_START_NETWORK\n\r", sizeof("APP_START_NETWORK\n\r"));}
+			startNetwork();
 			#if CS_DEVICE_TYPE==DEV_TYPE_COORDINATOR
 				appState=APP_IDLE;
 			#else
@@ -52,6 +54,7 @@ void APL_TaskHandler(void)
 		
 		case APP_INIT_ENDPOINT:
 		if(log_enabled){sendUart((uint8_t*)"APP_INIT_ENDPOINT\n\r", sizeof("APP_INIT_ENDPOINT\n\r"));}
+			initEndpoint();
 			appState=APP_SEND_BEACON;
 			SYS_PostTask(APL_TASK_ID);
 		break;
@@ -88,7 +91,8 @@ void APL_TaskHandler(void)
 		break;
 		
 		case APP_READ_ADC:
-		if(log_enabled){sendUart((uint8_t*)"APP_READ_ADC\n\r", sizeof("APP_READ_ADC\n\r"));}
+			if(log_enabled){sendUart((uint8_t*)"APP_READ_ADC\n\r", sizeof("APP_READ_ADC\n\r"));}
+			refreshSensorValues();
 			appState=APP_SEND_SERVICE_RSPNS;
 			SYS_PostTask(APL_TASK_ID);
 		break;
