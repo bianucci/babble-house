@@ -6,7 +6,7 @@ AppMessage_t transmitData;
 APS_RegisterEndpointReq_t endPoint;
 SimpleDescriptor_t simpleDescriptor;
 
-static uint8_t encBuffer[200];
+uint8_t encBuffer[200];
 
 void APS_DataConf(APS_DataConf_t* confInfo){
 	//HAL_WriteUsart(&usart, "SENT_DATA\r\n", sizeof("SENT_DATA\r\n"));
@@ -34,14 +34,14 @@ void initEndpoint(void){
 }
 
 void APS_DataInd(APS_DataInd_t *indData){
-	uint8_t received = indData->asdu[0];
+	//uint8_t received = indData->asdu[0];
 	//HAL_WriteUsart(&usart, "RCVD_DATA\r\n", sizeof("RCVD_DATA\r\n"));
 }
 
 void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 	uint8_t deviceType;
 	CS_ReadParameter(CS_DEVICE_TYPE_ID, &deviceType);
-	uint8_t status = confirmInfo->status;
+	//uint8_t status = confirmInfo->status;
 	SYS_PostTask(APL_TASK_ID);
 }
 

@@ -20,15 +20,10 @@
 /******************************************************************************
                     Includes section
 ******************************************************************************/
-#include "sliders.h"
-#include "buttons.h"
-#include "leds.h"
-#include "uartmessage.pb.h"
-#include "pb_encode.h"
-#include "pb_decode.h"
-#include "pb.h"
 #include "configuration.h"
 #include "messaging.h"
+#include "netting.h"
+#include "sensoring.h"
 
 
 /******************************************************************************

@@ -17,7 +17,7 @@
 extern uint8_t adcData;
 
 void readSensorDonceCb(void);
-void initSensors();
 void refreshSensorValues();
+void initSensors();
 
-#endif SENSORING_H
+#endif
