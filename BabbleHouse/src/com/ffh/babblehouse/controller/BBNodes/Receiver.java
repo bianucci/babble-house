@@ -89,6 +89,11 @@ public class Receiver extends Thread implements IChangeReceiver {
 							newDtoSensor.setId(service.getServiceId());
 							// set newDtoSensor measuring units
 							DtoMeasuringUnit newmeasuringUnit = new DtoMeasuringUnit();
+							
+							// i like it when you ask me questions through this interface
+							// it is fun
+							// can we add the if {}  for determining the the units from your info all that wld be to much  for thisclass
+							DtoMeasuringUnit u = UnitUtil.getUnitForInfot(service.getInfo());
 							newmeasuringUnit.setUnit_name(service.getInfo());
 							newDtoSensor.setMeasuringUnit(newmeasuringUnit);
 

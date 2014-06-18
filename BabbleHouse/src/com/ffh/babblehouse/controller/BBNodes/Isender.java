@@ -1,8 +1,10 @@
 package com.ffh.babblehouse.controller.BBNodes;
 
+import jssc.SerialPortException;
+
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
 
 
 public interface Isender {
-	boolean SenderMessage(UARTMessage uartMessage );
+	void SenderMessage(UARTMessage uartMessage ) throws SerialPortException;
 }

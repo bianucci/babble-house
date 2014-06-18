@@ -1,5 +1,7 @@
 package com.ffh.babblehouse.controller.BBNodes;
 
+import jssc.SerialPortException;
+
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.Builder;
@@ -29,7 +31,12 @@ public class ServiceMsgCreator implements IBBDataBridge{
 		Service service = serviceBuilder.build();
 		 uartMessage = UARTMessage.newBuilder()
 				.setType(Type.SERVICE).setService(service).build();
-		 sender.SenderMessage(uartMessage);
+		 try {
+			sender.SenderMessage(uartMessage);
+		} catch (SerialPortException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
