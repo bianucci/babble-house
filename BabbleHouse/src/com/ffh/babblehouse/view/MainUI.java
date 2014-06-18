@@ -93,6 +93,7 @@ public class MainUI extends CustomComponent implements View{
 		generateTree();
 		
 		addUserDefinedRulesComponent();
+		
 	}
 
 	private void fillChart(String itemName, String measuringUnit, List<DtoValue> valueList, int maximumAmount){
@@ -212,8 +213,9 @@ public class MainUI extends CustomComponent implements View{
 		}
 	}		
 	
-	private void addUserDefinedRulesComponent(){
-		UserDefinedRulesTab.addComponent(new UserDefinedRulesComponent(this.getUI(),serviceGroupList));
+	protected void addUserDefinedRulesComponent(){
+		UserDefinedRulesTab.removeAllComponents();
+		UserDefinedRulesTab.addComponent(new UserDefinedRulesComponent(this,this.getUI(),serviceGroupList));
 	}
 	
 	private void fillButtonsWithIcons() {

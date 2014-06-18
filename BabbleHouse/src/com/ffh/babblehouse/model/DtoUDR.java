@@ -11,6 +11,12 @@ public class DtoUDR{
 	@GeneratedValue
 	protected int id;
 	
+	@ManyToOne
+	private DtoDevice dtoDevice;
+	
+	@ManyToOne
+	private DtoSensor dtoSensor;
+	
 	private int maxValueAllowed;
 	
 	private int minValueAllowed;
@@ -18,12 +24,6 @@ public class DtoUDR{
 	private int greatMaxState;
 	
 	private int lessMinState;
-	
-	@ManyToOne
-	private DtoDevice dtoDevice;
-	
-	@ManyToOne
-	private DtoSensor dtoSensor;
 	
 	public Object[] toArray(){
 		String componentName = verifyComponentType();

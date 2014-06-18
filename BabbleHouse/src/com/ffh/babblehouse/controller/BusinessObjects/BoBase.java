@@ -31,11 +31,20 @@ public abstract class BoBase<T>{
 	}	
 	
 	// Adds basic DB operations
-	public BoBase<T> SaveOrUpdate(T object){
-		repository.saveOrUpdate(object);
+	public BoBase<T> SaveOrUpdate(final T object){
+		Runnable transaction = new Runnable() {
+			
+			@Override
+			public void run() {
+				repository.saveOrUpdate(object);
+			}
+		};
+		
+		repository.transact(transaction);		
+		
 		return this;
 	}
-
+	
 	// Adds basic DB operations
 	public BoBase<T> Delete(T object){
 		repository.delete(object);

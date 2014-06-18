@@ -69,7 +69,10 @@ public class DtoDevice {
 	public DtoValue getLatestValue() {
 		if (this.values.size() > 0)
 			return this.values.get(this.values.size() - 1);
-		return null;
+		
+		DtoValue dtoValue = new DtoValue();
+		dtoValue.setValue(-1);
+		return dtoValue;
 	}
 
 	public List<DtoUDR> getUserDefineRules() {
