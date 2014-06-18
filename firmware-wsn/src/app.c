@@ -58,24 +58,25 @@ void APL_TaskHandler(void)
 			if(log_enabled){sendUart((uint8_t*)"APP_INIT_ENDPOINT\n\r", sizeof("APP_INIT_ENDPOINT\n\r"));}
 			initEndpoint();
 			startSensorTimers();
-			appState=APP_SEND_BEACON;
+			createBeaconList(); // there should be different implementation for depending on the services this device offers.
+			appState=APP_ZGBE_SEND;
 			SYS_PostTask(APL_TASK_ID);
 		break;
 		
-		case APP_SEND_BEACON:
-			if(log_enabled){sendUart((uint8_t*)"APP_SEND_BEACON\n\r", sizeof("APP_SEND_BEACON\n\r"));}
+		case APP_ZGBE_SEND:
+			if(log_enabled){sendUart((uint8_t*)"APP_ZGBE_SEND\n\r", sizeof("APP_ZGBE_SEND\n\r"));}
 			appState=APP_IDLE;
 		break;
 		
 		case APP_UART_RCVD:
 			if(log_enabled){sendUart((uint8_t*)"APP_UART_RCVD\n\r", sizeof("APP_UART_RCVD\n\r"));}
-			appState=APP_SEND_SERVICE_REQST;
+			appState=APP_ZGBE_SEND;
 			SYS_PostTask(APL_TASK_ID);
 		break;
 		
-		case APP_SEND_SERVICE_REQST:
+		case APP_CHNG_ACUTATR:
 			if(log_enabled){sendUart((uint8_t*)"APP_SEND_SERVICE_REQST\n\r", sizeof("APP_SEND_SERVICE_REQST\n\r"));}
-			appState=APP_IDLE;
+			appState=APP_ZGBE_SEND;
 		break;
 		
 		case APP_ZGBE_RCVD:
@@ -83,7 +84,7 @@ void APL_TaskHandler(void)
 			#if CS_DEVICE_TYPE==DEV_TYPE_COORDINATOR
 				appState=APP_UART_SEND;
 			#else
-				appState=APP_READ_ADC;
+				appState=APP_CHNG_ACUTATR;
 			#endif
 			SYS_PostTask(APL_TASK_ID);
 		break;
@@ -93,16 +94,11 @@ void APL_TaskHandler(void)
 			appState=APP_IDLE;
 		break;
 		
-		case APP_READ_ADC:
+		case APP_READ_SENSORS:
 			if(log_enabled){sendUart((uint8_t*)"APP_READ_ADC\n\r", sizeof("APP_READ_ADC\n\r"));}
 			refreshSensorValues();
-			appState=APP_SEND_SERVICE_RSPNS;
+			appState=APP_ZGBE_SEND;
 			SYS_PostTask(APL_TASK_ID);
-		break;
-		
-		case APP_SEND_SERVICE_RSPNS:
-			if(log_enabled){sendUart((uint8_t*)"APP_SEND_SERVICE_RSPNS\n\r", sizeof("APP_SEND_SERVICE_RSPNS\n\r"));}
-			appState=APP_IDLE;
 		break;
 		
 		case APP_IDLE:
@@ -119,7 +115,7 @@ void startSensorTimers(){
 	HAL_StartAppTimer(&readADCTimer);
 }
 void readADCTimerFired(){
-	appState=APP_READ_ADC;
+	appState=APP_READ_SENSORS;
 	SYS_PostTask(APL_TASK_ID);
 }
 

@@ -17,8 +17,8 @@ void initTransmitData(void){
 	dataReq.dstAddrMode=APS_SHORT_ADDRESS;
 	dataReq.dstAddress.shortAddress=CPU_TO_LE16(0);
 	dataReq.dstEndpoint=1;
-	dataReq.asdu=transmitData.data;
-	dataReq.asduLength=sizeof(transmitData.data);
+	dataReq.asdu=transmitData.message;
+	dataReq.asduLength=sizeof(transmitData.message);
 	dataReq.srcEndpoint=1;
 	dataReq.APS_DataConf=APS_DataConf;
 }
