@@ -6,9 +6,9 @@ static uint8_t buffer[RX_BUFFER_SIZE];
 
 Beacon my_beacon;
 Service my_service;
-UARTMessage messageToSend;
 
-UARTMessage *messageReceived;
+UARTMessage globalMessage;
+
 uint8_t messageRerceived_length;
 
 HAL_UsartDescriptor_t usart;
@@ -111,18 +111,18 @@ void assembleUartMessage(uint8_t serviceIndex){
 	if(log_enabled){sendUart((uint8_t*)"assembleUartMessage\n\r", sizeof("assembleUartMessage\n\r"));}
 	//switch(serviceIndex){
 	//	case 255:
-			messageToSend.has_service=false;
-			messageToSend.beacon=my_beacon;
-			messageToSend.type=UARTMessage_Type_BEACON;
-			messageToSend.has_beacon=true;
+			globalMessage.has_service=false;
+			globalMessage.beacon=my_beacon;
+			globalMessage.type=UARTMessage_Type_BEACON;
+			globalMessage.has_beacon=true;
 	//	break;
 	//}
 }
 
-static uint8_t encBuffer[200];
+static uint8_t encBuffer[100];
 void forwardMessageToPC(){
 	pb_ostream_t ostream = pb_ostream_from_buffer(encBuffer, sizeof(encBuffer));
-	pb_encode(&ostream, UARTMessage_fields, messageReceived);
+	pb_encode(&ostream, UARTMessage_fields, &globalMessage);
 	uint8_t size = ostream.bytes_written;
 	HAL_WriteUsart(&usart,&size,1);
 	HAL_WriteUsart(&usart,encBuffer,size);

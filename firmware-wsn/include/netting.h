@@ -13,7 +13,7 @@
 BEGIN_PACK
 typedef struct _AppMessage_t{
 	uint8_t header[APS_ASDU_OFFSET];
-	UARTMessage *message;
+	uint8_t data[80];
 	uint8_t footer[APS_AFFIX_LENGTH - APS_ASDU_OFFSET];
 } PACK AppMessage_t;
 END_PACK

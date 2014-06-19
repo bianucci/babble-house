@@ -6,8 +6,6 @@ AppMessage_t transmitData;
 APS_RegisterEndpointReq_t endPoint;
 SimpleDescriptor_t simpleDescriptor;
 
-uint8_t encBuffer[200];
-
 void APS_DataConf(APS_DataConf_t* confInfo){
 	if(log_enabled){
 		if(confInfo->status==APS_SUCCESS_STATUS){
@@ -23,8 +21,8 @@ void initTransmitData(void){
 	dataReq.dstAddrMode=APS_SHORT_ADDRESS;
 	dataReq.dstAddress.shortAddress=CPU_TO_LE16(0);
 	dataReq.dstEndpoint=1;
-	dataReq.asdu=transmitData.message;
-	dataReq.asduLength=sizeof(transmitData.message);
+	dataReq.asdu=transmitData.data;
+	dataReq.asduLength=sizeof(transmitData.data);
 	dataReq.srcEndpoint=1;
 	dataReq.APS_DataConf=APS_DataConf;
 }
@@ -37,13 +35,6 @@ void initEndpoint(void){
 	endPoint.simpleDescriptor = &simpleDescriptor;
 	endPoint.APS_DataInd = APS_DataInd;
 	APS_RegisterEndpointReq(&endPoint);
-}
-
-void APS_DataInd(APS_DataInd_t *indData){
-	if(log_enabled){sendUart((uint8_t*)"DATA_IN\n\r", sizeof("DATA_IN\n\r"));}
-	messageReceived=indData->asdu;
-	messageRerceived_length=indData->asduLength;
-	wakeUpZigBeeReceived();
 }
 
 void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
@@ -65,8 +56,21 @@ void startNetwork(){
 	ZDO_StartNetworkReq(&networkParams);
 }
 
+uint8_t nextMessageLength;
+void APS_DataInd(APS_DataInd_t *indData){
+	if(log_enabled){sendUart((uint8_t*)"DATA_IN\n\r", sizeof("DATA_IN\n\r"));}
+	messageRerceived_length=indData->asdu[49];
+	pb_istream_t istream = pb_istream_from_buffer(indData->asdu, messageRerceived_length);
+	bool status = pb_decode(&istream, UARTMessage_fields, &globalMessage);
+	
+	wakeUpZigBeeReceived();
+}
+
 void send_uart_as_zigbee(UARTMessage* message){
-	transmitData.message=message;
+	pb_ostream_t ostream = pb_ostream_from_buffer(transmitData.data, sizeof(transmitData.data));
+	pb_encode(&ostream, UARTMessage_fields, message);
+	uint8_t size = ostream.bytes_written;
+	transmitData.data[49]=size;
 	initTransmitData();
 	APS_DataReq(&dataReq);
 }

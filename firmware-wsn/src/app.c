@@ -7,7 +7,7 @@ AppState_t appState = APP_INIT_SYSTEM;
 void startSensorTimers();
 void readADCTimerFired();
 
-bool log_enabled = true;
+bool log_enabled = false;
 
 void APL_TaskHandler(void)
 {	
@@ -66,7 +66,7 @@ void APL_TaskHandler(void)
 		
 		case APP_ZGBE_SEND:
 			if(log_enabled){sendUart((uint8_t*)"APP_ZGBE_SEND\n\r", sizeof("APP_ZGBE_SEND\n\r"));}
-			send_uart_as_zigbee(&messageToSend); // global zigbee message from messaging.h is send
+			send_uart_as_zigbee(&globalMessage); // global zigbee message from messaging.h is send
 			appState=APP_IDLE;
 		break;
 		
