@@ -6,6 +6,8 @@
 #include <pb_encode.h>
 #include <pb_decode.h>
 #include <uartmessage.pb.h>
+#include <messaging.h>
+#include <app.h>
 
 
 BEGIN_PACK
@@ -28,5 +30,5 @@ void initTransmitData(void);
 void initEndpoint(void);
 void APS_DataInd(APS_DataInd_t *indData);
 void startNetwork();
-
+void send_uart_as_zigbee(UARTMessage* message);
 #endif

@@ -72,4 +72,7 @@ typedef enum{
 	APP_IDLE
 } AppState_t;
 
+extern AppState_t appState;
+extern bool log_enabled;
+
 #endif

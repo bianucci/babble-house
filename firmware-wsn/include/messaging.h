@@ -11,11 +11,16 @@
 #define TX_BUFFER_SIZE 200
 
 extern Beacon my_beacon;
+extern Service my_serivce;
+extern UARTMessage messageToSend;
+extern UARTMessage *messageReceived;
 extern HAL_UsartDescriptor_t usart;
 
+void forwardMessageToPC();
 void createBeaconList();
 void usartRcvd(uint8_t size);
 void usart_Init();
 void sendUart(uint8_t* string, uint8_t size);
+void assembleUartMessage(uint8_t serviceIndex);
 
 #endif

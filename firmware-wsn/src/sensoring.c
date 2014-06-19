@@ -1,7 +1,8 @@
 #include <sensoring.h>
 
 uint8_t adcData;
-char str[5];
+
+uint8_t lightSensorValue;
 
 HAL_AdcDescriptor_t adcdescriptor = {
 	.resolution=RESOLUTION_8_BIT,
@@ -13,7 +14,7 @@ HAL_AdcDescriptor_t adcdescriptor = {
 };
 
 void readSensorDonceCb(void){
-	sprintf(str, "%d", adcData);
+	lightSensorValue=adcData;
 }
 
 void initSensors(){
@@ -22,4 +23,8 @@ void initSensors(){
 
 void refreshSensorValues(){
 	HAL_ReadAdc(&adcdescriptor, HAL_ADC_CHANNEL_1);
+}
+
+int getLightADC(){
+	return lightSensorValue;
 }

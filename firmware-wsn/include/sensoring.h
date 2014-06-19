@@ -18,6 +18,7 @@ extern uint8_t adcData;
 
 void readSensorDonceCb(void);
 void refreshSensorValues();
-void initSensors();
+void initSensors(); 
+int getLightADC();
 
 #endif

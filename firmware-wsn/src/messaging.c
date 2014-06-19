@@ -5,6 +5,10 @@ static uint8_t Tx_Buffer[TX_BUFFER_SIZE];
 static uint8_t buffer[RX_BUFFER_SIZE];
 
 Beacon my_beacon;
+Service my_serivce;
+UARTMessage messageToSend;
+UARTMessage *messageReceived;
+
 HAL_UsartDescriptor_t usart;
 
 uint8_t buffer_counter = 0;
@@ -45,7 +49,7 @@ void createBeaconList(){
 	my_beacon.serviceGroupId=1;
 	my_beacon.has_name=true;
 	strcpy(my_beacon.name,"living room");
-	my_beacon.service_count=8;
+	my_beacon.service_count=4;
 	
 	for(int i=0; i<8; i++){
 		my_beacon.service[i].serviceGroupId=1;
@@ -54,23 +58,23 @@ void createBeaconList(){
 		my_beacon.service[i].has_info=true;
 	
 		// assign random values
-		if(i<5){	
+		if(i<3){	
 			my_beacon.service[i].serviceType=Service_ServiceType_SENSOR;
 			my_beacon.service[i].value=rand() % 100;
 			switch(i){
 				case 0: strcpy(my_beacon.service[i].info, "temperature"); break; 
 				case 1: strcpy(my_beacon.service[i].info, "light"); break;
-				case 2: strcpy(my_beacon.service[i].info, "humidity"); break;
-				case 3: strcpy(my_beacon.service[i].info, "pressure"); break;	
+				//case 2: strcpy(my_beacon.service[i].info, "humidity"); break;
+				//case 3: strcpy(my_beacon.service[i].info, "pressure"); break;	
 			}
 		} else {
 			my_beacon.service[i].serviceType=Service_ServiceType_ACTUATOR;
 			my_beacon.service[i].value=i%2;
 			switch(i){
-				case 4: strcpy(my_beacon.service[i].info, "heater"); break; 
-				case 5: strcpy(my_beacon.service[i].info, "light bulb"); break;
-				case 6: strcpy(my_beacon.service[i].info, "radio"); break;
-				case 7: strcpy(my_beacon.service[i].info, "television"); break;	
+				case 2: strcpy(my_beacon.service[i].info, "heater"); break; 
+				case 3: strcpy(my_beacon.service[i].info, "light bulb"); break;
+				//case 6: strcpy(my_beacon.service[i].info, "radio"); break;
+				//case 7: strcpy(my_beacon.service[i].info, "television"); break;	
 			}
 		}
 		
@@ -95,6 +99,21 @@ void usart_Init()
   HAL_OpenUsart(&usart);
 }
 
-void sendUart(uint8_t* string, uint8_t size){
-	HAL_WriteUsart(&usart, string, size);
+void sendUart(uint8_t* data, uint8_t size){
+	HAL_WriteUsart(&usart, data, size);
+}
+
+void assembleUartMessage(uint8_t serviceIndex){
+	switch(serviceIndex){
+		case 255:
+			messageToSend.has_service=false;
+			messageToSend.beacon=my_beacon;
+			messageToSend.type=UARTMessage_Type_BEACON;
+			messageToSend.has_beacon=true;
+		break;
+	}
+}
+
+void forwardMessageToPC(){
+	sendUart(messageReceived, sizeof(messageReceived));
 }

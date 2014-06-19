@@ -2,7 +2,7 @@
 #include <zdo.h>
 #include <app.h>
 
-static AppState_t appState = APP_INIT_SYSTEM;
+AppState_t appState = APP_INIT_SYSTEM;
 
 void startSensorTimers();
 void readADCTimerFired();
@@ -47,24 +47,26 @@ void APL_TaskHandler(void)
 		case APP_START_NETWORK:
 			if(log_enabled){sendUart((uint8_t*)"APP_START_NETWORK\n\r", sizeof("APP_START_NETWORK\n\r"));}
 			startNetwork();
-			#if CS_DEVICE_TYPE==DEV_TYPE_COORDINATOR
-				appState=APP_IDLE;
-			#else
-				appState=APP_INIT_ENDPOINT;
-			#endif
+			appState=APP_INIT_ENDPOINT;
 		break;
 		
 		case APP_INIT_ENDPOINT:
 			if(log_enabled){sendUart((uint8_t*)"APP_INIT_ENDPOINT\n\r", sizeof("APP_INIT_ENDPOINT\n\r"));}
 			initEndpoint();
-			startSensorTimers();
-			createBeaconList(); // there should be different implementation for depending on the services this device offers.
-			appState=APP_ZGBE_SEND;
+			#if CS_DEVICE_TYPE==DEV_TYPE_COORDINATOR
+				appState=APP_IDLE;
+			#else
+				startSensorTimers();
+				createBeaconList(); // there should be different implementation for depending on the services this device offers.
+				assembleUartMessage((uint8_t)255); // adjust next zigbee message for beacon transfer
+				appState=APP_ZGBE_SEND;
+			#endif
 			SYS_PostTask(APL_TASK_ID);
 		break;
 		
 		case APP_ZGBE_SEND:
 			if(log_enabled){sendUart((uint8_t*)"APP_ZGBE_SEND\n\r", sizeof("APP_ZGBE_SEND\n\r"));}
+			send_uart_as_zigbee(&messageToSend); // globals zigbee message from messaging.h is send
 			appState=APP_IDLE;
 		break;
 		
@@ -91,6 +93,7 @@ void APL_TaskHandler(void)
 		
 		case APP_UART_SEND:
 			if(log_enabled){sendUart((uint8_t*)"APP_UART_SEND\n\r", sizeof("APP_UART_SEND\n\r"));}
+			forwardMessageToPC();
 			appState=APP_IDLE;
 		break;
 		
