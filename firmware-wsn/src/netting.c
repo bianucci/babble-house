@@ -9,7 +9,13 @@ SimpleDescriptor_t simpleDescriptor;
 uint8_t encBuffer[200];
 
 void APS_DataConf(APS_DataConf_t* confInfo){
-	if(log_enabled){sendUart((uint8_t*)"SENT_DATA\n\r", sizeof("SENT_DATA\n\r"));}
+	if(log_enabled){
+		if(confInfo->status==APS_SUCCESS_STATUS){
+			sendUart((uint8_t*)"ZB_SENT_DATA\n\r", sizeof("ZB_SENT_DATA\n\r"));
+		}else{
+			sendUart((uint8_t*)"ZB_SENT_DATA_FAILED\n\r", sizeof("ZB_SENT_DATA_FAILED\n\r"));
+		}
+	}
 }
 
 void initTransmitData(void){
@@ -35,7 +41,9 @@ void initEndpoint(void){
 
 void APS_DataInd(APS_DataInd_t *indData){
 	if(log_enabled){sendUart((uint8_t*)"DATA_IN\n\r", sizeof("DATA_IN\n\r"));}
-	messageReceived=&indData->asdu;
+	messageReceived=indData->asdu;
+	messageRerceived_length=indData->asduLength;
+	wakeUpZigBeeReceived();
 }
 
 void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
@@ -44,9 +52,9 @@ void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 	uint8_t network_status = confirmInfo->status;
 	if(log_enabled){
 		if(ZDO_SUCCESS_STATUS==network_status){
-			HAL_WriteUsart(&usart, "JOINED NETWORK\n\r", sizeof("JOINED NETWORK\n\r"));
+			HAL_WriteUsart(&usart, (uint8_t*)"JOINED NETWORK\n\r", sizeof("JOINED NETWORK\n\r"));
 		} else {
-			HAL_WriteUsart(&usart, "NO NETWORK\n\r", sizeof("NO NETWORK\n\r"));
+			HAL_WriteUsart(&usart, (uint8_t*)"NO NETWORK\n\r", sizeof("NO NETWORK\n\r"));
 		}
 	}
 	SYS_PostTask(APL_TASK_ID);
@@ -58,7 +66,7 @@ void startNetwork(){
 }
 
 void send_uart_as_zigbee(UARTMessage* message){
-	initTransmitData();
 	transmitData.message=message;
+	initTransmitData();
 	APS_DataReq(&dataReq);
 }

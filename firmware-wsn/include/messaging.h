@@ -6,6 +6,7 @@
 #include <pb_encode.h>
 #include <pb_decode.h>
 #include <uartmessage.pb.h>
+#include <app.h>
 
 #define RX_BUFFER_SIZE 200
 #define TX_BUFFER_SIZE 200
@@ -14,6 +15,7 @@ extern Beacon my_beacon;
 extern Service my_serivce;
 extern UARTMessage messageToSend;
 extern UARTMessage *messageReceived;
+extern uint8_t messageRerceived_length;
 extern HAL_UsartDescriptor_t usart;
 
 void forwardMessageToPC();

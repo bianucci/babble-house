@@ -5,9 +5,11 @@ static uint8_t Tx_Buffer[TX_BUFFER_SIZE];
 static uint8_t buffer[RX_BUFFER_SIZE];
 
 Beacon my_beacon;
-Service my_serivce;
+Service my_service;
 UARTMessage messageToSend;
+
 UARTMessage *messageReceived;
+uint8_t messageRerceived_length;
 
 HAL_UsartDescriptor_t usart;
 
@@ -46,24 +48,26 @@ void usartRcvd(uint8_t size)
 }
 
 void createBeaconList(){
+	if(log_enabled){sendUart((uint8_t*)"createBeaconList\n\r", sizeof("createBeaconList\n\r"));}
+	
 	my_beacon.serviceGroupId=1;
 	my_beacon.has_name=true;
 	strcpy(my_beacon.name,"living room");
-	my_beacon.service_count=4;
+	my_beacon.service_count=2;
 	
-	for(int i=0; i<8; i++){
+	for(int i=0; i<2; i++){
 		my_beacon.service[i].serviceGroupId=1;
 		my_beacon.service[i].serviceId=i;
 		my_beacon.service[i].has_value=true;
 		my_beacon.service[i].has_info=true;
 	
 		// assign random values
-		if(i<3){	
+		if(i<1){	
 			my_beacon.service[i].serviceType=Service_ServiceType_SENSOR;
 			my_beacon.service[i].value=rand() % 100;
 			switch(i){
 				case 0: strcpy(my_beacon.service[i].info, "temperature"); break; 
-				case 1: strcpy(my_beacon.service[i].info, "light"); break;
+				//case 1: strcpy(my_beacon.service[i].info, "light"); break;
 				//case 2: strcpy(my_beacon.service[i].info, "humidity"); break;
 				//case 3: strcpy(my_beacon.service[i].info, "pressure"); break;	
 			}
@@ -71,8 +75,8 @@ void createBeaconList(){
 			my_beacon.service[i].serviceType=Service_ServiceType_ACTUATOR;
 			my_beacon.service[i].value=i%2;
 			switch(i){
-				case 2: strcpy(my_beacon.service[i].info, "heater"); break; 
-				case 3: strcpy(my_beacon.service[i].info, "light bulb"); break;
+				case 1: strcpy(my_beacon.service[i].info, "heater"); break; 
+				//case 3: strcpy(my_beacon.service[i].info, "light bulb"); break;
 				//case 6: strcpy(my_beacon.service[i].info, "radio"); break;
 				//case 7: strcpy(my_beacon.service[i].info, "television"); break;	
 			}
@@ -104,16 +108,22 @@ void sendUart(uint8_t* data, uint8_t size){
 }
 
 void assembleUartMessage(uint8_t serviceIndex){
-	switch(serviceIndex){
-		case 255:
+	if(log_enabled){sendUart((uint8_t*)"assembleUartMessage\n\r", sizeof("assembleUartMessage\n\r"));}
+	//switch(serviceIndex){
+	//	case 255:
 			messageToSend.has_service=false;
 			messageToSend.beacon=my_beacon;
 			messageToSend.type=UARTMessage_Type_BEACON;
 			messageToSend.has_beacon=true;
-		break;
-	}
+	//	break;
+	//}
 }
 
+static uint8_t encBuffer[200];
 void forwardMessageToPC(){
-	sendUart(messageReceived, sizeof(messageReceived));
+	pb_ostream_t ostream = pb_ostream_from_buffer(encBuffer, sizeof(encBuffer));
+	pb_encode(&ostream, UARTMessage_fields, messageReceived);
+	uint8_t size = ostream.bytes_written;
+	HAL_WriteUsart(&usart,&size,1);
+	HAL_WriteUsart(&usart,encBuffer,size);
 }
