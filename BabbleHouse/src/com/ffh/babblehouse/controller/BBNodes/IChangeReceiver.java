@@ -13,6 +13,6 @@ import com.ffh.babblehouse.controller.BusinessObjects.IBoStateChangedHandler;
  * @author zziwa
  */
 public interface IChangeReceiver {
-	public void registerChangeHander(IBoStateChangedHandler o);
+	public void registerChangeHandler(IBoStateChangedHandler o);
 	public void valueChanged(Object o);
 }

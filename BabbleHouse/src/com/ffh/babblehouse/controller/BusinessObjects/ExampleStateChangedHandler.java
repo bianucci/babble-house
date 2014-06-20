@@ -9,7 +9,7 @@ public class ExampleStateChangedHandler implements IBoStateChangedHandler {
 
 	public ExampleStateChangedHandler(IChangeReceiver dtoObject) {
 		this.Objectcreator = dtoObject;
-		Objectcreator.registerChangeHander(this);
+		Objectcreator.registerChangeHandler(this);
 	}
 
 	@Override

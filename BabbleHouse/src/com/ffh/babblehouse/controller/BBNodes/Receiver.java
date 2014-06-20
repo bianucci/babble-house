@@ -199,7 +199,7 @@ public class Receiver extends Thread implements IChangeReceiver {
 	}
 
 	@Override
-	public void registerChangeHander(IBoStateChangedHandler o) {
+	public void registerChangeHandler(IBoStateChangedHandler o) {
 		this.changeHandler = o;
 
 	}
