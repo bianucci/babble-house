@@ -29,6 +29,8 @@ public class DummyConnector extends IConnector {
 
 	private static class DummySerialPort extends SerialPort {
 
+		private static final int MEASURING_DELAY = 1000;
+
 		public DummySerialPort() {
 			super("");
 
@@ -109,7 +111,7 @@ public class DummyConnector extends IConnector {
 				return new byte[] { (byte) uartMessage.getSerializedSize() };
 			} else {
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(MEASURING_DELAY);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
