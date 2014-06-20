@@ -8,8 +8,8 @@ import com.ffh.babblehouse.model.DtoServiceGroup;
 public class ServiceGroupQueue {
 
 	private static ServiceGroupQueue instance = null;
-	private List<DtoServiceGroup> dtoServiceGroup = new ArrayList<DtoServiceGroup>();
-	private List<DtoServiceGroup> dtoServiceGroupbackup = new ArrayList<DtoServiceGroup>();
+	private static List<DtoServiceGroup> dtoServiceGroup = new ArrayList<DtoServiceGroup>();
+	private static List<DtoServiceGroup> dtoServiceGroupbackup = new ArrayList<DtoServiceGroup>();
 
 
 	public List<DtoServiceGroup> getDtoServiceGroupList() {
@@ -24,7 +24,7 @@ public class ServiceGroupQueue {
 	}
 	// implementing fifo  
 	//first DtoServiceGroup in is first DtoServiceGroup out
-	public  DtoServiceGroup getDtoServiceGroup(){
+	public static DtoServiceGroup getDtoServiceGroup(){
 		DtoServiceGroup newdtoServiceGroup = dtoServiceGroup.get(0);
 		dtoServiceGroup.remove(0);
 		dtoServiceGroupbackup.add(newdtoServiceGroup);
