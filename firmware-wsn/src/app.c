@@ -59,6 +59,7 @@ void APL_TaskHandler(void)
 				createBeaconList(); // there should be different implementation for depending on the services this device offers.
 				assembleUartMessage(255); // adjust next zigbee message for beacon transfer
 				//startSensorTimers();
+				initActuators();
 				appState=APP_ZGBE_SEND;
 			#endif
 			SYS_PostTask(APL_TASK_ID);

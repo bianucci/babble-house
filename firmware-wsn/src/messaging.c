@@ -48,7 +48,7 @@ void usartRcvd(uint8_t size)
 }
 
 void createBeaconList(){
-	if(log_enabled){sendUart((uint8_t*)"createBeaconList\n\r", sizeof("createBeaconList\n\r"));}
+	if(log_enabled){sendUart((uint8_t*)"cBL\n\r", sizeof("cBL\n\r"));}
 	
 	my_beacon.serviceGroupId=1;
 	my_beacon.has_name=true;

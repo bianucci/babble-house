@@ -251,6 +251,10 @@
     <CleanTarget>clean</CleanTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\include\actuating.h">
+      <SubType>compile</SubType>
+      <Link>include\actuating.h</Link>
+    </Compile>
     <Compile Include="..\include\messaging.h">
       <SubType>compile</SubType>
       <Link>include\messaging.h</Link>
@@ -278,6 +282,10 @@
     <Compile Include="..\include\uartmessage.pb.h">
       <SubType>compile</SubType>
       <Link>include\uartmessage.pb.h</Link>
+    </Compile>
+    <Compile Include="..\src\actuating.c">
+      <SubType>compile</SubType>
+      <Link>src\actuating.c</Link>
     </Compile>
     <Compile Include="..\src\messaging.c">
       <SubType>compile</SubType>
