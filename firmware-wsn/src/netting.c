@@ -14,12 +14,13 @@ void APS_DataConf(APS_DataConf_t* confInfo){
 			sendUart((uint8_t*)"ZB_SENT_DATA_FAILED\n\r", sizeof("ZB_SENT_DATA_FAILED\n\r"));
 		}
 	}
+	SYS_PostTask(APL_TASK_ID);
 }
 
 void initTransmitData(void){
 	dataReq.profileId=1;
 	dataReq.dstAddrMode=APS_SHORT_ADDRESS;
-	dataReq.dstAddress.shortAddress=CPU_TO_LE16(0);
+	dataReq.dstAddress.shortAddress=CPU_TO_LE16(global_dst);
 	dataReq.dstEndpoint=1;
 	dataReq.asdu=transmitData.data;
 	dataReq.asduLength=sizeof(transmitData.data);
@@ -43,9 +44,9 @@ void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 	uint8_t network_status = confirmInfo->status;
 	if(log_enabled){
 		if(ZDO_SUCCESS_STATUS==network_status){
-			HAL_WriteUsart(&usart, (uint8_t*)"JOINED NETWORK\n\r", sizeof("JOINED NETWORK\n\r"));
+			HAL_WriteUsart(&usart, (uint8_t*)"JOINED_NETWORK\n\r", sizeof("JOINED_NETWORK\n\r"));
 		} else {
-			HAL_WriteUsart(&usart, (uint8_t*)"NO NETWORK\n\r", sizeof("NO NETWORK\n\r"));
+			HAL_WriteUsart(&usart, (uint8_t*)"NO_NETWORK\n\r", sizeof("NO_NETWORK\n\r"));
 		}
 	}
 	SYS_PostTask(APL_TASK_ID);

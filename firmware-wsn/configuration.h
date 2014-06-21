@@ -83,7 +83,7 @@
   // Specifies short (network) address if CS_NWK_UNIQUE_ADDR equals 1
   //  Note: the coordinator short address always equals 0x0000.
   //  Value range: 0x0000 - 0xFFF8
-  #define CS_NWK_ADDR 0x0123
+  #define CS_NWK_ADDR 0x0001
   //#define CS_NWK_ADDR 0x0000
 #endif
 

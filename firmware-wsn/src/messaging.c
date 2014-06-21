@@ -8,6 +8,7 @@ Beacon my_beacon;
 Service my_service;
 
 UARTMessage globalMessage;
+uint8_t global_dst;
 
 uint8_t messageRerceived_length;
 
@@ -43,6 +44,12 @@ void usartRcvd(uint8_t size)
 			last_msg_length=message_length;
 			buffer_counter=0;
 			message_length=0;
+			
+			if(log_enabled){sendUart((uint8_t*)"UTTP\n\r", sizeof("UTTP\n\r"));}
+			pb_istream_t istream = pb_istream_from_buffer(last_msg, last_msg_length);
+			bool status = pb_decode(&istream, UARTMessage_fields, &globalMessage);
+			appState=APP_ZGBE_SEND;
+			SYS_PostTask(APL_TASK_ID);
 		}
 	}
 }
@@ -126,4 +133,5 @@ void forwardMessageToPC(){
 	uint8_t size = ostream.bytes_written;
 	HAL_WriteUsart(&usart,&size,1);
 	HAL_WriteUsart(&usart,encBuffer,size);
+	SYS_PostTask(APL_TASK_ID);
 }

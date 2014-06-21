@@ -14,6 +14,7 @@
 extern Beacon my_beacon;
 extern Service my_serivce;
 extern UARTMessage globalMessage;
+extern uint8_t global_dst;
 extern uint8_t messageRerceived_length;
 extern HAL_UsartDescriptor_t usart;
 

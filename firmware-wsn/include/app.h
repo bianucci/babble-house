@@ -46,10 +46,6 @@
 #define USART_CHANNEL					USART_CHANNEL_1
 #define USART_RX_BUFFER_LENGTH			0
 
-#define TEXT_ONE "BRUNOOO\r"
-#define TEXT_TWO "MARTINN\r"
-#define TEXT_THR "CLAUDIO\r"
-
 void appInitUARTManager(void);
 void appWriteDataToUart(uint8_t* aData, uint8_t aLength);
 void wakeUpZigBeeReceived();

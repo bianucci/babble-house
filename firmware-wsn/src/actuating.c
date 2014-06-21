@@ -2,6 +2,10 @@
 
 void handleServiceRequests(UARTMessage* request){
 	
+	changeStateActuatorOne(0);
+	
+	/*
+	
 	switch(request->type){
 		case UARTMessage_Type_BEACON:
 			if(log_enabled){sendUart((uint8_t*)"E_ZEDRB\n\r", sizeof("E_ZEDRB\n\r"));}
@@ -40,6 +44,11 @@ void handleServiceRequests(UARTMessage* request){
 			
 		break;
 	}
+	
+	*/
+	
+	appState=APP_IDLE;
+	SYS_PostTask(APL_TASK_ID);
 }
 
 void initActuators(){
