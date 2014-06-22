@@ -9,7 +9,7 @@ import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceT
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type;
 import com.ffh.babblehouse.model.DtoDevice;
 
-public class ServiceMsgCreator implements IBBDataBridge{
+public class ServiceMsgCreator extends Thread implements IBBDataBridge{
 	private int serviceGroupId;
 	private ServiceType serviceType;
 	private int serviceId;
@@ -46,6 +46,9 @@ public class ServiceMsgCreator implements IBBDataBridge{
 		this.serviceId= dtoDevice.getId();
 		this.serviceType=ServiceType.ACTUATOR;
 		this.serviceGroupId=dtoDevice.getDtoServiceGroup().getId();
+		this.start();
+	}
+	public void run(){
 		createServiceMsg();
 	}
 

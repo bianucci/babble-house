@@ -31,7 +31,12 @@ public class Sender implements Isender {
 			// send the next message
 			status = serialPort.writeBytes(message);
 			
-
+try {
+	Thread.sleep(100);
+} catch (InterruptedException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
 
 		} catch (SerialPortException e) {
 			e.printStackTrace();
