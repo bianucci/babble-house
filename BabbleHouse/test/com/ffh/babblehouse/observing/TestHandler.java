@@ -5,7 +5,8 @@ import jssc.SerialPort;
 import com.ffh.babblehouse.controller.BBNodes.IConnector;
 import com.ffh.babblehouse.controller.BBNodes.Receiver;
 import com.ffh.babblehouse.controller.BBNodes.ServiceGroupQueue;
-import com.ffh.babblehouse.controller.BusinessObjects.ExampleStateChangedHandler;
+import com.ffh.babblehouse.controller.BusinessObjects.BoStateChangedHandler;
+import com.ffh.babblehouse.controller.BusinessObjects.IBoStateChangedHandler;
 import com.ffh.babblehouse.model.DtoServiceGroup;
 
 public class TestHandler {
@@ -27,7 +28,7 @@ public class TestHandler {
 		Receiver newReceiver = new Receiver(
 				serialPort);
 		newReceiver.start();
-		ExampleStateChangedHandler newObjectHandler= new ExampleStateChangedHandler(newReceiver);
+		IBoStateChangedHandler newObjectHandler= new BoStateChangedHandler(newReceiver);
 		
 		// get service group list
 
