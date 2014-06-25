@@ -14,8 +14,7 @@
     <avrtool>com.atmel.avrdbg.tool.jtagicemk3</avrtool>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
-    <OverrideVtorValue>
-    </OverrideVtorValue>
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <ProgFlashFromRam>true</ProgFlashFromRam>
     <RamSnippetAddress>0x20000000</RamSnippetAddress>
@@ -36,20 +35,20 @@
       </framework-data>
     </AsfFrameworkConfig>
     <com_atmel_avrdbg_tool_jtagicemk3>
-      <ToolType xmlns="">com.atmel.avrdbg.tool.jtagicemk3</ToolType>
-      <ToolName xmlns="">JTAGICE3</ToolName>
-      <ToolNumber xmlns="">J30200018629</ToolNumber>
-      <StimuliFile xmlns="">
+      <ToolType>com.atmel.avrdbg.tool.jtagicemk3</ToolType>
+      <ToolName>JTAGICE3</ToolName>
+      <ToolNumber>J30200003235</ToolNumber>
+      <StimuliFile>
       </StimuliFile>
-      <Channel xmlns="">
+      <Channel>
         <host>127.0.0.1</host>
-        <port>49664</port>
+        <port>49161</port>
         <ssl>False</ssl>
       </Channel>
-      <ToolOptions xmlns="">
+      <ToolOptions>
         <InterfaceName>JTAG</InterfaceName>
         <InterfaceProperties>
-          <JtagDbgClock>7500000</JtagDbgClock>
+          <JtagDbgClock>341460</JtagDbgClock>
           <SwdClock>249000</SwdClock>
           <JtagProgClock>7500000</JtagProgClock>
           <IspClock>125000</IspClock>

@@ -7,7 +7,7 @@ AppState_t appState = APP_INIT_SYSTEM;
 void startSensorTimers();
 void readADCTimerFired();
 
-bool log_enabled = true;
+bool log_enabled = false;
 
 void APL_TaskHandler(void)
 {	

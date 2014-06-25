@@ -5,7 +5,7 @@ static uint8_t Tx_Buffer[TX_BUFFER_SIZE];
 static uint8_t buffer[RX_BUFFER_SIZE];
 
 Beacon my_beacon;
-Service my_service;
+Service* my_service;
 
 UARTMessage globalMessage;
 uint8_t global_dst;
@@ -48,8 +48,10 @@ void usartRcvd(uint8_t size)
 			if(log_enabled){sendUart((uint8_t*)"UTTP\n\r", sizeof("UTTP\n\r"));}
 			pb_istream_t istream = pb_istream_from_buffer(last_msg, last_msg_length);
 			bool status = pb_decode(&istream, UARTMessage_fields, &globalMessage);
-			appState=APP_ZGBE_SEND;
-			SYS_PostTask(APL_TASK_ID);
+			if(status){
+				appState=APP_ZGBE_SEND;
+				SYS_PostTask(APL_TASK_ID);
+			}
 		}
 	}
 }
