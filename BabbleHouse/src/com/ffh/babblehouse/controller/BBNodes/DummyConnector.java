@@ -60,7 +60,7 @@ public class DummyConnector extends IConnector {
 			sampleBeacon = Beacon.newBuilder().setName("Living Room")
 					.setServiceGroupId(1).addAllService(sampleService).build();
 
-			serviceBuilder.setInfo("Degree Celcius");
+			serviceBuilder.setInfo("Degree C");
 			serviceBuilder.setServiceId(1);
 			serviceBuilder.setServiceType(ServiceType.SENSOR);
 			serviceBuilder.setServiceGroupId(2);
