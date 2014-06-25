@@ -177,12 +177,9 @@ public class DummyConnector extends IConnector {
 
 	@Override
 	public SerialPort getserialPort() {
-		if (s == null) {
+		if (s == null) 
 			s = new DummySerialPort();
-			Receiver r = new Receiver(s);
-			new BoStateChangedHandler(r);
-			r.start();
-		}
+		
 		return s;
 	}
 }
