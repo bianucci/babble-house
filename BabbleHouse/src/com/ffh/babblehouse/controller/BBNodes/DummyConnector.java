@@ -14,7 +14,7 @@ import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.Builder;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type;
-import com.ffh.babblehouse.controller.BusinessObjects.ExampleStateChangedHandler;
+import com.ffh.babblehouse.controller.BusinessObjects.BoStateChangedHandler;
 import com.ffh.babblehouse.model.DtoDevice;
 import com.ffh.babblehouse.model.DtoMeasuringUnit;
 import com.ffh.babblehouse.model.DtoSensor;
@@ -180,7 +180,7 @@ public class DummyConnector extends IConnector {
 		if (s == null) {
 			s = new DummySerialPort();
 			Receiver r = new Receiver(s);
-			new ExampleStateChangedHandler(r);
+			new BoStateChangedHandler(r);
 			r.start();
 		}
 		return s;
