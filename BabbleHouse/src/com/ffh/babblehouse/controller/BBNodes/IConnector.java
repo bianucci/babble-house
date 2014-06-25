@@ -9,11 +9,15 @@ public abstract class IConnector {
 
 	public static IConnector getInstance() {
 		if (c == null) {
-			try {
+
+			c = new DummyConnector();
+			
+			// TODO uncomment this for production - AND remove line above
+			/*try {
 				c = new UARTConnector();
 			} catch (SerialPortException e) {
 				c = new DummyConnector();
-			}
+			}*/
 		}
 		return c;
 	}

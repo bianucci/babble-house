@@ -12,6 +12,7 @@ import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type;
+import com.ffh.babblehouse.controller.BusinessObjects.BoStateChangedHandler;
 import com.ffh.babblehouse.controller.BusinessObjects.IBoStateChangedHandler;
 import com.ffh.babblehouse.model.DtoDevice;
 import com.ffh.babblehouse.model.DtoMeasuringUnit;
@@ -24,7 +25,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 public class Receiver extends Thread implements IChangeReceiver {
 	SerialPort serialPort;
 	ServiceGroupQueue newServiceGroupQueue;
-	IBoStateChangedHandler changeHandler;
+	IBoStateChangedHandler changeHandler = new BoStateChangedHandler(this);
 
 	public Receiver(SerialPort serialPort) {
 		this.serialPort = serialPort;
@@ -175,9 +176,6 @@ public class Receiver extends Thread implements IChangeReceiver {
 						}
 						newServiceGroupQueue.getDtoServiceGroupList().add(
 								dtoServiceGroup);
-						System.out.println("NEW BEACON IN QUEUE");
-						System.out.println(dtoServiceGroup);
-
 					}
 				}
 
