@@ -17,10 +17,10 @@ void APS_DataConf(APS_DataConf_t* confInfo){
 	SYS_PostTask(APL_TASK_ID);
 }
 
-void initTransmitData(void){
+void initTransmitData(uint8_t receiver){
 	dataReq.profileId=1;
 	dataReq.dstAddrMode=APS_SHORT_ADDRESS;
-	dataReq.dstAddress.shortAddress=CPU_TO_LE16(global_dst);
+	dataReq.dstAddress.shortAddress=CPU_TO_LE16(receiver);
 	dataReq.dstEndpoint=1;
 	dataReq.asdu=transmitData.data;
 	dataReq.asduLength=sizeof(transmitData.data);
@@ -68,11 +68,20 @@ void APS_DataInd(APS_DataInd_t *indData){
 	}
 }
 
-void send_uart_as_zigbee(UARTMessage* message){
+void sendProtoViaZigBee(UARTMessage* message){
 	pb_ostream_t ostream = pb_ostream_from_buffer(transmitData.data, sizeof(transmitData.data));
 	pb_encode(&ostream, UARTMessage_fields, message);
 	uint8_t size = ostream.bytes_written;
 	transmitData.data[49]=size;
-	initTransmitData();
+	
+	uint8_t receiver=0;
+	
+	#if CS_DEVICE_TYPE==DEV_TYPE_COORDINATOR
+		receiver = (uint8_t) message->service.serviceGroupId;
+	#else
+		receiver = 0; // receiver will be the coordinator
+	#endif
+	
+	initTransmitData(receiver);
 	APS_DataReq(&dataReq);
 }

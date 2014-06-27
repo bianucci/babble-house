@@ -7,7 +7,7 @@ AppState_t appState = APP_INIT_SYSTEM;
 void startSensorTimers();
 void readADCTimerFired();
 
-bool log_enabled = true;
+bool log_enabled = false;
 
 void APL_TaskHandler(void)
 {	
@@ -57,7 +57,7 @@ void APL_TaskHandler(void)
 				appState=APP_IDLE;
 			#else
 				createBeaconList(); // there should be different implementation for depending on the services this device offers.
-				assembleUartMessage(255); // adjust next zigbee message for beacon transfer
+				assembleBeaconMessage(); // adjust next zigbee message for beacon transfer
 				//startSensorTimers();
 				initActuators();
 				appState=APP_ZGBE_SEND;
@@ -67,13 +67,7 @@ void APL_TaskHandler(void)
 		
 		case APP_ZGBE_SEND:
 			if(log_enabled){sendUart((uint8_t*)"APP_ZGBE_SEND\n\r", sizeof("APP_ZGBE_SEND\n\r"));}
-			
-			#if CS_DEVICE_TYPE==DEV_TYPE_COORDINATOR
-				global_dst=1;
-			#else
-				global_dst=0;
-			#endif
-			send_uart_as_zigbee(&globalMessage); // global zigbee message from messaging.h is send
+			sendProtoViaZigBee(&globalMessage); // global zigbee message from messaging.h is send
 			appState=APP_IDLE;
 		break;
 		

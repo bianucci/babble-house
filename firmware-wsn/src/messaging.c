@@ -116,16 +116,12 @@ void sendUart(uint8_t* data, uint8_t size){
 	HAL_WriteUsart(&usart, data, size);
 }
 
-void assembleUartMessage(uint8_t serviceIndex){
-	if(log_enabled){sendUart((uint8_t*)"assembleUartMessage\n\r", sizeof("assembleUartMessage\n\r"));}
-	//switch(serviceIndex){
-	//	case 255:
-			globalMessage.has_service=false;
-			globalMessage.beacon=my_beacon;
-			globalMessage.type=UARTMessage_Type_BEACON;
-			globalMessage.has_beacon=true;
-	//	break;
-	//}
+void assembleBeaconMessage(){
+	if(log_enabled){sendUart((uint8_t*)"assembleBeaconMsg\r", sizeof("assembleBeaconMsg\r"));}
+	globalMessage.has_service=false;
+	globalMessage.beacon=my_beacon;
+	globalMessage.type=UARTMessage_Type_BEACON;
+	globalMessage.has_beacon=true;
 }
 
 static uint8_t encBuffer[100];

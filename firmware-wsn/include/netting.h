@@ -26,9 +26,9 @@ extern SimpleDescriptor_t simpleDescriptor;
 
 
 void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo);
-void initTransmitData(void);
+void initTransmitData(uint8_t receiver);
 void initEndpoint(void);
 void APS_DataInd(APS_DataInd_t *indData);
 void startNetwork();
-void send_uart_as_zigbee(UARTMessage* message);
+void sendProtoViaZigBee(UARTMessage* message);
 #endif
