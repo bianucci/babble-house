@@ -101,10 +101,13 @@ public class ReceiverSenderDebugger {
 	}
 
 	public static void sendMessage(SerialPort serialPort) {
+		int value = (Math.random() > 0.5) ? 1 : 0;
+		int sId = (int) (Math.random() * 3) + 1;
+
 		Service service = Service.newBuilder()
-				.setInfo("" + System.currentTimeMillis()).setServiceId(1)
-				.setServiceType(ServiceType.SENSOR).setServiceGroupId(2)
-				.build();
+				.setInfo("" + System.currentTimeMillis()).setServiceId(sId)
+				.setServiceType(ServiceType.ACTUATOR).setServiceGroupId(2)
+				.setValue(value).build();
 
 		UARTMessage uartMessage = UARTMessage.newBuilder()
 				.setType(Type.SERVICE).setService(service).build();
@@ -115,7 +118,7 @@ public class ReceiverSenderDebugger {
 			serialPort.writeByte((byte) length);
 			serialPort.writeBytes(message);
 
-			System.err.println("SENT MESSAGE:"+service.getInfo());
+			System.err.println("SENT MESSAGE:" + service.getInfo());
 			System.err.println("Size " + length);
 		} catch (SerialPortException e) {
 			e.printStackTrace();

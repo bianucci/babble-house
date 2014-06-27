@@ -63,8 +63,9 @@ void APS_DataInd(APS_DataInd_t *indData){
 	messageRerceived_length=indData->asdu[49];
 	pb_istream_t istream = pb_istream_from_buffer(indData->asdu, messageRerceived_length);
 	bool status = pb_decode(&istream, UARTMessage_fields, &globalMessage);
-	
-	wakeUpZigBeeReceived();
+	if(status){
+		wakeUpZigBeeReceived();
+	}
 }
 
 void send_uart_as_zigbee(UARTMessage* message){

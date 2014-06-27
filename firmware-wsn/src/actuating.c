@@ -2,10 +2,6 @@
 
 void handleServiceRequests(UARTMessage* request){
 	
-	changeStateActuatorOne(0);
-	
-	/*
-	
 	switch(request->type){
 		case UARTMessage_Type_BEACON:
 			if(log_enabled){sendUart((uint8_t*)"E_ZEDRB\n\r", sizeof("E_ZEDRB\n\r"));}
@@ -27,13 +23,13 @@ void handleServiceRequests(UARTMessage* request){
 						break;
 						
 						case 2:
+							changeStateActuatorTwo((uint8_t)request->service.value);
 						break;
 
 						case 3:
+							changeStateActuatorThree((uint8_t)request->service.value);
 						break;
-					
 					}
-					
 				break;
 				
 				case Service_ServiceType_SENSOR:
@@ -44,9 +40,6 @@ void handleServiceRequests(UARTMessage* request){
 			
 		break;
 	}
-	
-	*/
-	
 	appState=APP_IDLE;
 	SYS_PostTask(APL_TASK_ID);
 }
@@ -59,16 +52,31 @@ void initActuators(){
 }
 
 void changeStateActuatorOne(uint8_t newState){
-	if(newState==0){
-		if(log_enabled){sendUart((uint8_t*)"ACT1OFF\n\r", sizeof("ACT1OFF\n\r"));}
-		PORTE ^= (1<<PE0);
-		PORTE ^= (1<<PE1);
-		PORTE ^= (1<<PE2);
+	if(newState==1){
+		if(log_enabled){sendUart((uint8_t*)"A1A\r", sizeof("A1A\n\r"));}
+		PORTE |= (1<<PE0);
 	}else{
-		if(log_enabled){sendUart((uint8_t*)"ACT1ON\n\r", sizeof("ACT1ON\n\r"));}
-		PORTE ^= (1<<PE0);
-		PORTE ^= (1<<PE1);
-		PORTE ^= (1<<PE2);
+		if(log_enabled){sendUart((uint8_t*)"A1D\n\r", sizeof("A1D\n\r"));}
+		PORTE &= ~(1<<PE0);
 	}
 }
 
+void changeStateActuatorTwo(uint8_t newState){
+	if(newState==1){
+		if(log_enabled){sendUart((uint8_t*)"A2A\r", sizeof("A2A\r"));}
+		PORTE |= (1<<PE1);
+	}else{
+		if(log_enabled){sendUart((uint8_t*)"A2D\r", sizeof("A2D\r"));}
+		PORTE &= ~(1<<PE1);
+	}
+}
+
+void changeStateActuatorThree(uint8_t newState){
+	if(newState==1){
+		if(log_enabled){sendUart((uint8_t*)"A3A\r", sizeof("A3A\r"));}
+		PORTE |= (1<<PE2);
+	}else{
+		if(log_enabled){sendUart((uint8_t*)"A3D\r", sizeof("A3D\r"));}
+		PORTE &= ~(1<<PE2);
+	}
+}
