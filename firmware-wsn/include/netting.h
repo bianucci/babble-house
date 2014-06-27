@@ -31,4 +31,9 @@ void initEndpoint(void);
 void APS_DataInd(APS_DataInd_t *indData);
 void startNetwork();
 void sendProtoViaZigBee(UARTMessage* message);
+
+void sendSensorValueOne(void);
+void sendSensorValueTwo(void);
+void sendSensorValueThree(void);
+
 #endif

@@ -24,5 +24,6 @@ void usartRcvd(uint8_t size);
 void usart_Init();
 void sendUart(uint8_t* string, uint8_t size);
 void assembleBeaconMessage();
+void assembleSensorServiceMessage(uint8_t serviceId, uint32_t value);
 
 #endif

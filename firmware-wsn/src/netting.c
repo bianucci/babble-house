@@ -9,9 +9,9 @@ SimpleDescriptor_t simpleDescriptor;
 void APS_DataConf(APS_DataConf_t* confInfo){
 	if(log_enabled){
 		if(confInfo->status==APS_SUCCESS_STATUS){
-			sendUart((uint8_t*)"ZB_SENT_DATA\n\r", sizeof("ZB_SENT_DATA\n\r"));
+			sendUart((uint8_t*)"ZBSENT\n\r", sizeof("ZBSENT\n\r"));
 		}else{
-			sendUart((uint8_t*)"ZB_SENT_DATA_FAILED\n\r", sizeof("ZB_SENT_DATA_FAILED\n\r"));
+			sendUart((uint8_t*)"ZSSENDF\n\r", sizeof("ZSSENDF\n\r"));
 		}
 	}
 	SYS_PostTask(APL_TASK_ID);
@@ -44,9 +44,9 @@ void ZDO_StartNetworkConf(ZDO_StartNetworkConf_t *confirmInfo){
 	uint8_t network_status = confirmInfo->status;
 	if(log_enabled){
 		if(ZDO_SUCCESS_STATUS==network_status){
-			HAL_WriteUsart(&usart, (uint8_t*)"JOINED_NETWORK\n\r", sizeof("JOINED_NETWORK\n\r"));
+			HAL_WriteUsart(&usart, (uint8_t*)"JND_NW\n\r", sizeof("JND_NW\n\r"));
 		} else {
-			HAL_WriteUsart(&usart, (uint8_t*)"NO_NETWORK\n\r", sizeof("NO_NETWORK\n\r"));
+			HAL_WriteUsart(&usart, (uint8_t*)"NO_NW\n\r", sizeof("NO_NW\n\r"));
 		}
 	}
 	SYS_PostTask(APL_TASK_ID);

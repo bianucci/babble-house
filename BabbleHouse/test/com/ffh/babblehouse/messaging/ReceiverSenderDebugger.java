@@ -26,7 +26,7 @@ public class ReceiverSenderDebugger {
 		String s = "APP_INIT_UARTAPP_INIT_SYSTEMAPP_START_NETWORKJOINE DNETWORKAPP_INIT_"
 				+ "ENDPOINTAPP_IDLEDATA_INAPP_ZGBE_RCVDAPP_UART_SEND\n\r\r\nAPP_SEND_SE"
 				+ "RVICE_RESPONSE cBL assembleUartMessage UTTP ZB_SENT_DATA_FAILED  iAct "
-				+ "ACT1OFF ACT1ON APP_SEND_SERVICE_REQST APP_UART_RCVD APP_READ_ADC";
+				+ "ACT1OFF ACT1ON APP_SEND_SERVICE_REQST APP_UART_RCVD APP_READ_ADC vn";
 		private SerialPort serialPort;
 		private JTextArea receivedUART;
 
@@ -106,7 +106,7 @@ public class ReceiverSenderDebugger {
 
 		Service service = Service.newBuilder()
 				.setInfo("" + System.currentTimeMillis()).setServiceId(sId)
-				.setServiceType(ServiceType.ACTUATOR).setServiceGroupId(2)
+				.setServiceType(ServiceType.ACTUATOR).setServiceGroupId(1)
 				.setValue(value).build();
 
 		UARTMessage uartMessage = UARTMessage.newBuilder()

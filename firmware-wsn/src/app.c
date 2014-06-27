@@ -5,9 +5,9 @@
 AppState_t appState = APP_INIT_SYSTEM;
 
 void startSensorTimers();
-void readADCTimerFired();
+void refreshSensorsFired();
 
-bool log_enabled = false;
+bool log_enabled = true;
 
 void APL_TaskHandler(void)
 {	
@@ -58,7 +58,7 @@ void APL_TaskHandler(void)
 			#else
 				createBeaconList(); // there should be different implementation for depending on the services this device offers.
 				assembleBeaconMessage(); // adjust next zigbee message for beacon transfer
-				//startSensorTimers();
+				startSensorTimers();
 				initActuators();
 				appState=APP_ZGBE_SEND;
 			#endif
@@ -101,9 +101,7 @@ void APL_TaskHandler(void)
 		
 		case APP_READ_SENSORS:
 			if(log_enabled){sendUart((uint8_t*)"APP_READ_ADC\n\r", sizeof("APP_READ_ADC\n\r"));}
-			refreshSensorValues();
-			appState=APP_ZGBE_SEND;
-			SYS_PostTask(APL_TASK_ID);
+			refreshSensorValues(readSensorsDone);
 		break;
 		
 		case APP_IDLE:
@@ -112,15 +110,22 @@ void APL_TaskHandler(void)
 	}
 }
 
-HAL_AppTimer_t readADCTimer;
+HAL_AppTimer_t refreshSensorsTimer;
 void startSensorTimers(){
-	readADCTimer.interval = 3000;
-	readADCTimer.mode = TIMER_REPEAT_MODE;
-	readADCTimer.callback = readADCTimerFired;
-	HAL_StartAppTimer(&readADCTimer);
+	refreshSensorsTimer.interval = 5000;
+	refreshSensorsTimer.mode = TIMER_REPEAT_MODE;
+	refreshSensorsTimer.callback = refreshSensorsFired;
+	HAL_StartAppTimer(&refreshSensorsTimer);
 }
-void readADCTimerFired(){
+
+void refreshSensorsFired(){
 	appState=APP_READ_SENSORS;
+	SYS_PostTask(APL_TASK_ID);
+}
+
+void readSensorsDone(uint8_t sensorId, uint32_t value){
+	assembleSensorServiceMessage(sensorId, value);
+	appState=APP_ZGBE_SEND;
 	SYS_PostTask(APL_TASK_ID);
 }
 

@@ -34,7 +34,7 @@ void handleServiceRequests(UARTMessage* request){
 				
 				case Service_ServiceType_SENSOR:
 					if(log_enabled){sendUart((uint8_t*)"ZEDRRS\n\r", sizeof("ZEDRRS\n\r"));}
-					
+					// if necessary sensor values could be sent back to requester at this point.					
 				break;
 			}
 			

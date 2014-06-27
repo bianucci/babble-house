@@ -5,7 +5,6 @@ static uint8_t Tx_Buffer[TX_BUFFER_SIZE];
 static uint8_t buffer[RX_BUFFER_SIZE];
 
 Beacon my_beacon;
-Service* my_service;
 
 UARTMessage globalMessage;
 uint8_t global_dst;
@@ -117,11 +116,23 @@ void sendUart(uint8_t* data, uint8_t size){
 }
 
 void assembleBeaconMessage(){
-	if(log_enabled){sendUart((uint8_t*)"assembleBeaconMsg\r", sizeof("assembleBeaconMsg\r"));}
+	if(log_enabled){sendUart((uint8_t*)"asmblBcnMsg\r", sizeof("asmblBcnMsg\r"));}
 	globalMessage.has_service=false;
 	globalMessage.beacon=my_beacon;
 	globalMessage.type=UARTMessage_Type_BEACON;
 	globalMessage.has_beacon=true;
+}
+
+void assembleSensorServiceMessage(uint8_t serviceId, uint32_t value){
+	if(log_enabled){sendUart((uint8_t*)"asmblSrvMsg\r", sizeof("asmblBcnMsg\r"));}
+	Service* my_service = &my_beacon.service[serviceId];
+	my_service->has_value=true;
+	my_service->value=value;
+
+	globalMessage.has_service=true;
+	globalMessage.service=*my_service;
+	globalMessage.type=UARTMessage_Type_SERVICE;
+	globalMessage.has_beacon=false;
 }
 
 static uint8_t encBuffer[100];

@@ -1,6 +1,7 @@
 #ifndef SENSORTING_H
 #define SENSORING_H
 
+#include <i2cPacket.h>
 #include <halAdc.h>
 #include <adc.h>
 
@@ -14,11 +15,12 @@
 #define HAL_ADC_CHANNEL_6          0x06
 #define HAL_ADC_CHANNEL_7          0x07
 
-extern uint8_t adcData;
+void refreshSensorValues(void (*callBack)(uint8_t sensorId, uint32_t value));
 
-void readSensorDonceCb(void);
-void refreshSensorValues();
-void initSensors(); 
+void initSensors();
+ 
 int getLightADC();
+int getHumiValue();
+int getTempValue();
 
 #endif
