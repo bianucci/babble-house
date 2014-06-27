@@ -4,6 +4,8 @@
 #include <i2cPacket.h>
 #include <halAdc.h>
 #include <adc.h>
+#include <messaging.h>
+#include <app.h>
 
 /* Channels */
 #define HAL_ADC_CHANNEL_0          0x00

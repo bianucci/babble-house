@@ -1,11 +1,25 @@
 #include <sensoring.h>
 
 #define LIGHT_SENSOR_ID 0
+#define TEMP_SENSOR_ID	1
 
-uint8_t sensorRotation=0;
+#define I2C_OPENED		1
+#define I2C_WRITTEN		2
+#define I2C_READING		3
+#define I2C_CLEAR		4
+
+static uint8_t i2cState = 4;
+
+uint8_t sensorRotation=1;
+
+HAL_AppTimer_t repeatTimer = {
+	.interval = 1000,
+	.mode = TIMER_ONE_SHOT_MODE,
+	.callback = refreshSensorsFired
+};
 
 uint8_t lightData;
-uint8_t tempData[2];
+uint8_t i2cData[2];
 uint8_t humiData[2];
 
 uint8_t lightSensorValue;
@@ -13,6 +27,7 @@ uint16_t tempSensorValue;
 uint16_t humiSensorValue;
 
 void readLightSensorDonceCb(void);
+void readTempSensorDone(bool result);
 
 void (*refreshDoneCallBack)(uint8_t sensorId, uint32_t value);
 
@@ -29,7 +44,17 @@ HAL_AdcDescriptor_t adcdescriptor = {
 	.callback = readLightSensorDonceCb
 };
 
-HAL_I2cDescriptor_t i2cDescriptor;
+static uint8_t i2cCommand = 243;
+static HAL_I2cDescriptor_t i2cDescriptor = {
+	.tty = TWI_CHANNEL_0,
+	.clockRate = I2C_CLOCK_RATE_62,
+	.lengthAddr = HAL_NO_INTERNAL_ADDRESS,
+	.f = 0,
+	.id = 0x40,
+	.data = &i2cCommand,
+	.length = 1
+};
+
 
 void initSensors(){
 	HAL_OpenAdc(&adcdescriptor);
@@ -41,6 +66,7 @@ void readLightSensorDonceCb(){
 }
 
 void refreshSensorValues(void (*callBack)(uint8_t sensorId, uint32_t value)){
+	
 	refreshDoneCallBack=callBack;
 
 	switch(sensorRotation){
@@ -68,12 +94,68 @@ uint8_t refreshLightValue(){
 }
 
 uint8_t refreshTempValue(){
-	return 0;
+	switch(i2cState){
+		case I2C_CLEAR:
+			if(HAL_OpenI2cPacket(&i2cDescriptor) != -1){
+				sendUart((uint8_t*)"rtvo\n\r", sizeof("rtvo\n\r"));
+				i2cState=I2C_OPENED;
+			}
+			HAL_StartAppTimer(&repeatTimer);
+			break;
+		
+		case I2C_OPENED:
+			if(HAL_WriteI2cPacket(&i2cDescriptor) != -1){
+				sendUart((uint8_t*)"rtvw\n\r", sizeof("rtvw\n\r"));
+				i2cState=I2C_WRITTEN;
+			}
+			HAL_StartAppTimer(&repeatTimer);
+			break;
+		
+		case I2C_WRITTEN:
+			i2cDescriptor.f = readTempSensorDone;
+			i2cDescriptor.id = 0x4D;
+			i2cDescriptor.data = i2cData;
+			i2cDescriptor.length = 2;
+			if(HAL_ReadI2cPacket(&i2cDescriptor) != -1){
+				sendUart((uint8_t*)"rtvs\n\r", sizeof("rtvs\n\r"));
+				i2cState=I2C_READING;
+			}
+		break;
+	}	
 }
 
 uint8_t refreshHumiValue(){
 	return 0;
 }
+
+void readTempSensorDone(bool result){
+	uint32_t meassured;
+		
+	if(result){
+		sendUart((uint8_t*)"rtvx\n\r", sizeof("rtvx\n\r"));
+		uint16_t vk; //vorkommastellen
+		vk = i2cData[0];
+		vk <<= 8;
+		vk |= i2cData[1];
+		vk >>= 7;
+		meassured=vk*100;
+	
+		uint16_t nk; //nachkommastellen
+		nk = i2cData[1] & (0x7F);
+		nk >>= 5;
+		nk = nk * 25;
+		meassured+=nk;
+		
+		refreshDoneCallBack(TEMP_SENSOR_ID, meassured);
+	}else{
+		sendUart((uint8_t*)"rtve\n\r", sizeof("rtve\n\r"));
+	}
+	i2cDescriptor.f = 0;
+	i2cDescriptor.id = 0x40;
+	HAL_CloseI2cPacket(&i2cDescriptor);
+	i2cState=I2C_CLEAR;
+}
+
 
 int getLightADC(){return lightSensorValue;}
 int getHumiValue(){return humiSensorValue;}

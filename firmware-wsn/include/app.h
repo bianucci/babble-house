@@ -50,6 +50,7 @@ void appInitUARTManager(void);
 void appWriteDataToUart(uint8_t* aData, uint8_t aLength);
 void wakeUpZigBeeReceived();
 void readSensorsDone(uint8_t sensorId, uint32_t value);
+void refreshSensorsFired();
 
 typedef enum{
 	APP_INIT_SYSTEM,
