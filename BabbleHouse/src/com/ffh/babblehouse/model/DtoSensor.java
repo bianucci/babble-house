@@ -59,8 +59,9 @@ public class DtoSensor {
 	}
 
 	public DtoValue getLatestValue() {
-		if (this.values.size() > 0)
-			return this.values.get(this.values.size() - 1);
+		if (values != null)
+			if (this.values.size() > 0)
+				return this.values.get(this.values.size() - 1);
 		return new DtoValue();
 	}
 
@@ -105,11 +106,16 @@ public class DtoSensor {
 
 	@Override
 	public String toString() {
+		int idSG = 255;
+		if (dtoServiceGroup != null)
+			idSG = dtoServiceGroup.getId();
+
+		int size = 255;
+		if (userDefineRules != null)
+			size = userDefineRules.size();
 		return "DtoSensor [id=" + id + ", SensorName=" + SensorName
 				+ ", measuringUnit=" + measuringUnit + ", dtoServiceGroupID="
-				+ dtoServiceGroup.getId() + ", nuberOfUserDefineRules="
-				+ userDefineRules.size() + ", lastValueMeassured="
-				+ getLatestValue() + "]";
+				+ idSG + ", nuberOfUserDefineRules=" + size
+				+ ", lastValueMeassured=" + getLatestValue() + "]";
 	}
-
 }

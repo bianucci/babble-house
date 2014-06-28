@@ -67,9 +67,10 @@ public class DtoDevice {
 	}
 
 	public DtoValue getLatestValue() {
-		if (this.values.size() > 0)
-			return this.values.get(this.values.size() - 1);
-		
+		if (values != null)
+			if (this.values.size() > 0)
+				return this.values.get(this.values.size() - 1);
+
 		DtoValue dtoValue = new DtoValue();
 		dtoValue.setValue(-1);
 		return dtoValue;
@@ -109,9 +110,16 @@ public class DtoDevice {
 
 	@Override
 	public String toString() {
+		int idSG = 255;
+		if (dtoServiceGroup != null)
+			idSG = dtoServiceGroup.getId();
+
+		int size = 255;
+		if (userDefineRules != null)
+			size = userDefineRules.size();
+
 		return "DtoDevice [id=" + id + ", DeviceName=" + deviceName
-				+ ", dtoServiceGroupID=" + dtoServiceGroup.getId()
-				+ ", nuberOfUserDefineRules=" + userDefineRules.size()
-				+ ", currentState=" + getLatestValue() + "]";
+				+ ", dtoServiceGroupID=" + idSG + ", nuberOfUserDefineRules="
+				+ size + ", currentState=" + getLatestValue() + "]";
 	}
 }
