@@ -60,36 +60,29 @@ void createBeaconList(){
 	
 	my_beacon.serviceGroupId=1;
 	my_beacon.has_name=true;
-	strcpy(my_beacon.name,"living room");
-	my_beacon.service_count=2;
+	strcpy(my_beacon.name,"LR");
+	my_beacon.services_count=4;
 	
-	for(int i=0; i<2; i++){
-		my_beacon.service[i].serviceGroupId=1;
-		my_beacon.service[i].serviceId=i;
-		my_beacon.service[i].has_value=true;
-		my_beacon.service[i].has_info=true;
-	
-		// assign random values
-		if(i<1){	
-			my_beacon.service[i].serviceType=Service_ServiceType_SENSOR;
-			my_beacon.service[i].value=rand() % 100;
+	for(int i=0; i<4; i++){
+		my_beacon.services[i].serviceGroupId=1;
+		my_beacon.services[i].serviceId=i;
+		my_beacon.services[i].has_value=false;
+		my_beacon.services[i].has_info=true;
+		
+		if(i<2){	
+			my_beacon.services[i].serviceType=Service_ServiceType_SENSOR;
 			switch(i){
-				case 0: strcpy(my_beacon.service[i].info, "temperature"); break; 
-				//case 1: strcpy(my_beacon.service[i].info, "light"); break;
-				//case 2: strcpy(my_beacon.service[i].info, "humidity"); break;
-				//case 3: strcpy(my_beacon.service[i].info, "pressure"); break;	
+				case 0: strcpy(my_beacon.services[i].info, "celcius"); break; 
+				case 1: strcpy(my_beacon.services[i].info, "lumen"); break;
 			}
 		} else {
-			my_beacon.service[i].serviceType=Service_ServiceType_ACTUATOR;
-			my_beacon.service[i].value=i%2;
+			my_beacon.services[i].serviceType=Service_ServiceType_ACTUATOR;
 			switch(i){
-				case 1: strcpy(my_beacon.service[i].info, "heater"); break; 
-				//case 3: strcpy(my_beacon.service[i].info, "light bulb"); break;
-				//case 6: strcpy(my_beacon.service[i].info, "radio"); break;
-				//case 7: strcpy(my_beacon.service[i].info, "television"); break;	
+				case 2: strcpy(my_beacon.services[i].info, "heater"); break; 
+				
+				case 3: strcpy(my_beacon.services[i].info, "lamp"); break;
 			}
 		}
-		
 	}
 }
 
@@ -125,7 +118,7 @@ void assembleBeaconMessage(){
 
 void assembleSensorServiceMessage(uint8_t serviceId, uint32_t value){
 	if(log_enabled){sendUart((uint8_t*)"asmblSrvMsg\r", sizeof("asmblBcnMsg\r"));}
-	Service* my_service = &my_beacon.service[serviceId];
+	Service* my_service = &my_beacon.services[serviceId];
 	my_service->has_value=true;
 	my_service->value=value;
 

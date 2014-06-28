@@ -60,7 +60,7 @@ void startNetwork(){
 uint8_t nextMessageLength;
 void APS_DataInd(APS_DataInd_t *indData){
 	if(log_enabled){sendUart((uint8_t*)"DATA_IN\n\r", sizeof("DATA_IN\n\r"));}
-	messageRerceived_length=indData->asdu[49];
+	messageRerceived_length=indData->asdu[79];
 	pb_istream_t istream = pb_istream_from_buffer(indData->asdu, messageRerceived_length);
 	bool status = pb_decode(&istream, UARTMessage_fields, &globalMessage);
 	if(status){
@@ -72,7 +72,7 @@ void sendProtoViaZigBee(UARTMessage* message){
 	pb_ostream_t ostream = pb_ostream_from_buffer(transmitData.data, sizeof(transmitData.data));
 	pb_encode(&ostream, UARTMessage_fields, message);
 	uint8_t size = ostream.bytes_written;
-	transmitData.data[49]=size;
+	transmitData.data[79]=size;
 	
 	uint8_t receiver=0;
 	

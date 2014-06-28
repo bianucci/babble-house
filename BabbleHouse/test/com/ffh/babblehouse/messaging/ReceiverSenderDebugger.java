@@ -23,17 +23,26 @@ public class ReceiverSenderDebugger {
 
 	private class Receiver extends Thread {
 
-		String s = "APP_INIT_UARTAPP_INIT_SYSTEMAPP_START_NETWORKJOINE DNETWORKAPP_INIT_"
+		String sE = "APP_INIT_UARTAPP_INIT_SYSTEMAPP_START_NETWORKJOINE DNETWORKAPP_INIT_"
 				+ "ENDPOINTAPP_IDLEDATA_INAPP_ZGBE_RCVDAPP_UART_SEND\n\r\r\nAPP_SEND_SE"
 				+ "RVICE_RESPONSE cBL assembleUartMessage UTTP ZB_SENT_DATA_FAILED  iAct "
-				+ "ACT1OFF ACT1ON APP_SEND_SERVICE_REQST APP_UART_RCVD APP_READ_ADC vn rtviowsex";
+				+ "ACT1OFF ACT1ON APP_SEND_SERVICE_REQST APP_UART_RCVD APP_READ_ADC A1A A2A A3A rtvowxes";
+
+		String sC = "APP_INIT_UARTAPP_INIT_SYSTEMAPP_START_NETWORKJOINE DNETWORKAPP_INIT_"
+				+ "ENDPOINTAPP_IDLEDATA_INAPP_ZGBE_RCVDAPP_UART_SEND\n\r\r\nAPP_SEND_SE"
+				+ "RVICE_RESPONSE cBL UTTP";
+
 		private SerialPort serialPort;
 		private JTextArea receivedUART;
 
-		public Receiver(SerialPort serialPort, JTextArea receivedUART) {
+		private String s = null;
+
+		public Receiver(SerialPort serialPort, JTextArea receivedUART,
+				boolean isC) {
 			super();
 			this.serialPort = serialPort;
 			this.receivedUART = receivedUART;
+			s = isC ? sC : sE;
 		}
 
 		@Override
@@ -96,7 +105,7 @@ public class ReceiverSenderDebugger {
 		frame.setBounds(100, 100, 400, 600);
 		frame.setVisible(true);
 
-		Receiver r = new Receiver(serialPort, textArea);
+		Receiver r = new Receiver(serialPort, textArea, isSender);
 		r.start();
 	}
 
