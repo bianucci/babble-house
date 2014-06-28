@@ -22,7 +22,7 @@ HAL_UsartDescriptor_t* getStandardDescriptor(){
 	return &usart;
 }
 
-void usartRcvd(uint8_t size)
+void usartRcvd(uint16_t size)
 {
 	if(message_length==0){
 		// new message is going to be received. read its length and store it.
@@ -32,7 +32,7 @@ void usartRcvd(uint8_t size)
 	
 	uint8_t data; 
 
-	for(int i=0; i<size; i++) 
+	for(uint16_t i=0; i<size; i++) 
 	{ 
 		HAL_ReadUsart(&usart, &data, sizeof(data)); 
 		buffer[buffer_counter]=data;
@@ -72,14 +72,13 @@ void createBeaconList(){
 		if(i<2){	
 			my_beacon.services[i].serviceType=Service_ServiceType_SENSOR;
 			switch(i){
-				case 0: strcpy(my_beacon.services[i].info, "celcius"); break; 
-				case 1: strcpy(my_beacon.services[i].info, "lumen"); break;
+				case 0: strcpy(my_beacon.services[i].info, "lumen"); break; 
+				case 1: strcpy(my_beacon.services[i].info, "celcius"); break;
 			}
 		} else {
 			my_beacon.services[i].serviceType=Service_ServiceType_ACTUATOR;
 			switch(i){
 				case 2: strcpy(my_beacon.services[i].info, "heater"); break; 
-				
 				case 3: strcpy(my_beacon.services[i].info, "lamp"); break;
 			}
 		}

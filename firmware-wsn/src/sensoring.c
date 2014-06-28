@@ -20,11 +20,9 @@ HAL_AppTimer_t repeatTimer = {
 
 uint8_t lightData;
 uint8_t i2cData[2];
-uint8_t humiData[2];
 
 uint8_t lightSensorValue;
 uint16_t tempSensorValue;
-uint16_t humiSensorValue;
 
 void readLightSensorDonceCb(void);
 void readTempSensorDone(bool result);
@@ -33,7 +31,6 @@ void (*refreshDoneCallBack)(uint8_t sensorId, uint32_t value);
 
 uint8_t refreshLightValue(void);
 uint8_t refreshTempValue(void);
-uint8_t refreshHumiValue(void);
 
 HAL_AdcDescriptor_t adcdescriptor = {
 	.resolution=RESOLUTION_8_BIT,
@@ -63,6 +60,7 @@ void initSensors(){
 void readLightSensorDonceCb(){
 	lightSensorValue=lightData;
 	refreshDoneCallBack(LIGHT_SENSOR_ID, lightSensorValue);
+	sensorRotation=TEMP_SENSOR_ID;
 }
 
 void refreshSensorValues(void (*callBack)(uint8_t sensorId, uint32_t value)){
@@ -70,23 +68,14 @@ void refreshSensorValues(void (*callBack)(uint8_t sensorId, uint32_t value)){
 	refreshDoneCallBack=callBack;
 
 	switch(sensorRotation){
-		case 0:			
+		case LIGHT_SENSOR_ID:			
 			refreshLightValue();
 			break;
 		
-		case 1:
+		case TEMP_SENSOR_ID:
 			refreshTempValue();
 			break;
-
-		case 2:
-			refreshHumiValue();
-			break;
-
-		case 3:
-			sensorRotation=0;
-			break;
 	}
-	//sensorRotation++;
 }
 
 uint8_t refreshLightValue(){
@@ -99,6 +88,8 @@ uint8_t refreshTempValue(){
 			if(HAL_OpenI2cPacket(&i2cDescriptor) != -1){
 				sendUart((uint8_t*)"rtvo\n\r", sizeof("rtvo\n\r"));
 				i2cState=I2C_OPENED;
+			}else{
+				return -1;
 			}
 			HAL_StartAppTimer(&repeatTimer);
 			break;
@@ -107,6 +98,8 @@ uint8_t refreshTempValue(){
 			if(HAL_WriteI2cPacket(&i2cDescriptor) != -1){
 				sendUart((uint8_t*)"rtvw\n\r", sizeof("rtvw\n\r"));
 				i2cState=I2C_WRITTEN;
+			}else{
+				return -1;
 			}
 			HAL_StartAppTimer(&repeatTimer);
 			break;
@@ -119,9 +112,12 @@ uint8_t refreshTempValue(){
 			if(HAL_ReadI2cPacket(&i2cDescriptor) != -1){
 				sendUart((uint8_t*)"rtvs\n\r", sizeof("rtvs\n\r"));
 				i2cState=I2C_READING;
+			}else{
+				return -1;
 			}
 		break;
 	}	
+	return 1;
 }
 
 uint8_t refreshHumiValue(){
@@ -146,6 +142,7 @@ void readTempSensorDone(bool result){
 		nk = nk * 25;
 		meassured+=nk;
 		
+		sensorRotation=LIGHT_SENSOR_ID;
 		refreshDoneCallBack(TEMP_SENSOR_ID, meassured);
 	}else{
 		sendUart((uint8_t*)"rtve\n\r", sizeof("rtve\n\r"));
@@ -156,7 +153,5 @@ void readTempSensorDone(bool result){
 	i2cState=I2C_CLEAR;
 }
 
-
 int getLightADC(){return lightSensorValue;}
-int getHumiValue(){return humiSensorValue;}
 int getTempValue(){return tempSensorValue;}
