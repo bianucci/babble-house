@@ -15,9 +15,9 @@ public class ServiceMsgCreator extends Thread implements IBBDataBridge{
 	private int serviceId;
 	private int deviceStatus;
 	private UARTMessage uartMessage;
-	private Isender sender;
+	private ISender sender;
 	
-	public ServiceMsgCreator(Isender sender ){
+	public ServiceMsgCreator(ISender sender ){
 		this.sender=sender;
 		
 	}
@@ -32,7 +32,7 @@ public class ServiceMsgCreator extends Thread implements IBBDataBridge{
 		 uartMessage = UARTMessage.newBuilder()
 				.setType(Type.SERVICE).setService(service).build();
 		 try {
-			sender.SenderMessage(uartMessage);
+			sender.sendMessage(uartMessage);
 		} catch (SerialPortException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

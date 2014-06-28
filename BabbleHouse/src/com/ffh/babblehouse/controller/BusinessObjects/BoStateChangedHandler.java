@@ -23,8 +23,9 @@ public class BoStateChangedHandler implements IBoStateChangedHandler {
 
 	@Override
 	public void deviceDataChanged(DtoDevice updatedDtoDevice) {
-		System.out.println("New device dto  created");
-		System.out.println(updatedDtoDevice.getId());
+		Notification.show("Sensor value changed\nNewValue: " + updatedDtoDevice.getLatestValue(), Type.TRAY_NOTIFICATION);
+//		System.out.println("New device dto  created");
+//		System.out.println(updatedDtoDevice.getId());
 	}
 
 }

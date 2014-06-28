@@ -5,20 +5,17 @@ import jssc.SerialPortException;
 
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
 
-public class Sender implements Isender {
-	boolean status;
+public class Sender implements ISender {
 	SerialPort serialPort;
 
-	
-	
-	
 	public Sender(SerialPort serialPort) {
 		this.serialPort = serialPort;
 	}
 
-	public void SenderMessage(UARTMessage uartMessage ) throws SerialPortException {
-	
-		
+	public boolean sendMessage(UARTMessage uartMessage)
+			throws SerialPortException {
+
+		boolean status = false;
 
 		byte[] message = uartMessage.toByteArray();
 		int length = message.length;
@@ -26,28 +23,22 @@ public class Sender implements Isender {
 		try {
 			// send one byte containing the length of the next
 			// message
-			serialPort.writeByte((byte) length);
+			boolean writeByte = serialPort.writeByte((byte) length);
 
 			// send the next message
-			status = serialPort.writeBytes(message);
-			
-try {
-	Thread.sleep(100);
-} catch (InterruptedException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
+			boolean writeBytes = serialPort.writeBytes(message);
+
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			status = writeByte && writeBytes;
 
 		} catch (SerialPortException e) {
 			e.printStackTrace();
 		}
-
-		
+		return status;
 	}
-
-	
-
-	
-
-	
 }
