@@ -2,6 +2,8 @@
 
 #define LIGHT_SENSOR_ID 0
 #define TEMP_SENSOR_ID	1
+#define BATTERY_ID 0
+#define PRESSURE_SENSOR_ID	1
 
 #define I2C_OPENED		1
 #define I2C_WRITTEN		2
@@ -18,37 +20,38 @@ HAL_AppTimer_t repeatTimer = {
 	.callback = refreshSensorsFired
 };
 
-uint8_t lightData;
+uint8_t adcData;
 uint8_t i2cData[2];
 
-uint8_t lightSensorValue;
-uint16_t tempSensorValue;
-
-void readLightSensorDonceCb(void);
-void readTempSensorDone(bool result);
+void readADCSensorDonceCb(void);
+void readI2CSensorDone(bool result);
 
 void (*refreshDoneCallBack)(uint8_t sensorId, uint32_t value);
 
 uint8_t refreshLightValue(void);
 uint8_t refreshTempValue(void);
+uint8_t refreshPressureValue(void);
+uint8_t refreshBatteryValue(void);
 
 HAL_AdcDescriptor_t adcdescriptor = {
 	.resolution=RESOLUTION_8_BIT,
 	.sampleRate=ADC_4800SPS,
 	.voltageReference=AVCC,
-	.bufferPointer=&lightData,
+	.bufferPointer=&adcData,
 	.selectionsAmount=1,
-	.callback = readLightSensorDonceCb
+	.callback = readADCSensorDonceCb
 };
 
-static uint8_t i2cCommand = 243;
+static uint8_t lm73Command = 243;
+static uint8_t bmp180Command = 0x2e;
+
 static HAL_I2cDescriptor_t i2cDescriptor = {
 	.tty = TWI_CHANNEL_0,
 	.clockRate = I2C_CLOCK_RATE_62,
 	.lengthAddr = HAL_NO_INTERNAL_ADDRESS,
 	.f = 0,
 	.id = 0x40,
-	.data = &i2cCommand,
+	.data = &lm73Command,
 	.length = 1
 };
 
@@ -57,9 +60,8 @@ void initSensors(){
 	HAL_OpenAdc(&adcdescriptor);
 }
 
-void readLightSensorDonceCb(){
-	lightSensorValue=lightData;
-	refreshDoneCallBack(LIGHT_SENSOR_ID, lightSensorValue);
+void readADCSensorDonceCb(){
+	refreshDoneCallBack(LIGHT_SENSOR_ID, adcData);
 	sensorRotation=TEMP_SENSOR_ID;
 }
 
@@ -67,15 +69,35 @@ void refreshSensorValues(void (*callBack)(uint8_t sensorId, uint32_t value)){
 	
 	refreshDoneCallBack=callBack;
 
-	switch(sensorRotation){
-		case LIGHT_SENSOR_ID:			
-			refreshLightValue();
-			break;
+	#ifdef SERVICE_GROUP_ONE
 		
-		case TEMP_SENSOR_ID:
-			refreshTempValue();
-			break;
-	}
+		switch(sensorRotation){
+			case LIGHT_SENSOR_ID:			
+				refreshLightValue();
+				break;
+		
+			case TEMP_SENSOR_ID:
+				refreshTempValue();
+				break;
+		}
+		
+	#endif
+	#ifdef SERVICE_GROUP_TWO
+		
+		switch(sensorRotation){
+			case BATTERY_ID:			
+				refreshLightValue();
+				break;
+		
+			case PRESSURE_SENSOR_ID:
+				refreshPressureValue();
+				break;
+		}	
+	#endif
+}
+
+uint8_t refreshBatteryValue(){
+	return 0;
 }
 
 uint8_t refreshLightValue(){
@@ -105,8 +127,49 @@ uint8_t refreshTempValue(){
 			break;
 		
 		case I2C_WRITTEN:
-			i2cDescriptor.f = readTempSensorDone;
+			i2cDescriptor.f = readI2CSensorDone;
 			i2cDescriptor.id = 0x4D;
+			i2cDescriptor.data = i2cData;
+			i2cDescriptor.length = 2;
+			if(HAL_ReadI2cPacket(&i2cDescriptor) != -1){
+				sendUart((uint8_t*)"rtvs\n\r", sizeof("rtvs\n\r"));
+				i2cState=I2C_READING;
+			}else{
+				return -1;
+			}
+		break;
+	}	
+	return 1;
+}
+
+uint8_t refreshPressureValue(){
+	switch(i2cState){
+		case I2C_CLEAR:
+			i2cDescriptor.id = 0x77;
+			if(HAL_OpenI2cPacket(&i2cDescriptor) != -1){
+				sendUart((uint8_t*)"rtvo\n\r", sizeof("rtvo\n\r"));
+				i2cState=I2C_OPENED;
+			}else{
+				return -1;
+			}
+			HAL_StartAppTimer(&repeatTimer);
+			break;
+		
+		case I2C_OPENED:
+			i2cDescriptor.id = 0xf4;
+			i2cDescriptor.data = &bmp180Command;
+			if(HAL_WriteI2cPacket(&i2cDescriptor) != -1){
+				sendUart((uint8_t*)"rtvw\n\r", sizeof("rtvw\n\r"));
+				i2cState=I2C_WRITTEN;
+			}else{
+				return -1;
+			}
+			HAL_StartAppTimer(&repeatTimer);
+			break;
+		
+		case I2C_WRITTEN:
+			i2cDescriptor.f = readI2CSensorDone;
+			i2cDescriptor.id = 0xf7;
 			i2cDescriptor.data = i2cData;
 			i2cDescriptor.length = 2;
 			if(HAL_ReadI2cPacket(&i2cDescriptor) != -1){
@@ -124,7 +187,7 @@ uint8_t refreshHumiValue(){
 	return 0;
 }
 
-void readTempSensorDone(bool result){
+void readI2CSensorDone(bool result){
 	uint32_t meassured;
 		
 	if(result){
@@ -142,8 +205,15 @@ void readTempSensorDone(bool result){
 		nk = nk * 25;
 		meassured+=nk;
 		
-		sensorRotation=LIGHT_SENSOR_ID;
-		refreshDoneCallBack(TEMP_SENSOR_ID, meassured);
+		#ifdef SERVICE_GROUP_ONE
+			sensorRotation=LIGHT_SENSOR_ID;
+			refreshDoneCallBack(TEMP_SENSOR_ID, meassured);
+		#endif
+		#ifdef SERVICE_GROUP_TWO
+			sensorRotation=BATTERY_ID;
+			refreshDoneCallBack(PRESSURE_SENSOR_ID, meassured);
+		#endif
+		
 	}else{
 		sendUart((uint8_t*)"rtve\n\r", sizeof("rtve\n\r"));
 	}
@@ -152,6 +222,3 @@ void readTempSensorDone(bool result){
 	HAL_CloseI2cPacket(&i2cDescriptor);
 	i2cState=I2C_CLEAR;
 }
-
-int getLightADC(){return lightSensorValue;}
-int getTempValue(){return tempSensorValue;}

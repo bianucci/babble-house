@@ -91,6 +91,9 @@
 //#define CS_DEVICE_TYPE DEVICE_TYPE_COORDINATOR 
 #define CS_DEVICE_TYPE DEV_TYPE_ENDDEVICE
 
+//#define SERVICE_GROUP_ONE
+#define SERVICE_GROUP_TWO
+
 // 64-bit Unique Identifier (UID) determining the device extended address.
 //#define CS_UID 0x5854544245441001LL  
 #define CS_UID 0x5854544245441231LL

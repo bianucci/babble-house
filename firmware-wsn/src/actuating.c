@@ -25,19 +25,15 @@ void handleServiceRequests(UARTMessage* request){
 						case 2:
 							changeStateActuatorTwo((uint8_t)request->service.value);
 						break;
-
-						case 3:
-							changeStateActuatorThree((uint8_t)request->service.value);
-						break;
 					}
 				break;
 				
 				case Service_ServiceType_SENSOR:
 					if(log_enabled){sendUart((uint8_t*)"ZEDRRS\n\r", sizeof("ZEDRRS\n\r"));}
-					// if necessary sensor values could be sent back to requester at this point.					
+					// if necessary, sensor values could be sent back to requester at this point.					
 				break;
 			}
-			
+
 		break;
 	}
 	appState=APP_IDLE;
@@ -48,7 +44,6 @@ void initActuators(){
 	if(log_enabled){sendUart((uint8_t*)"iAct\n\r", sizeof("iAct\n\r"));}
 	DDRE |= (1<<PE0);
 	DDRE |= (1<<PE1);
-	DDRE |= (1<<PE2);
 }
 
 void changeStateActuatorOne(uint8_t newState){
@@ -68,15 +63,5 @@ void changeStateActuatorTwo(uint8_t newState){
 	}else{
 		if(log_enabled){sendUart((uint8_t*)"A2D\r", sizeof("A2D\r"));}
 		PORTE &= ~(1<<PE1);
-	}
-}
-
-void changeStateActuatorThree(uint8_t newState){
-	if(newState==1){
-		if(log_enabled){sendUart((uint8_t*)"A3A\r", sizeof("A3A\r"));}
-		PORTE |= (1<<PE2);
-	}else{
-		if(log_enabled){sendUart((uint8_t*)"A3D\r", sizeof("A3D\r"));}
-		PORTE &= ~(1<<PE2);
 	}
 }

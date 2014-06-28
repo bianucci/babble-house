@@ -6,6 +6,7 @@
 #include <adc.h>
 #include <messaging.h>
 #include <app.h>
+#include <configuration.h>
 
 /* Channels */
 #define HAL_ADC_CHANNEL_0          0x00
@@ -22,7 +23,6 @@ void refreshSensorValues(void (*callBack)(uint8_t sensorId, uint32_t value));
 void initSensors();
  
 int getLightADC();
-int getHumiValue();
 int getTempValue();
 
 #endif
