@@ -7,7 +7,7 @@ AppState_t appState = APP_INIT_SYSTEM;
 void startSensorTimers();
 void refreshSensorsFired();
 
-bool log_enabled = true;
+bool log_enabled = false;
 
 void APL_TaskHandler(void)
 {	
@@ -72,19 +72,19 @@ void APL_TaskHandler(void)
 		break;
 		
 		case APP_UART_RCVD:
-			if(log_enabled){sendUart((uint8_t*)"APP_UART_RCVD\n\r", sizeof("APP_UART_RCVD\n\r"));}
+			if(log_enabled){sendUart((uint8_t*)"APP_UART_RVD\n\r", sizeof("APP_UART_RVD\n\r"));}
 			appState=APP_ZGBE_SEND;
 			SYS_PostTask(APL_TASK_ID);
 		break;
 		
 		case APP_CHNG_ACUTATR:
-			if(log_enabled){sendUart((uint8_t*)"APP_SEND_SERVICE_REQST\n\r", sizeof("APP_SEND_SERVICE_REQST\n\r"));}
+			if(log_enabled){sendUart((uint8_t*)"APP_SEND_SERVIE_REQST\n\r", sizeof("APP_SEND_SERVIE_REQST\n\r"));}
 			handleServiceRequests(&globalMessage);
 			appState=APP_ZGBE_SEND;
 		break;
 		
 		case APP_ZGBE_RCVD:
-		if(log_enabled){sendUart((uint8_t*)"APP_ZGBE_RCVD\n\r", sizeof("APP_ZGBE_RCVD\n\r"));}
+		if(log_enabled){sendUart((uint8_t*)"APP_ZGBE_RVD\n\r", sizeof("APP_ZGBE_RVD\n\r"));}
 			#if CS_DEVICE_TYPE==DEV_TYPE_COORDINATOR
 				appState=APP_UART_SEND;
 			#else
@@ -100,7 +100,7 @@ void APL_TaskHandler(void)
 		break;
 		
 		case APP_READ_SENSORS:
-			if(log_enabled){sendUart((uint8_t*)"APP_READ_ADC\n\r", sizeof("APP_READ_ADC\n\r"));}
+			if(log_enabled){sendUart((uint8_t*)"APP_READ_AD\n\r", sizeof("APP_READ_AD\n\r"));}
 			refreshSensorValues(readSensorsDone);
 		break;
 		

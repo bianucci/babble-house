@@ -58,31 +58,38 @@ void usartRcvd(uint16_t size)
 void createBeaconList(){
 	if(log_enabled){sendUart((uint8_t*)"cBL\n\r", sizeof("cBL\n\r"));}
 	
-	my_beacon.serviceGroupId=1;
+	my_beacon.serviceGroupId=CS_NWK_ADDR;
 	my_beacon.has_name=true;
-	strcpy(my_beacon.name,"LR");
 	my_beacon.services_count=4;
 	
 	for(int i=0; i<4; i++){
-		my_beacon.services[i].serviceGroupId=1;
+		
+		my_beacon.services[i].serviceGroupId=CS_NWK_ADDR;
 		my_beacon.services[i].serviceId=i;
 		my_beacon.services[i].has_value=false;
-		my_beacon.services[i].has_info=true;
-		
-		if(i<2){	
-			my_beacon.services[i].serviceType=Service_ServiceType_SENSOR;
-			switch(i){
-				case 0: strcpy(my_beacon.services[i].info, "lumen"); break; 
-				case 1: strcpy(my_beacon.services[i].info, "celcius"); break;
-			}
-		} else {
-			my_beacon.services[i].serviceType=Service_ServiceType_ACTUATOR;
-			switch(i){
-				case 2: strcpy(my_beacon.services[i].info, "heater"); break; 
-				case 3: strcpy(my_beacon.services[i].info, "lamp"); break;
-			}
-		}
+		my_beacon.services[i].has_info=true;	
 	}
+	
+	my_beacon.services[0].serviceType=Service_ServiceType_SENSOR;
+	my_beacon.services[1].serviceType=Service_ServiceType_SENSOR;
+	my_beacon.services[2].serviceType=Service_ServiceType_ACTUATOR;
+	my_beacon.services[3].serviceType=Service_ServiceType_ACTUATOR;
+	
+	#ifdef SERVICE_GROUP_ONE
+		strcpy(my_beacon.name,"GRP1");
+		strcpy(my_beacon.services[0].info, "lumen");
+		strcpy(my_beacon.services[1].info, "celcius");
+		strcpy(my_beacon.services[2].info, "heater");	
+		strcpy(my_beacon.services[3].info, "lamp");
+	#endif
+	
+	#ifdef SERVICE_GROUP_TWO
+		strcpy(my_beacon.name,"GRP1");
+		strcpy(my_beacon.services[0].info, "batry");
+		strcpy(my_beacon.services[1].info, "cecs");
+		strcpy(my_beacon.services[2].info, "seer");	
+		strcpy(my_beacon.services[3].info, "hear");	
+	#endif
 }
 
 void usart_Init()
@@ -129,6 +136,7 @@ void assembleSensorServiceMessage(uint8_t serviceId, uint32_t value){
 
 static uint8_t encBuffer[100];
 void forwardMessageToPC(){
+	if(log_enabled){sendUart((uint8_t*)"fwdZBMsg\r", sizeof("fwdZBMsg\r"));}
 	pb_ostream_t ostream = pb_ostream_from_buffer(encBuffer, sizeof(encBuffer));
 	pb_encode(&ostream, UARTMessage_fields, &globalMessage);
 	uint8_t size = ostream.bytes_written;
