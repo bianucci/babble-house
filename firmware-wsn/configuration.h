@@ -76,29 +76,25 @@
 
 //  If set to 1, the CS_NWK_ADDR parameter will be used as the device's short
 // address. Otherwise, the short address is assigned automatically by the stack
-//#define CS_NWK_UNIQUE_ADDR 0
 #define CS_NWK_UNIQUE_ADDR 1
 
 #if (CS_NWK_UNIQUE_ADDR == 1)
-  // Specifies short (network) address if CS_NWK_UNIQUE_ADDR equals 1
-  //  Note: the coordinator short address always equals 0x0000.
-  //  Value range: 0x0000 - 0xFFF8
-  #define CS_NWK_ADDR 0x0002
+  //#define CS_NWK_ADDR 0x0002
   //#define CS_NWK_ADDR 0x0001
-  //#define CS_NWK_ADDR 0x0000
+  #define CS_NWK_ADDR 0x0000
 #endif
 
 //#define CS_DEVICE_TYPE DEVICE_TYPE_ROUTER
-//#define CS_DEVICE_TYPE DEVICE_TYPE_COORDINATOR 
-#define CS_DEVICE_TYPE DEV_TYPE_ENDDEVICE
+#define CS_DEVICE_TYPE DEVICE_TYPE_COORDINATOR 
+//#define CS_DEVICE_TYPE DEV_TYPE_ENDDEVICE
 
 //#define SERVICE_GROUP_ONE
-#define SERVICE_GROUP_TWO
+//#define SERVICE_GROUP_TWO
 
 // 64-bit Unique Identifier (UID) determining the device extended address.
-//#define CS_UID 0x5854544245441001LL  
+#define CS_UID 0x5854544245441001LL  
 //#define CS_UID 0x5854544245441231LL
-#define CS_UID 0x5854544241234312LL
+//#define CS_UID 0x5854544241234312LL
 
 #define CS_ADDRESS_ASSIGNMENT_METHOD 2
 #define CS_USER_DESCRIPTOR_AVAILABLE true
