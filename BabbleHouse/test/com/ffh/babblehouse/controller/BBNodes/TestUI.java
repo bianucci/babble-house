@@ -34,6 +34,8 @@ public class TestUI extends JFrame {
 
 	private static final long serialVersionUID = 5113673743020770296L;
 
+	static int[] lastValues = new int[30];
+
 	List<DtoUDR> userDefinedRules = new ArrayList<DtoUDR>();
 
 	public TestUI(String title) throws HeadlessException, SerialPortException {
@@ -44,7 +46,7 @@ public class TestUI extends JFrame {
 		Sender s = new Sender(connector.getserialPort());
 		ServiceMsgCreator c = new ServiceMsgCreator(s);
 
-		TextAreaPrinter o = new TextAreaPrinter();
+		TextAreaPrinter o = new TextAreaPrinter(c);
 
 		Container contentPane = this.getContentPane();
 		contentPane.setLayout(new BorderLayout(10, 10));
@@ -58,16 +60,8 @@ public class TestUI extends JFrame {
 		receiver.start();
 	}
 
-	private Component getMessageReceivedTextArea(TextAreaPrinter o) {
-		JTextArea textArea = new JTextArea(10, 1);
-		textArea.setAutoscrolls(true);
-		textArea.setRows(4);
-		o.setServiceReceivedArea(textArea);
-		return new JScrollPane(textArea);
-	}
-
 	private Component getUDRPane() {
-		JPanel p = new JPanel(new GridLayout(12, 1, 10, 10));
+		final JPanel p = new JPanel(new GridLayout(12, 1, 10, 10));
 
 		Container udrColLabels = new JPanel(new GridLayout(1, 8, 10, 10));
 		udrColLabels.add(new JLabel("lessMin"));
@@ -87,7 +81,63 @@ public class TestUI extends JFrame {
 			}
 			p.add(udrConfPane);
 		}
-		p.add(new JButton("Save"));
+		JButton saveButton = new JButton("Save");
+		saveButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				userDefinedRules = new ArrayList<DtoUDR>();
+
+				for (int i = 1; i < 11; i++) { // iterate through rows
+					Container rowPanel = (Container) p.getComponent(i);
+					JTextField lessMin = (JTextField) rowPanel.getComponent(0);
+					JTextField min = (JTextField) rowPanel.getComponent(1);
+					JTextField max = (JTextField) rowPanel.getComponent(2);
+					JTextField greatMax = (JTextField) rowPanel.getComponent(3);
+					JTextField sgidS = (JTextField) rowPanel.getComponent(4);
+					JTextField idS = (JTextField) rowPanel.getComponent(5);
+					JTextField sgidA = (JTextField) rowPanel.getComponent(6);
+					JTextField idA = (JTextField) rowPanel.getComponent(7);
+
+					if (lessMin.getText().length() == 0
+							|| min.getText().length() == 0
+							|| max.getText().length() == 0
+							|| greatMax.getText().length() == 0
+							|| sgidS.getText().length() == 0
+							|| idS.getText().length() == 0
+							|| sgidA.getText().length() == 0
+							|| idA.getText().length() == 0) {
+						continue;
+					}
+
+					DtoUDR udr = new DtoUDR();
+
+					DtoDevice dtoDevice = new DtoDevice();
+					dtoDevice.setId(Integer.valueOf(idA.getText()));
+					DtoServiceGroup sA = new DtoServiceGroup();
+					sA.setId(Integer.valueOf(sgidA.getText()));
+					dtoDevice.setDtoServiceGroup(sA);
+
+					DtoSensor dtoSensor = new DtoSensor();
+					dtoSensor.setId(Integer.valueOf(idS.getText()));
+					DtoServiceGroup sS = new DtoServiceGroup();
+					sS.setId(Integer.valueOf(sgidS.getText()));
+					dtoSensor.setDtoServiceGroup(sS);
+
+					udr.setDtoDevice(dtoDevice);
+					udr.setDtoSensor(dtoSensor);
+					udr.setGreatMaxState(Integer.valueOf(greatMax.getText()));
+					udr.setMaxValue(Integer.valueOf(max.getText()));
+					udr.setLessMinState(Integer.valueOf(lessMin.getText()));
+					udr.setMinValue(Integer.valueOf(min.getText()));
+
+					userDefinedRules.add(udr);
+				}
+			}
+
+		});
+		p.add(saveButton);
 		return p;
 	}
 
@@ -111,15 +161,18 @@ public class TestUI extends JFrame {
 					value.setValue(Integer.valueOf(VAL.getText()));
 					return value;
 				};
+
 				public int getId() {
 					return Integer.valueOf(S_ID.getText());
 				};
+
 				public DtoServiceGroup getDtoServiceGroup() {
 					DtoServiceGroup sg = new DtoServiceGroup();
 					sg.setId(Integer.valueOf(SG_ID.getText()));
 					return sg;
 				};
 			};
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				db.changeDeviceStatus(dtoDevice);
@@ -135,27 +188,52 @@ public class TestUI extends JFrame {
 		return new JScrollPane(textArea);
 	}
 
-	public static void main(String[] args) throws HeadlessException,
-			SerialPortException {
-		TestUI ui = new TestUI("ZigBee Test UI");
-		ui.setSize(800, 600);
-		ui.setVisible(true);
+	private Component getMessageReceivedTextArea(TextAreaPrinter o) {
+		JTextArea textArea = new JTextArea(10, 1);
+		textArea.setAutoscrolls(true);
+		textArea.setRows(4);
+		o.setServiceReceivedArea(textArea);
+		return new JScrollPane(textArea);
 	}
 
 	private class TextAreaPrinter implements IBoStateChangedHandler {
 
 		JTextArea serviceReceivedArea;
 		JTextArea beaconReeivedArea;
+		private ServiceMsgCreator c;
 
-		@Override
-		public void sensorDataChanged(DtoSensor updatedDtoSensor) {
-			serviceReceivedArea.append(updatedDtoSensor.toString());
-			serviceReceivedArea.append("\n");
+		public TextAreaPrinter(ServiceMsgCreator c) {
+			this.c = c;
 		}
 
 		@Override
-		public void deviceDataChanged(DtoDevice updatedDtoDevice) {
-			serviceReceivedArea.append(updatedDtoDevice.toString());
+		public void sensorDataChanged(DtoSensor s) {
+			serviceReceivedArea.append(s.toString());
+			serviceReceivedArea.append("\n");
+
+			for (DtoUDR u : userDefinedRules) {
+				DtoDevice dtoDevice = u.getDtoDevice();
+				dtoDevice.setValues(new ArrayList<DtoValue>());
+				DtoValue v = new DtoValue();
+				dtoDevice.addValue(v);
+
+				if (udrViolated(u, s)) {
+					if (s.getLatestValue().getValue() > u.getMaxValue()) {
+						v.setValue(u.getGreatMaxState());
+					} else if (s.getLatestValue().getValue() < u.getMinValue()) {
+						v.setValue(u.getLessMinState());
+					}
+					int sgId = dtoDevice.getDtoServiceGroup().getId();
+					int aId = dtoDevice.getId();
+					lastValues[sgId * 10 + aId] = v.getValue();
+					c.changeDeviceStatus(dtoDevice);
+				}
+			}
+		}
+
+		@Override
+		public void deviceDataChanged(DtoDevice d) {
+			serviceReceivedArea.append(d.toString());
 			serviceReceivedArea.append("\n");
 		}
 
@@ -172,5 +250,38 @@ public class TestUI extends JFrame {
 		public void setServiceReceivedArea(JTextArea serviceReceivedArea) {
 			this.serviceReceivedArea = serviceReceivedArea;
 		}
+
+		public boolean udrViolated(DtoUDR udr, DtoSensor sensor) {
+
+			int sgId = udr.getDtoSensor().getDtoServiceGroup().getId();
+			int sId = udr.getDtoSensor().getId();
+			int aId = udr.getDtoDevice().getId();
+
+			if (sgId == sensor.getDtoServiceGroup().getId()) {
+				if (sId == sensor.getId()) {
+					int lastValue = lastValues[sgId * 10 + aId];
+
+					int value = sensor.getLatestValue().getValue();
+					if (value > udr.getMaxValue()) {
+						if (lastValue != udr.getGreatMaxState()) {
+							return true;
+						}
+					} else if (value < udr.getMinValue()) {
+						if (lastValue != udr.getLessMinState()) {
+							System.out.println(lastValue + " in min");
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		}
+	}
+
+	public static void main(String[] args) throws Exception {
+		TestUI ui = new TestUI("ZigBee Test UI");
+		ui.setSize(800, 600);
+		ui.setVisible(true);
+		ui.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 }

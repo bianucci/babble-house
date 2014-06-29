@@ -28,12 +28,6 @@ public class Sender implements ISender {
 			// send the next message
 			boolean writeBytes = serialPort.writeBytes(message);
 
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
 			status = writeByte && writeBytes;
 
 		} catch (SerialPortException e) {
