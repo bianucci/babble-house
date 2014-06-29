@@ -3,6 +3,7 @@ package com.ffh.babblehouse.controller.BusinessObjects;
 import com.ffh.babblehouse.controller.BBNodes.IChangeReceiver;
 import com.ffh.babblehouse.model.DtoDevice;
 import com.ffh.babblehouse.model.DtoSensor;
+import com.ffh.babblehouse.model.DtoServiceGroup;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 
@@ -26,6 +27,12 @@ public class BoStateChangedHandler implements IBoStateChangedHandler {
 		Notification.show("Sensor value changed\nNewValue: " + updatedDtoDevice.getLatestValue(), Type.TRAY_NOTIFICATION);
 //		System.out.println("New device dto  created");
 //		System.out.println(updatedDtoDevice.getId());
+	}
+
+	@Override
+	public void newServiceGroupArrived(DtoServiceGroup newServiceGroup) {
+		Notification.show("New Service Group registered:: " + newServiceGroup.getName(), Type.TRAY_NOTIFICATION);
+		
 	}
 
 }

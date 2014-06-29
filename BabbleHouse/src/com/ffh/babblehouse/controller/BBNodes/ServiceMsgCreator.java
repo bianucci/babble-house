@@ -1,40 +1,59 @@
 package com.ffh.babblehouse.controller.BBNodes;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import jssc.SerialPortException;
 
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service;
-import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.Builder;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.Service.ServiceType;
+import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage;
 import com.ffh.babblehouse.controller.BBNodes.UARTMessageProtos.UARTMessage.Type;
 import com.ffh.babblehouse.model.DtoDevice;
 
-public class ServiceMsgCreator extends Thread implements IBBDataBridge{
-	private int serviceGroupId;
-	private ServiceType serviceType;
-	private int serviceId;
-	private int deviceStatus;
+public class ServiceMsgCreator implements IBBDataBridge {
 	private UARTMessage uartMessage;
 	private ISender sender;
-	
-	public ServiceMsgCreator(ISender sender ){
-		this.sender=sender;
-		
+
+	Thread asyncSender = new Thread() {
+		public void run() {
+			while (true) {
+				int size = queue.size();
+				if (size > 0) {
+					createServiceMsg(queue.get(0)); //FIFO
+					queue.remove(0);
+				}
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+	};
+
+	private List<DtoDevice> queue = new CopyOnWriteArrayList<DtoDevice>();
+
+	public ServiceMsgCreator(ISender sender) {
+		this.sender = sender;
 	}
-	private void createServiceMsg(){
+
+	private void createServiceMsg(DtoDevice d) {
 		Builder serviceBuilder = Service.newBuilder();
 		serviceBuilder.setInfo("" + System.currentTimeMillis());
-		serviceBuilder.setServiceId(serviceId);
-		serviceBuilder.setServiceType(serviceType);
-		serviceBuilder.setServiceGroupId(serviceGroupId);
-		serviceBuilder.setValue(deviceStatus);
+		serviceBuilder.setServiceId(d.getId());
+		serviceBuilder.setServiceType(ServiceType.ACTUATOR);
+		serviceBuilder.setServiceGroupId(d.getDtoServiceGroup().getId());
+		serviceBuilder.setValue(d.getLatestValue().getValue());
 		Service service = serviceBuilder.build();
-		 uartMessage = UARTMessage.newBuilder()
-				.setType(Type.SERVICE).setService(service).build();
-		 try {
+		uartMessage = UARTMessage.newBuilder().setType(Type.SERVICE)
+				.setService(service).build();
+		try {
 			sender.sendMessage(uartMessage);
+			System.out.println(uartMessage);
 		} catch (SerialPortException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -42,14 +61,10 @@ public class ServiceMsgCreator extends Thread implements IBBDataBridge{
 
 	@Override
 	public void changeDeviceStatus(DtoDevice dtoDevice) {
-		this.deviceStatus=dtoDevice.getLatestValue().getValue();
-		this.serviceId= dtoDevice.getId();
-		this.serviceType=ServiceType.ACTUATOR;
-		this.serviceGroupId=dtoDevice.getDtoServiceGroup().getId();
-		this.start();
+		if (!asyncSender.isAlive()) {
+			asyncSender.start();
+		}
+		queue.add(dtoDevice);
+		System.out.println(dtoDevice);
 	}
-	public void run(){
-		createServiceMsg();
-	}
-
 }

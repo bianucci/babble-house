@@ -14,6 +14,7 @@ import org.junit.Test;
 import com.ffh.babblehouse.controller.BusinessObjects.IBoStateChangedHandler;
 import com.ffh.babblehouse.model.DtoDevice;
 import com.ffh.babblehouse.model.DtoSensor;
+import com.ffh.babblehouse.model.DtoServiceGroup;
 
 public class ReceiverTest {
 
@@ -36,6 +37,11 @@ public class ReceiverTest {
 			deviceDataChangedCalled = true;
 			if (updatedDtoDevice != null)
 				System.out.println(updatedDtoDevice);
+		}
+
+		@Override
+		public void newServiceGroupArrived(DtoServiceGroup newServiceGroup) {
+			System.out.println(newServiceGroup);
 		}
 	};
 

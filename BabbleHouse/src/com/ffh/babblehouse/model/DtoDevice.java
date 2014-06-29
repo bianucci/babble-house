@@ -111,8 +111,8 @@ public class DtoDevice {
 	@Override
 	public String toString() {
 		int idSG = 255;
-		if (dtoServiceGroup != null)
-			idSG = dtoServiceGroup.getId();
+		if (getDtoServiceGroup() != null)
+			idSG = getDtoServiceGroup().getId();
 
 		int size = 255;
 		if (userDefineRules != null)

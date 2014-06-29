@@ -64,7 +64,13 @@ public class Receiver extends Thread implements IChangeReceiver {
 						// an actuator value was received
 						// creat dto device instance
 						DtoDevice newDevice = new DtoDevice();
-						// set newdevice id from service message
+						newDevice.setValues(new ArrayList<DtoValue>());
+
+						DtoServiceGroup serviceGroup = new DtoServiceGroup();
+						// set dtoservicegroup id
+						serviceGroup.setId(service.getServiceGroupId());
+						// setDtoServiceGroup
+						newDevice.setDtoServiceGroup(serviceGroup);
 
 						// create newdto Value
 						DtoValue newDtoValue = new DtoValue();
@@ -144,13 +150,10 @@ public class Receiver extends Thread implements IChangeReceiver {
 
 					for (Service newService : serviceList) {
 						ServiceType t = newService.getServiceType();
-						String NewService;
 						if (t.equals(ServiceType.ACTUATOR)) {
 							// new actuator available in our system
-							NewService = t.toString();
-
 							DtoDevice newDevices = new DtoDevice();
-							newDevices.setDeviceName(NewService);
+							newDevices.setDeviceName(newService.getInfo());
 							newDevices.setId(newService.getServiceId());
 							newDevices
 									.setUserDefineRules(new ArrayList<DtoUDR>());
@@ -164,9 +167,8 @@ public class Receiver extends Thread implements IChangeReceiver {
 
 						} else if (t.equals(ServiceType.SENSOR)) {
 							// new sensor available in out system
-							NewService = t.toString();
 							DtoSensor newDtoSensor = new DtoSensor();
-							newDtoSensor.setSensorName(NewService);
+							newDtoSensor.setSensorName(newService.getInfo());
 							newDtoSensor.setId(newService.getServiceId());
 
 							dtoServiceGroup.getSensors().add(newDtoSensor);
@@ -180,6 +182,7 @@ public class Receiver extends Thread implements IChangeReceiver {
 					}
 					newServiceGroupQueue.getDtoServiceGroupList().add(
 							dtoServiceGroup);
+					valueChanged(dtoServiceGroup);
 				}
 			}
 
@@ -212,6 +215,9 @@ public class Receiver extends Thread implements IChangeReceiver {
 		}
 		if (o instanceof DtoDevice) {
 			changeHandler.deviceDataChanged((DtoDevice) o);
+		}
+		if (o instanceof DtoServiceGroup) {
+			changeHandler.newServiceGroupArrived((DtoServiceGroup) o);
 		}
 	}
 

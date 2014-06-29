@@ -87,4 +87,25 @@ public class DtoServiceGroup {
 				+ ", batterylevel=" + batterylevel + "]";
 	}
 
+	public String asFancyString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("DtoServiceGroup [\n");
+		sb.append("   id=" + id + "\n");
+		sb.append("   name=" + name + "\n");
+		sb.append("   status=" + status + "\n");
+		sb.append("   batterylevel=" + batterylevel + "\n");
+		sb.append("   Sensors [" + "\n");
+		for (DtoSensor s : getSensors()) {
+			sb.append("     id=" + s.getId());
+			sb.append("  unit=" + s.getSensorName() + "\n");
+		}
+		sb.append("   ]" + "\n");
+		sb.append("   Actuators [" + "\n");
+		for (DtoDevice d : getDevices()) {
+			sb.append("     id=" + d.getId());
+			sb.append("   name=" + d.getDeviceName() + "\n");
+		}
+		sb.append("   ]" + "\n");
+		return sb.toString();
+	}
 }
