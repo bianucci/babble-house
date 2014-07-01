@@ -100,6 +100,8 @@ public class MainUI extends CustomComponent implements View{
 		generateTree();
 		
 		addUserDefinedRulesComponent();
+		
+		
 	}
 
 	private void buildCustomLayout() {
